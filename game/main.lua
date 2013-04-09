@@ -1,6 +1,7 @@
 
 require 'base.element'
 require 'base.trigger'
+require 'lux.geom.vector'
 
 local elements = {}
 
@@ -11,6 +12,18 @@ end
 
 function love.update (dt)
   base.trigger.activate 'update'
+end
+
+local function check_mouse (in_check, x, y)
+  return in_check:inside(lux.geom.point:new {x,y})
+end
+
+function love.mousepressed (x, y, button)
+  base.trigger.activate('mousepressed', check_mouse, x, y, button)
+end
+
+function love.mousereleased (x, y, button)
+  base.trigger.activate('mousereleased', check_mouse, x, y, button)
 end
 
 function love.draw ()
