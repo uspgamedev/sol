@@ -28,12 +28,13 @@ module ('lux.geom', package.seeall)
 require 'lux.object'
 
 vec = lux.object.new {
-  __type = "vector",
   -- Vector coordinates.
-  [1] = 0,
-  [2] = 0,
-  [3] = 0,
-  [4] = 0
+  0,
+  0,
+  0,
+  0,
+  -- Internal information.
+  __type = "vector"
 }
 
 point = vec:new {
@@ -135,7 +136,7 @@ function vec:sub (v)
   self[4] = self[4] - v[4]
 end
 
-function vec:unpack (n)
-  return unpack(self, n)
+function vec:unpack ()
+  return self[1], self[2], self[3], self[4]
 end
 
