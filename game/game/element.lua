@@ -11,6 +11,10 @@ element = lux.object.new {
 }
 
 function element:draw (graphics)
+  graphics.setColor(150, 150, 255, 100)
+  graphics.rectangle('fill', self.pos.x, self.pos.y, self.size.x, self.size.y)
+  graphics.setColor(150, 150, 150, 255)
   graphics.rectangle('line', self.pos.x, self.pos.y, self.size.x, self.size.y)
+  graphics.setColor(200, 200, 100, 255)
   graphics.printf(self.name, 0, 0, self.size.x, 'center')
 end
