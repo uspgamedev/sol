@@ -2,12 +2,12 @@
 module ('game', package.seeall)
 
 require 'lux.object'
-require 'lux.geom.vec'
+require 'lux.geom.vector'
 
 element = lux.object.new {
   name  = 'Unnamed Element',
   pos   = lux.geom.point:new {0,0},
-  size  = lux.geom.vec:new {64,64}
+  size  = lux.geom.vector:new {64,64}
 }
 
 function element:draw (graphics)
