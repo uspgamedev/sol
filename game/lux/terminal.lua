@@ -23,11 +23,6 @@
 --
 --]]
 
-local color     = require "lux.externals.ansicolors"
-local tostring  = tostring
-local gsub      = string.gsub
-local io        = io
-
 --- LUX's terminal utility module.
 --
 -- <p>
@@ -75,32 +70,35 @@ local io        = io
 --  <li><code>onwhite</code></li>
 --  </ul>
 --
-module "lux.terminal" do
+module ("lux.terminal", package.seeall)
 
-  local function format_color (str)
-    return gsub(
-      str,
-      "<(%a+)>",
-      function (tag)
-        local colorcode = color[tag]
-        return colorcode and tostring(colorcode) or "<"..tag..">"
-      end
-    )
-  end
+local color     = require "lux.externals.ansicolors"
+local tostring  = tostring
+local gsub      = string.gsub
+local io        = io
 
-  --- Print a line with formatted colors.
-  -- @param text A string possibly containing color tags.
-  function line (text)
-    write(text.."\n")
-  end
+local function format_color (str)
+  return gsub(
+    str,
+    "<(%a+)>",
+    function (tag)
+      local colorcode = color[tag]
+      return colorcode and tostring(colorcode) or "<"..tag..">"
+    end
+  )
+end
 
-  --- Writes to the standard output with formatted colors.
-  -- @param text A string possibly containing color tags.
-  function write (text)
-    -- used to throw out extra returned values
-    local output = format_color(text)
-    io.write(output)
-  end
+--- Print a line with formatted colors.
+-- @param text A string possibly containing color tags.
+function line (text)
+  write(text.."\n")
+end
 
+--- Writes to the standard output with formatted colors.
+-- @param text A string possibly containing color tags.
+function write (text)
+  -- used to throw out extra returned values
+  local output = format_color(text)
+  io.write(output)
 end
 

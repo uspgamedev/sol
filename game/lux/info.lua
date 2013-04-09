@@ -23,10 +23,16 @@
 --
 --]]
 
-module "lux.info" do
+--- Module containing information regarding this LUX Project distribution.
+module 'lux.info'
 
-  --- LUX's version.
-  version = "0.3.0"
+local major = 0
+local minor = 4
+local patch = 0
 
+--- LUX's version.
+-- @return A string with the current LUX version.
+function version ()
+  return major..'.'..minor..'.'..patch
 end
 
