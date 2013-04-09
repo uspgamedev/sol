@@ -1,11 +1,13 @@
 
+require 'scene'
 require 'base.element'
 require 'base.trigger'
 require 'lux.geom.vector'
 
-local elements = {}
+local elements
 
 function love.load ()
+  elements = scene.load 'samplescene.lua'
   local elem = base.element:new{}
   table.insert(elements, elem)
 end
