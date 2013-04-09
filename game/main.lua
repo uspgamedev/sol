@@ -1,10 +1,10 @@
 
-require 'game.element'
+require 'base.element'
 
 local elements = {}
 
 function love.load ()
-  table.insert(elements, game.element:new{})
+  table.insert(elements, base.element:new{})
 end
 
 function love.update (dt)

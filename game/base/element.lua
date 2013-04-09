@@ -1,5 +1,5 @@
 
-module ('game', package.seeall)
+module ('base', package.seeall)
 
 require 'lux.object'
 require 'lux.geom.vector'
