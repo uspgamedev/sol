@@ -1,3 +1,15 @@
 
 === Summer of LÖVE2D ===
 
+SoL is a minimalistic 2D game framework built upon the game engine LÖVE2D. Which means LÖVE2D is
+required to run it. You can get it on:
+
+  www.love2d.org
+
+To run the framework, either enter the command:
+
+  $ love game
+
+In a prompt terminal from this directory, or use the sublime-text editor to open the project and
+press CTRL+B.
+
