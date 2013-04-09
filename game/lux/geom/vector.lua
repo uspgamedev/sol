@@ -27,22 +27,22 @@ module ('lux.geom', package.seeall)
 
 require 'lux.object'
 
-vec = lux.object.new {
+vector = lux.object.new {
   -- Vector coordinates.
   0,
   0,
   0,
   0,
   -- Internal information.
-  __type = "vector"
+  __type = "vectortor"
 }
 
-point = vec:new {
+point = vector:new {
   [4] = 1
 }
 
-function vec.axis (i)
-  return vec:new {
+function vector.axis (i)
+  return vector:new {
     i == 1 and 1 or 0,
     i == 2 and 1 or 0,
     i == 3 and 1 or 0,
@@ -50,13 +50,13 @@ function vec.axis (i)
   }
 end
 
-function vec:__tostring ()
+function vector:__tostring ()
   return "("..self[1]..","..self[2]..","..self[3]..","..self[4]..")"
 end
 
-point.__tostring = vec.__tostring
+point.__tostring = vector.__tostring
 
-function vec:__index (k)
+function vector:__index (k)
   if k == "x" then return self[1] end
   if k == "y" then return self[2] end
   if k == "z" then return self[3] end
@@ -64,9 +64,9 @@ function vec:__index (k)
   return getmetatable(self)[k]
 end
 
-point.__index = vec.__index
+point.__index = vector.__index
 
-function vec:__newindex (k, v)
+function vector:__newindex (k, v)
   if k == "x" then rawset(self, 1, v)
   elseif k == "y" then rawset(self, 2, v)
   elseif k == "z" then rawset(self, 3, v)
@@ -74,10 +74,10 @@ function vec:__newindex (k, v)
   else rawset(self, k, v) end
 end
 
-point.__newindex = vec.__newindex
+point.__newindex = vector.__newindex
 
-function vec.__add (lhs, rhs)
-  return vec:new {
+function vector.__add (lhs, rhs)
+  return vector:new {
     lhs[1] + rhs[1],
     lhs[2] + rhs[2],
     lhs[3] + rhs[3],
@@ -85,8 +85,8 @@ function vec.__add (lhs, rhs)
   }
 end
 
-function vec.__sub (lhs, rhs)
-  return vec:new {
+function vector.__sub (lhs, rhs)
+  return vector:new {
     lhs[1] - rhs[1],
     lhs[2] - rhs[2],
     lhs[3] - rhs[3],
@@ -94,10 +94,10 @@ function vec.__sub (lhs, rhs)
   }
 end
 
-point.__sub = vec.__sub
+point.__sub = vector.__sub
 
 local function mul_scalar (a, v)
-  return vec:new {
+  return vector:new {
     a*v[1],
     a*v[2],
     a*v[3],
@@ -105,38 +105,38 @@ local function mul_scalar (a, v)
   }
 end
 
-function vec.__mul (lhs, rhs)
+function vector.__mul (lhs, rhs)
   if type(lhs) == "number" then
     return mul_scalar(lhs,rhs)
   elseif type(rhs) == "number" then
     return mul_scalar(rhs, lhs)
-  else -- assume both are vec2
+  else -- assume both are vector
     return lhs[1]*rhs[1] + lhs[2]*rhs[2] + lhs[3]*rhs[3] + lhs[4]*rhs[4]
   end
 end
 
-function vec:set (x, y, z, w)
+function vector:set (x, y, z, w)
   self[1] = x or 0
   self[2] = y or 0
   self[3] = z or 0
   self[4] = w or 0
 end
 
-function vec:add (v)
+function vector:add (v)
   self[1] = self[1] + v[1]
   self[2] = self[2] + v[2]
   self[3] = self[3] + v[3]
   self[4] = self[4] + v[4]
 end
 
-function vec:sub (v)
+function vector:sub (v)
   self[1] = self[1] - v[1]
   self[2] = self[2] - v[2]
   self[3] = self[3] - v[3]
   self[4] = self[4] - v[4]
 end
 
-function vec:unpack ()
+function vector:unpack ()
   return self[1], self[2], self[3], self[4]
 end
 
