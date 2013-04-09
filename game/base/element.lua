@@ -3,12 +3,19 @@ module ('base', package.seeall)
 
 require 'lux.object'
 require 'lux.geom.vector'
+require 'base.trigger'
 
 element = lux.object.new {
   name  = 'Unnamed Element',
   pos   = lux.geom.point:new {0,0},
   size  = lux.geom.vector:new {64,64}
 }
+
+element.triggers = trigger.make_table(element)
+
+function element:__init()
+  self.triggers = trigger.make_table(self)
+end
 
 function element:draw (graphics)
   graphics.setColor(150, 150, 255, 100)

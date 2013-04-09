@@ -1,14 +1,16 @@
 
 require 'base.element'
+require 'base.trigger'
 
 local elements = {}
 
 function love.load ()
-  table.insert(elements, base.element:new{})
+  local elem = base.element:new{}
+  table.insert(elements, elem)
 end
 
 function love.update (dt)
-
+  base.trigger.activate 'update'
 end
 
 function love.draw ()
