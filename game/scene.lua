@@ -12,7 +12,7 @@ local scenefile_env = {}
 local function new_element (elements, name)
   local element = base.element:new{}
   element.name = name
-  table.insert(elements, element)
+  elements[name] = element
   return element
 end
 

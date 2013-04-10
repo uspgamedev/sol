@@ -29,14 +29,16 @@ function love.mousereleased (x, y, button)
   end
 end
 
+local id = 0
 function love.keypressed (button)
   if button == ' ' then
-    table.insert(
-      elements,
-      content.elements.grabbable:new {
+    id = id + 1
+    local name = 'New Element #'..id
+    elements[name] = base.element:new{ name = name }
+      :add_property 'visible' {
         pos = lux.geom.point:new{love.mouse.getPosition()}
       }
-    )
+      :add_property 'grabbable' {}
   end
 end
 
