@@ -1,14 +1,14 @@
 
 require 'scene'
 require 'base.element'
-require 'base.trigger'
+require 'content.elements.grabbable'
 require 'lux.geom.vector'
 
 local elements
 
 function love.load ()
   elements = scene.load 'samplescene.lua'
-  local elem = base.element:new{}
+  local elem = content.elements.grabbable:new{}
   table.insert(elements, elem)
 end
 
@@ -26,7 +26,7 @@ end
 
 function love.keypressed (button)
   if button == ' ' then
-    table.insert(elements, base.element:new{pos=lux.geom.point:new{}})
+    table.insert(elements, content.elements.grabbable:new{pos=lux.geom.point:new{}})
   end
 end
 

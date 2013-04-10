@@ -11,8 +11,6 @@ element = lux.object.new {
   size  = lux.geom.vector:new {64,64}
 }
 
-element.triggers = trigger.make_table(element)
-
 function element:__init()
   self.triggers = trigger.make_table(self)
 end
@@ -39,16 +37,6 @@ function element:inside (p)
   if p.x > self:right() then return false end
   if p.y > self:bottom() then return false end
   return true
-end
-
-function element.triggers:mousepressed (x, y, button)
-  self.triggers.update = function (self)
-    self.pos = lux.geom.point:new {love.mouse.getPosition()} - self.size*.5
-  end
-end
-
-function element.triggers:mousereleased (x, y, button)
-  self.triggers.update = nil
 end
 
 function element:draw (graphics)
