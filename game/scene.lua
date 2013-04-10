@@ -15,6 +15,7 @@ end
 
 local function new_element (elements, name, info)
   local new_elem = base.element:new(info.data)
+  new_elem.name = name
   if info.properties then
     for _,property_name in ipairs(info.properties) do
       new_elem:add_property(get_property(property_name))
