@@ -3,7 +3,8 @@ require 'scene'
 require 'base.element'
 require 'content.triggers.update'
 require 'content.triggers.draw'
-require 'content.triggers.mouse'
+require 'content.triggers.mouse_pressedleft'
+require 'content.triggers.mouse_releasedleft'
 require 'lux.geom.vector'
 
 local elements
@@ -18,13 +19,13 @@ end
 
 function love.mousepressed (x, y, button)
   if button == 'l' then
-    content.triggers.mouse.pressedleft:activate(x, y)
+    content.triggers.mouse_pressedleft:activate(x, y)
   end
 end
 
 function love.mousereleased (x, y, button)
   if button == 'l' then
-    content.triggers.mouse.releasedleft:activate(x, y)
+    content.triggers.mouse_releasedleft:activate(x, y)
   end
 end
 

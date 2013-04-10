@@ -29,7 +29,7 @@ end
 function trigger:activate (...)
   for triggered,action in pairs(self.triggered_elements) do
     local check = self.check
-    if not check or check(triggered, ...) then
+    if check(triggered, ...) then
       self.setup(triggered, lux.functional.bindleft(action, triggered, ...), ...)
     end
   end
