@@ -1,7 +1,6 @@
 
 require 'scene'
 require 'base.element'
-require 'content.elements.grabbable'
 require 'content.triggers.update'
 require 'content.triggers.draw'
 require 'content.triggers.mouse'
