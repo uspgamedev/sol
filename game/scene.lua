@@ -4,13 +4,13 @@ module ('scene', package.seeall)
 require 'lux.functional'
 require 'lux.geom.vector'
 require 'base.element'
+require 'content.elements'
 
 local lambda        = lux.functional
 local scenefile_env = {}
 
 local function get_element_type (typename)
-  
-  return base.element
+  return content.elements[typename] or base.element
 end
 
 local function new_element (elements, name, info)
