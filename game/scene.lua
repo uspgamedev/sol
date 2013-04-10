@@ -9,19 +9,15 @@ require 'content.properties'
 local lambda        = lux.functional
 local scenefile_env = {}
 
-local function new_element (elements, name, info)
-  local new_elem = base.element:new(info.data)
-  new_elem.name = name
-  if info.properties then
-    for _,property_name in ipairs(info.properties) do
-      new_elem:add_property(property_name, {})
-    end
-  end
-  table.insert(elements, new_elem)
+local function new_element (elements, name)
+  local element = base.element:new{}
+  element.name = name
+  table.insert(elements, element)
+  return element
 end
 
 local function prepare_env (env, elements)
-  env.element = lambda.chain((lambda.bindleft(new_element, elements)), 1)
+  env.element = lambda.bindleft(new_element, elements)
   env.point   = lambda.bindleft(lux.geom.point.new, lux.geom.point)
   env.vector  = lambda.bindleft(lux.geom.vector.new, lux.geom.vector)
   env.print   = print

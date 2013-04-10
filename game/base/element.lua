@@ -25,4 +25,5 @@ function element:add_property (property_name, data)
   -- Clone the property into the element
   self[property_name] = lux.object.clone(property)
   property:visit(self)
+  return self
 end
