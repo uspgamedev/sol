@@ -6,7 +6,8 @@ require 'lux.object'
 property = lux.object.new {}
 
 property.__init = {
-  operations = {}
+  operations  = {},
+  requires    = {}
 }
 
 function property:visit (elem)

@@ -6,10 +6,11 @@ require 'content.triggers.mouse'
 require 'content.triggers.update'
 require 'content.properties.visible'
 
-grabbable = base.property:new {}
+grabbable = base.property:new {
+  requires = { content.properties.visible }
+}
 
 function grabbable:visit (element)
-  element:add_property(content.properties.visible)
   content.triggers.mouse.pressedleft:register(element, self.grab)
   content.triggers.mouse.releasedleft:register(element, self.letgo)
 end

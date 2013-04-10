@@ -10,5 +10,8 @@ element = lux.object.new {
 }
 
 function element:add_property (property)
+  for _,required_property in pairs(property.requires) do
+    self:add_property(required_property)
+  end
   property:visit(self)
 end
