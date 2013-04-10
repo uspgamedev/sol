@@ -2,15 +2,21 @@
 module ('base', package.seeall)
 
 require 'lux.object'
-require 'lux.geom.vector'
+require 'lux.functional'
 
-trigger = lux.object.new {
-  check = function (self) return true end
-}
+trigger = lux.object.new {}
 
 trigger.__init = {
   triggered_elements = {}
 }
+
+function trigger:check ()
+  return true
+end
+
+function trigger:setup (action)
+  return action()
+end
 
 function trigger:register (triggered_element, action)
   self.triggered_elements[triggered_element] = action
@@ -24,7 +30,7 @@ function trigger:activate (...)
   for triggered,action in pairs(self.triggered_elements) do
     local check = self.check
     if not check or check(triggered, ...) then
-      action(triggered, ...)
+      self:setup(lux.functional.bindleft(action, triggered, ...))
     end
   end
 end
