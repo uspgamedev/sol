@@ -16,7 +16,8 @@ end
 local function new_element (elements, name, info)
   info.type = info.type or 'element'
   info.data.name = name
-  local new_elem = get_element_type(info.type):new(info.data)
+  local elem_type = get_element_type(info.type)
+  local new_elem = elem_type:new(info.data)
   table.insert(elements, new_elem)
 end
 
