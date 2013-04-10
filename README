@@ -13,3 +13,5 @@ To run the framework, either enter the command:
 In a prompt terminal from this directory, or use the sublime-text editor to open the project and
 press CTRL+B.
 
+To start understanding how to use it, I recommend reading the game/samplescene.lua file.
+
