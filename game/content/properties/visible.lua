@@ -11,16 +11,17 @@ visible = base.property:new {
 }
 
 function visible.triggers:draw (graphics)
-  self.visible:draw(graphics, self.name)
+  self.visible.draw(self, graphics)
 end
 
-function visible:draw (graphics, name)
+function visible:draw (graphics)
+  -- This is the default drawing function for visible elements
   graphics.setColor(150, 150, 255, 100)
-  graphics.rectangle('fill', 0, 0, self.size.x, self.size.y)
+  graphics.rectangle('fill', 0, 0, self.visible.size.x, self.visible.size.y)
   graphics.setColor(150, 150, 150, 255)
-  graphics.rectangle('line', 0, 0, self.size.x, self.size.y)
+  graphics.rectangle('line', 0, 0, self.visible.size.x, self.visible.size.y)
   graphics.setColor(200, 200, 100, 255)
-  graphics.printf(name, 0, 0, self.size.x, 'center')
+  graphics.printf(self.name, 0, 0, self.visible.size.x, 'center')
 end
 
 function visible:left ()
