@@ -3,6 +3,7 @@ require 'scene'
 require 'base.element'
 require 'content.elements.grabbable'
 require 'content.triggers.update'
+require 'content.triggers.draw'
 require 'content.triggers.mouse'
 require 'lux.geom.vector'
 
@@ -40,12 +41,13 @@ function love.keypressed (button)
 end
 
 function love.draw ()
-  local graphics = love.graphics
-  for _,element in ipairs(elements) do
-    graphics.push()
-    graphics.translate(element.pos:unpack())
-    graphics.setColor(255, 255, 255, 255)
-    element:draw(graphics)
-    graphics.pop()
-  end
+  content.triggers.draw:activate(love.graphics)
+--  local graphics = love.graphics
+--  for _,element in ipairs(elements) do
+--    graphics.push()
+--    graphics.translate(element.pos:unpack())
+--    graphics.setColor(255, 255, 255, 255)
+--    element:draw(graphics)
+--    graphics.pop()
+--  end
 end

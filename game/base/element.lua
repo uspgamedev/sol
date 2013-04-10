@@ -3,13 +3,17 @@ module ('base', package.seeall)
 
 require 'lux.object'
 require 'lux.geom.vector'
-require 'base.trigger'
+require 'content.triggers.draw'
 
 element = lux.object.new {
   name  = 'Unnamed Element',
   pos   = lux.geom.point:new {0,0},
   size  = lux.geom.vector:new {64,64}
 }
+
+function element:__init ()
+  content.triggers.draw:register(self, self.draw)
+end
 
 function element:left ()
   return self.pos.x
