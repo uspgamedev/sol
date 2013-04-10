@@ -1,60 +1,30 @@
 
-module ('base.trigger', package.seeall)
+module ('base', package.seeall)
 
 require 'lux.object'
 require 'lux.geom.vector'
 
-local triggers = {
-  update = {},
-  mousepressed = {},
-  mousereleased = {}
+trigger = lux.object.new {
+  check = function (self) return true end
 }
 
-local trigger_checks = {}
-
-local meta_trigger = lux.object.new {}
-
-meta_trigger.__init = {
-  __callbacks = {}
+trigger.__init = {
+  triggered_elements = {}
 }
 
-local function register (trigger_type, triggered_element)
-  triggers[trigger_type][triggered_element] = true
+function trigger:register (triggered_element, action)
+  self.triggered_elements[triggered_element] = action
 end
 
-local function unregister (trigger_type, triggered_element)
-  triggers[trigger_type][triggered_element] = nil
+function trigger:unregister (triggered_element)
+  self.triggered_elements[triggered_element] = nil
 end
 
-function meta_trigger:__newindex (key, value)
-  if key == '__callbacks' then
-    return rawset(self, key, value)
-  end
-  rawset(self.__callbacks, key, value)
-  if value then
-    return register(key, self.owner)
-  else
-    return unregister(key, self.owner)
-  end
-end
-
-function make_table (triggerable_element)
-  return meta_trigger:new{ owner = triggerable_element }
-end
-
-function activate (trigger_type, ...)
-  for triggered,_ in pairs(triggers[trigger_type]) do
-    local check = trigger_checks[trigger_type]
+function trigger:activate (...)
+  for triggered,action in pairs(self.triggered_elements) do
+    local check = self.check
     if not check or check(triggered, ...) then
-      triggered.triggers.__callbacks[trigger_type] (triggered, ...)
+      action(triggered, ...)
     end
   end
-end
-
-function trigger_checks.mousepressed (in_check, x, y)
-  return in_check:inside(lux.geom.point:new {x,y})
-end
-
-function trigger_checks.mousereleased (in_check, x, y)
-  return in_check:inside(lux.geom.point:new {x,y})
 end

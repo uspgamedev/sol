@@ -11,10 +11,6 @@ element = lux.object.new {
   size  = lux.geom.vector:new {64,64}
 }
 
-function element:__init()
-  self.triggers = trigger.make_table(self)
-end
-
 function element:left ()
   return self.pos.x
 end

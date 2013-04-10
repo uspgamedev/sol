@@ -2,6 +2,8 @@
 require 'scene'
 require 'base.element'
 require 'content.elements.grabbable'
+require 'content.triggers.update'
+require 'content.triggers.mouse'
 require 'lux.geom.vector'
 
 local elements
@@ -11,15 +13,19 @@ function love.load ()
 end
 
 function love.update (dt)
-  base.trigger.activate 'update'
+  content.triggers.update:activate()
 end
 
 function love.mousepressed (x, y, button)
-  base.trigger.activate('mousepressed', x, y, button)
+  if button == 'l' then
+    content.triggers.mouse.pressedleft:activate(x, y)
+  end
 end
 
 function love.mousereleased (x, y, button)
-  base.trigger.activate('mousereleased', x, y, button)
+  if button == 'l' then
+    content.triggers.mouse.releasedleft:activate(x, y)
+  end
 end
 
 function love.keypressed (button)
