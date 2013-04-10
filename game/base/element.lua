@@ -17,13 +17,16 @@ function element:add_property (property_name, data)
   -- Cannot add the same property again
   if self[property_name] then return end
   -- Get the property object
-  local property = content.properties(property_name)
+  local property = content.properties[property_name]
   -- Add the property's required properties
   for _,required_name in pairs(property.requires) do
     self:add_property(required_name, {})
   end
   -- Clone the property into the element
   self[property_name] = lux.object.clone(property)
+  for key,value in pairs(data) do
+    self[property_name][key] = value
+  end
   property:visit(self)
   return self
 end
