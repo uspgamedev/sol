@@ -8,8 +8,6 @@ local elements
 
 function love.load ()
   elements = scene.load 'samplescene.lua'
-  local elem = content.elements.grabbable:new{}
-  table.insert(elements, elem)
 end
 
 function love.update (dt)
@@ -26,7 +24,12 @@ end
 
 function love.keypressed (button)
   if button == ' ' then
-    table.insert(elements, content.elements.grabbable:new{pos=lux.geom.point:new{}})
+    table.insert(
+      elements,
+      content.elements.grabbable:new {
+        pos = lux.geom.point:new{love.mouse.getPosition()}
+      }
+    )
   end
 end
 
