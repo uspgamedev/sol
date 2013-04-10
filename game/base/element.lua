@@ -23,7 +23,7 @@ function element:add_property (property_name, data)
     self:add_property(required_name, {})
   end
   -- Clone the property into the element
-  self[property_name] = lux.object.clone(property)
+  self[property_name] = property:new{}
   for key,value in pairs(data) do
     self[property_name][key] = value
   end
