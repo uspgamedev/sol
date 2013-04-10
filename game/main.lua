@@ -42,12 +42,4 @@ end
 
 function love.draw ()
   content.triggers.draw:activate(love.graphics)
---  local graphics = love.graphics
---  for _,element in ipairs(elements) do
---    graphics.push()
---    graphics.translate(element.pos:unpack())
---    graphics.setColor(255, 255, 255, 255)
---    element:draw(graphics)
---    graphics.pop()
---  end
 end
