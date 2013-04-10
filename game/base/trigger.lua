@@ -54,3 +54,7 @@ end
 function trigger_checks.mousepressed (in_check, x, y)
   return in_check:inside(lux.geom.point:new {x,y})
 end
+
+function trigger_checks.mousereleased (in_check, x, y)
+  return in_check:inside(lux.geom.point:new {x,y})
+end
