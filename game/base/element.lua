@@ -42,7 +42,7 @@ function element:inside (p)
 end
 
 function element.triggers:mousepressed (x, y, button)
-  self.triggers.update = function ()
+  self.triggers.update = function (self)
     self.pos = lux.geom.point:new {love.mouse.getPosition()} - self.size*.5
   end
 end

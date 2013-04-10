@@ -16,16 +16,18 @@ function love.update (dt)
   base.trigger.activate 'update'
 end
 
-local function check_mouse (in_check, x, y)
-  return in_check:inside(lux.geom.point:new {x,y})
-end
-
 function love.mousepressed (x, y, button)
-  base.trigger.activate('mousepressed', check_mouse, x, y, button)
+  base.trigger.activate('mousepressed', x, y, button)
 end
 
 function love.mousereleased (x, y, button)
-  base.trigger.activate('mousereleased', check_mouse, x, y, button)
+  base.trigger.activate('mousereleased', x, y, button)
+end
+
+function love.keypressed (button)
+  if button == ' ' then
+    table.insert(elements, base.element:new{pos=lux.geom.point:new{}})
+  end
 end
 
 function love.draw ()

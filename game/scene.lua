@@ -9,6 +9,7 @@ local lambda        = lux.functional
 local scenefile_env = {}
 
 local function get_element_type (typename)
+  
   return base.element
 end
 
@@ -22,6 +23,7 @@ end
 local function prepare_env (env, elements)
   env.element = lambda.chain((lambda.bindleft(new_element, elements)), 1)
   env.point   = lambda.bindleft(lux.geom.point.new, lux.geom.point)
+  env.vector  = lambda.bindleft(lux.geom.vector.new, lux.geom.vector)
   env.print   = print
 end
 
