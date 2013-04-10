@@ -1,6 +1,6 @@
 
 element 'Name' {
-  type = 'grabbable',
+  properties = { 'grabbable' },
   data = {
     pos = point {400, 300}
   }

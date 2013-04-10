@@ -4,20 +4,22 @@ module ('scene', package.seeall)
 require 'lux.functional'
 require 'lux.geom.vector'
 require 'base.element'
-require 'content.elements'
+require 'content.properties'
 
 local lambda        = lux.functional
 local scenefile_env = {}
 
-local function get_element_type (typename)
-  return content.elements[typename] or base.element
+local function get_property (property_name)
+  return content.properties[property_name]
 end
 
 local function new_element (elements, name, info)
-  info.type = info.type or 'element'
-  info.data.name = name
-  local elem_type = get_element_type(info.type)
-  local new_elem = elem_type:new(info.data)
+  local new_elem = base.element:new(info.data)
+  if info.properties then
+    for _,property_name in ipairs(info.properties) do
+      new_elem:add_property(get_property(property_name))
+    end
+  end
   table.insert(elements, new_elem)
 end
 
