@@ -16,10 +16,14 @@ local function new_element (elements, name)
   return element
 end
 
+local function export_type (env, class)
+  env[class.__type] = lambda.bindleft(class.new, class)
+end
+
 local function prepare_env (env, elements)
   env.element = lambda.bindleft(new_element, elements)
-  env.point   = lambda.bindleft(lux.geom.point.new, lux.geom.point)
-  env.vector  = lambda.bindleft(lux.geom.vector.new, lux.geom.vector)
+  export_type(env, lux.geom.point)
+  export_type(env, lux.geom.vector)
   env.print   = print
 end
 
@@ -46,9 +50,13 @@ local function dump (value)
   if t == 'string' then
     return "[[\n"..value.."]]"
   elseif t == 'table' then
-    local str = value.__type.."{"
-    for _,v in ipairs(value) do
-      str = str..v..","
+    local str = (value.__type or "").."{"
+    for k,v in pairs(value) do
+      if type(k) == 'string' then
+        str = str..k.." = "..v..","
+      else
+        str = str.."["..k.."] = "..v..","
+      end
     end
     return str.."}"
   else

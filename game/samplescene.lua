@@ -3,7 +3,9 @@ element 'This is grabbable'
   :add_property 'visible' {
     pos = point{400,300}
   }
-  :add_property 'grabbable' {}
+  :add_property 'grabbable' {
+    useless = { x = 1 }
+  }
 
 element 'This is NOT grabbable'
   :add_property 'visible' {
