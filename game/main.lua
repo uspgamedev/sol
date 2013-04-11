@@ -9,8 +9,8 @@ require 'lux.geom.vector'
 
 local elements
 
-function love.load ()
-  elements = scene.load 'samplescene.lua'
+function love.load (args)
+  elements = scene.load(args[2] and ('content/scenes/'..args[2]) or 'samplescene.lua')
 end
 
 function love.update (dt)

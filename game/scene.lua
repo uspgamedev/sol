@@ -46,7 +46,11 @@ local function dump (value)
   if t == 'string' then
     return "[[\n"..value.."]]"
   elseif t == 'table' then
-    return '{}'
+    local str = value.__type.."{"
+    for _,v in ipairs(value) do
+      str = str..v..","
+    end
+    return str.."}"
   else
     return tostring(value)
   end
