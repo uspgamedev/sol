@@ -59,6 +59,8 @@ local function dump (value)
       end
     end
     return str.."}"
+  elseif t == 'function' then
+    return "[[\n"..string.dump(value).."\n    ]]"
   else
     return tostring(value)
   end

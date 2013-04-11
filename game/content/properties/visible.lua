@@ -13,7 +13,7 @@ visible = base.property:new {
 function visible.triggers:draw (graphics)
   local draw = self.visible.draw
   if type(draw) == 'string' then
-    draw = loadstring("return function (self, graphics) "..draw.." end") ()
+    draw = loadstring(draw)
   end
   draw(self, graphics)
 end
