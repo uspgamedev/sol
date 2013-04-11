@@ -34,11 +34,12 @@ vector = lux.object.new {
   0,
   0,
   -- Internal information.
-  __type = "vectortor"
+  __type = "vector"
 }
 
 point = vector:new {
-  [4] = 1
+  [4] = 1,
+  __type = "point"
 }
 
 function vector.axis (i)
