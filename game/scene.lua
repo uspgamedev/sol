@@ -40,3 +40,35 @@ function load (file)
     return elements
   end
 end
+
+local function dump (value)
+  local t = type(value)
+  if t == 'string' then
+    return "[[\n"..value.."]]"
+  elseif t == 'table' then
+    return '{}'
+  else
+    return tostring(value)
+  end
+end
+
+function save (filepath, elements)
+  local file,err = io.open(filepath, 'w')
+  if not file then
+    return print(err)
+  end
+  for _,element in pairs(elements) do
+    file:write("element ".."'"..element.name.."'\n")
+    for property_name,property in pairs(element) do
+      if property_name ~= 'name' then
+        file:write("  :add_property '"..property_name.."' {\n")
+        for key,value in pairs(property) do
+          if key ~= 'requires' and key ~= 'triggers' then
+            file:write("    "..key.." = "..dump(value)..",\n")
+          end
+        end
+        file:write("  }\n")
+      end
+    end
+  end
+end

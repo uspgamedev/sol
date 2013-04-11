@@ -39,6 +39,8 @@ function love.keypressed (button)
         pos = lux.geom.point:new{love.mouse.getPosition()}
       }
       :add_property 'grabbable' {}
+  elseif button == 's' then
+    scene.save('out.lua', elements)
   end
 end
 
