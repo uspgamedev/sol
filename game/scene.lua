@@ -27,6 +27,8 @@ local function prepare_env (env, elements)
   env.use       = lambda.bindleft(import_primitive, env)
   env.print     = print
   env.elements  = elements
+  env.keyboard  = love.keyboard
+  env.pairs     = pairs
 end
 
 function load (file)

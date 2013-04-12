@@ -21,13 +21,13 @@ element 'Hipster'
       color = { 50, 50, 200, 200}
     }
   }
+  :add_property 'moveable' {}
   :add_property 'controlled' {
-    source = 'player',
+    source = 'homing',
     map = {
       { property='moveable', attribute='speed', from='dir' }
     }
   }
-  :add_property 'moveable' {}
 
 element 'Rectangle'
   :add_property 'visible' {
@@ -44,10 +44,35 @@ element 'Image'
     size = vector{128, 128},
     draw = image {}
   }
+  :add_property 'moveable' {}
   :add_property 'controller' {
-    target = 'player',
+    target = 'homing',
     update = function(self)
       self.controller:send('dir', self.visible.pos-elements.Hipster.visible.pos)
     end
   }
-  
+  :add_property 'controlled' {
+    source = 'player',
+    map = {
+      { property='moveable', attribute='speed', from='dir' }
+    }
+  }
+
+movement_map = {
+  up = vector{0,-1},
+  down = vector{0,1},
+  left = vector{-1,0},
+  right = vector{1,0}
+}
+
+element 'Player'
+  :add_property 'controller' {
+    target = 'player',
+    update = function(self)
+      local dir = vector{}
+      for key,v in pairs(movement_map) do
+        dir = dir + (keyboard.isDown(key) and v or vector{})
+      end
+      self.controller:send('dir', 100*dir)
+    end
+  }
