@@ -25,7 +25,7 @@ element 'Hipster'
   :add_property 'controlled' {
     source = 'homing',
     map = {
-      { property='moveable', attribute='speed', from='dir' }
+      { property='moveable', attribute='speed', from='pos', formula='pos-self.visible.pos' }
     }
   }
 
@@ -48,13 +48,13 @@ element 'Image'
   :add_property 'controller' {
     target = 'homing',
     update = function(self)
-      self.controller:send('dir', self.visible.pos-elements.Hipster.visible.pos)
+      self.controller:send('pos', self.visible.pos)
     end
   }
   :add_property 'controlled' {
     source = 'player',
     map = {
-      { property='moveable', attribute='speed', from='dir' }
+      { property='moveable', attribute='speed', from='dir', formula='dir' }
     }
   }
 

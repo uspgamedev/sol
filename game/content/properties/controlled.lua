@@ -15,9 +15,12 @@ controlled.__init = {
 function controlled.triggers:update ()
   for _,mapping in ipairs(self.controlled.map) do
     --print(mapping.property, mapping.attribute, mapping.from)
-    self[mapping.property][mapping.attribute] =
-      base.message.receive(self.controlled.source, mapping.from)
-      or
-      self[mapping.property][mapping.attribute]
+    local new_value = base.message.receive(self.controlled.source, mapping.from)
+    if new_value then
+      self[mapping.property][mapping.attribute] =
+        assert(loadstring('return function(self,'..mapping.from..') return '..mapping.formula..' end')) () (self, new_value)
+    else
+      print('no new value')
+    end
   end
 end
