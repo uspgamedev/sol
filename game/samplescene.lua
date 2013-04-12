@@ -58,6 +58,31 @@ element 'Image'
     }
   }
 
+--build.keymover 'Mover' {
+--  target = 'player',
+--  message = 'dir'
+--  keymap = {
+--    up = vector{0,-1},
+--    down = vector{0,1},
+--    left = vector{-1,0},
+--    right = vector{1,0}
+--  }
+--} 
+
+--build.bullet 'Fireball' {
+--  image = 'aksjdhak',
+--  dir = vector{},
+--  power = 10
+--}
+
+--build.creator 'Shooter' {
+--  builder = 'bullet',
+--  trigger = 'mouse_pressedleft',
+--  map = {
+--    { arg='dir', formula='vector{x,y}' }
+--  }
+--}
+
 movement_map = {
   up = vector{0,-1},
   down = vector{0,1},
