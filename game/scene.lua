@@ -23,9 +23,10 @@ local function import_primitive (env, primitive_name)
 end
 
 local function prepare_env (env, elements)
-  env.element = lambda.bindleft(new_element, elements)
-  env.use     = lambda.bindleft(import_primitive, env)
-  env.print   = print
+  env.element   = lambda.bindleft(new_element, elements)
+  env.use       = lambda.bindleft(import_primitive, env)
+  env.print     = print
+  env.elements  = elements
 end
 
 function load (file)
