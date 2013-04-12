@@ -4,6 +4,7 @@ module ('scene', package.seeall)
 require 'lux.functional'
 require 'lux.geom.vector'
 require 'base.element'
+require 'base.primitive'
 require 'content.properties'
 
 local lambda        = lux.functional
@@ -16,14 +17,14 @@ local function new_element (elements, name)
   return element
 end
 
-local function export_type (env, class)
-  env[class.__type] = lambda.bindleft(class.new, class)
+local function import_primitive (env, primitive_name)
+  local primitive = base.primitive[primitive_name]
+  env[primitive_name] = lambda.bindleft(primitive.new, primitive)
 end
 
 local function prepare_env (env, elements)
   env.element = lambda.bindleft(new_element, elements)
-  export_type(env, lux.geom.point)
-  export_type(env, lux.geom.vector)
+  env.use     = lambda.bindleft(import_primitive, env)
   env.print   = print
 end
 

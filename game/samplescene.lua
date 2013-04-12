@@ -1,4 +1,7 @@
 
+use 'point'
+use 'vector'
+
 element 'This is grabbable'
   :add_property 'visible' {
     pos = point{400,300}
