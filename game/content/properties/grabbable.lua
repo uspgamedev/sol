@@ -10,15 +10,17 @@ grabbable = base.property:new {
   requires = { 'visible' }
 }
 
+local function follow_mouse (self)
+  self.visible.pos = lux.geom.point:new {love.mouse.getPosition()}
+end
+
 function grabbable.triggers:mouse_pressedleft ()
   content.triggers.update:register(
     self,
-    function (self)
-      self.visible.pos = lux.geom.point:new {love.mouse.getPosition()}
-    end
+    follow_mouse
   )
 end
 
 function grabbable.triggers:mouse_releasedleft ()
-  content.triggers.update:unregister(self)
+  content.triggers.update:unregister(self, follow_mouse)
 end

@@ -25,7 +25,7 @@ function trigger:register (triggered_element, action)
   self.triggered_elements[triggered_element][action] = true
 end
 
-function trigger:unregister (triggered_element)
+function trigger:unregister (triggered_element, action)
   self.triggered_elements[triggered_element][action] = nil
 end
 

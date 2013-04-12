@@ -19,8 +19,6 @@ function controlled.triggers:update ()
     if new_value then
       self[mapping.property][mapping.attribute] =
         assert(loadstring('return function(self,'..mapping.from..') return '..mapping.formula..' end')) () (self, new_value)
-    else
-      print('no new value')
     end
   end
 end
