@@ -14,7 +14,7 @@ function love.load (args)
 end
 
 function love.update (dt)
-  content.triggers.update:activate()
+  content.triggers.update:activate(dt)
 end
 
 function love.mousepressed (x, y, button)

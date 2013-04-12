@@ -3,6 +3,7 @@ use 'point'
 use 'vector'
 use 'rectangle'
 use 'circle'
+use 'image'
 
 element 'This is grabbable'
   :add_property 'visible' {
@@ -29,3 +30,16 @@ element 'Hipster'
       color = { 50, 50, 200, 200}
     }
   }
+  :add_property 'moveable' {
+    controller = function (element)
+      return vector{-10,0}
+    end
+  }
+
+element 'Image'
+  :add_property 'visible' {
+    pos = point{800, 600},
+    size = vector{128, 128},
+    draw = image {}
+  }
+  :add_property 'moveable' {}
