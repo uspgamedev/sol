@@ -1,6 +1,7 @@
 
 use 'point'
 use 'vector'
+use 'rectangle'
 
 element 'This is grabbable'
   :add_property 'visible' {
@@ -10,10 +11,13 @@ element 'This is grabbable'
     useless = { x = 1 }
   }
 
-element 'This is NOT grabbable'
+element 'Rectangle'
   :add_property 'visible' {
     pos = point{200,200},
-    size = vector{256,32}
+    size = vector{256,32},
+    draw = rectangle {
+      color = {200, 50, 0, 100},
+    }
   }
 
 element 'Hipster'

@@ -4,6 +4,7 @@ module ('base.primitive', package.seeall)
 require 'lux.object'
 require 'lux.geom.vector'
 
+--- Drawable
 drawable = lux.object.new {
   color   = nil
 }
@@ -12,22 +13,28 @@ drawable.__init = {
   color = {255, 255, 255, 255}
 }
 
+--- Rectangle
 rectangle = lux.object.new {
-  mode    = 'fill',
-  width   = 64,
-  height  = 64
+  mode    = 'fill'
 }
 
-function rectangle:draw (graphics)
+function rectangle:draw (element, graphics)
   graphics.setColor(self.color)
-  graphics.draw(self.mode, -self.width/2, -self.height/2, self.width, self.height)
+  graphics.rectangle(
+    self.mode,
+    -element.visible.size.x/2,
+    -element.visible.size.y/2,
+    element.visible.size:unpack()
+  )
 end
 
+--- Some mystic code
 for name,primitive in pairs(_M) do
   if type(primitive) == 'table' and primitive.new then
     primitive.__type = name
   end
 end
 
+--- Copy LUX's geometric primitives.
 vector  = lux.geom.vector
 point   = lux.geom.point

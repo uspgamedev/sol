@@ -54,9 +54,9 @@ local function dump (value)
     local str = (value.__type or "").."{"
     for k,v in pairs(value) do
       if type(k) == 'string' then
-        str = str..k.." = "..v..","
+        str = str..k.." = "..dump(v)..","
       else
-        str = str.."["..k.."] = "..v..","
+        str = str.."["..k.."] = "..dump(v)..","
       end
     end
     return str.."}"

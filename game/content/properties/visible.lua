@@ -2,7 +2,9 @@
 module ('content.properties', package.seeall)
 
 require 'base.property'
+require 'base.primitive'
 require 'lux.geom.vector'
+require 'lux.functional'
 require 'content.triggers.draw'
 
 visible = base.property:new {
@@ -14,6 +16,8 @@ function visible.triggers:draw (graphics)
   local draw = self.visible.draw
   if type(draw) == 'string' then
     draw = assert(loadstring(draw), "Element '"..self.name.."': Couldn't load draw function.")
+  elseif type(draw) == 'table' and base.primitive[draw.__type] then
+    draw = lux.functional.bindleft(draw.draw, draw)
   end
   draw(self, graphics)
 end
