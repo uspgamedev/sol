@@ -14,8 +14,8 @@ drawable.__init = {
 }
 
 --- Rectangle
-rectangle = lux.object.new {
-  mode    = 'fill'
+rectangle = drawable:new {
+  mode = 'fill'
 }
 
 function rectangle:draw (element, graphics)
@@ -25,6 +25,20 @@ function rectangle:draw (element, graphics)
     -element.visible.size.x/2,
     -element.visible.size.y/2,
     element.visible.size:unpack()
+  )
+end
+
+--- Circle
+circle = drawable:new {
+  mode = 'fill'
+}
+
+function circle:draw (element, graphics)
+  graphics.setColor(self.color)
+  graphics.circle(
+    self.mode,
+    0, 0,
+    math.min(element.visible.size.x, element.visible.size.y)
   )
 end
 

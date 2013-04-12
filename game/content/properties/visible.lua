@@ -25,30 +25,35 @@ end
 function visible:draw (graphics)
   -- This is the default drawing function for visible elements
   graphics.setColor(150, 150, 255, 100)
-  graphics.rectangle('fill', 0, 0, self.visible.size.x, self.visible.size.y)
-  graphics.setColor(150, 150, 150, 255)
-  graphics.rectangle('line', 0, 0, self.visible.size.x, self.visible.size.y)
+  base.primitive.rectangle:new{ color = {150, 150, 255, 100}, mode = 'fill' }:draw(self, graphics)
+  base.primitive.rectangle:new{ color = {150, 150, 150, 255}, mode = 'line' }:draw(self, graphics)
   graphics.setColor(200, 200, 100, 255)
-  graphics.printf(self.name, 0, 0, self.visible.size.x, 'center')
+  graphics.printf(
+    self.name,
+    -self.visible.size.x/2,
+    -self.visible.size.y/2,
+    self.visible.size.x,
+    'center'
+  )
 end
 
 function visible:left ()
-  return self.pos.x
+  return self.pos.x - self.size.x/2
 end
 
 function visible:right ()
-  return self.pos.x + self.size.x
+  return self.pos.x + self.size.x/2
 end
 
 function visible:top ()
-  return self.pos.y
+  return self.pos.y - self.size.y/2
 end
 
 function visible:bottom ()
-  return self.pos.y + self.size.y
+  return self.pos.y + self.size.y/2
 end
 
-function visible:inside (p)
+function visible:inside (p) 
   if p.x < self:left() then return false end
   if p.y < self:top() then return false end
   if p.x > self:right() then return false end

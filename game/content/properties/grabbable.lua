@@ -14,7 +14,7 @@ function grabbable.triggers:mouse_pressedleft ()
   content.triggers.update:register(
     self,
     function (self)
-      self.visible.pos = lux.geom.point:new {love.mouse.getPosition()} - self.visible.size*.5
+      self.visible.pos = lux.geom.point:new {love.mouse.getPosition()}
     end
   )
 end
