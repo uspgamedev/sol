@@ -24,14 +24,8 @@ element 'Rectangle'
 element 'Hipster'
   :add_property 'visible' {
     pos = point{600,300},
+    size = vector{32, 32},
     draw = circle {
       color = { 50, 50, 200, 200}
     }
-    --draw = function (self, graphics)
-    --  graphics.setColor(150, 150, 255, 100)
-    --  graphics.circle('fill', self.visible.size.x/2, self.visible.size.y/2, 10)
-    --  graphics.setColor(150, 150, 150, 255)
-    --  graphics.circle('line', self.visible.size.x/2, self.visible.size.y/2, 10)
-    --  graphics.setColor(200, 200, 100, 255)
-    --end
   }

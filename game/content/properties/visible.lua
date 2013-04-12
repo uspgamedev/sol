@@ -24,7 +24,6 @@ end
 
 function visible:draw (graphics)
   -- This is the default drawing function for visible elements
-  graphics.setColor(150, 150, 255, 100)
   base.primitive.rectangle:new{ color = {150, 150, 255, 100}, mode = 'fill' }:draw(self, graphics)
   base.primitive.rectangle:new{ color = {150, 150, 150, 255}, mode = 'line' }:draw(self, graphics)
   graphics.setColor(200, 200, 100, 255)
