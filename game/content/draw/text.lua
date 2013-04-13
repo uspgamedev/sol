@@ -23,7 +23,7 @@ local function value_accessor (element)
   end
 end
 
-function text:formatted ()
+function text:formatted (element)
   local text = string.gsub(self.text, "%$(.-)%$", value_accessor(element))
   local font = love.graphics.getFont()
   local width, lines = font:getWrap(text, self.linesize)
@@ -32,7 +32,7 @@ end
 
 function text:draw (element, graphics)
   graphics.setColor(self.color)
-  local width, height, text = self:formatted()
+  width, height, text = self:formatted(element)
   graphics.printf(
     text,
     -width/2,
@@ -40,8 +40,14 @@ function text:draw (element, graphics)
     width,
     self.format
   )
+  self.width, self.height, self.formattedtext = width, height, text
 end
 
-function text:within (p)
-  return false
+function text:inside (p)
+  local width, height = self.width, self.height
+  if p.x < -width/2 then return false end
+  if p.y < -height/2 then return false end
+  if p.x > width/2 then return false end
+  if p.y > height/2 then return false end
+  return true
 end

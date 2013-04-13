@@ -19,17 +19,17 @@ element 'Hipster'
     pos = point{600,300},
     parts = {
       circle { radius=32, color={ 50, 50, 200, 200} },
-      --text { text='$controlled.receivefrom$' }
+      text { text='$controlled.receivefrom$\n$name$' }
     }
   }
---  :add_property 'moveable' {}
---  :add_property 'controlled' {
---    receivefrom = 'homing',
---    --link { messages='pos', to='self.moveable.speed', with='pos-self.visible.pos'}
---    map = {
---      { property='moveable', attribute='speed', from='pos', formula='pos-self.visible.pos' }
---    }
---  }
+  :add_property 'moveable' {}
+  :add_property 'controlled' {
+    receivefrom = 'homing',
+    --link { messages='pos', to='self.moveable.speed', with='pos-self.visible.pos'}
+    map = {
+      { property='moveable', attribute='speed', from='pos', formula='pos-self.visible.pos' }
+    }
+  }
 
 element 'Rectangle'
   :add_property 'visible' {

@@ -52,7 +52,7 @@ function load (file)
     local env = {}
     prepare_env(env, elements)
     setfenv(chunk, env)
-    ok, result = chunk() --pcall(chunk) -- execute the chunk safely
+    ok, result = pcall(chunk) -- execute the chunk safely
     if not ok then -- will be false if there is an error
       print('The following error happened: ' .. tostring(result))
     end
