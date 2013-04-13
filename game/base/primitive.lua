@@ -3,40 +3,6 @@ module ('base.primitive', package.seeall)
 
 require 'lux.geom.vector'
 
---- Text
-text = drawable:new {
-  text = '$name$',
-  linesize = 64,
-  format = 'center'
-}
-
-local accessor_code = [[
-  return element.$
-]]
-
-local function value_accessor (element)
-  return function (access_request)
-    local processed = string.gsub(accessor_code, '%$', access_request)
-    local chunk = assert(loadstring(processed))
-    setfenv(chunk, { element = element })
-    return tostring(chunk())
-  end
-end
-
-function text:draw (element, graphics)
-  graphics.setColor(self.color)
-  local text = string.gsub(self.text, "%$(.-)%$", value_accessor(element))
-  local font = graphics.getFont()
-  local width, lines = font:getWrap(text, self.linesize)
-  graphics.printf(
-    text,
-    -self.linesize/2,
-    -(lines*font:getHeight())/2,
-    self.linesize,
-    self.format
-  )
-end
-
 --- Image
 image = drawable:new {
   path = 'jigsaw-box.png'

@@ -4,7 +4,7 @@
 use 'rectangle'
 use 'circle'
 --use 'image'
---use 'text'
+use 'text'
 
 element 'This is grabbable'
   :add_property 'visible' {

@@ -24,6 +24,7 @@ end
 
 local function import_primitive (env, primitive_name)
   local primitive = content.draw[primitive_name]
+  print(primitive.new)
   env[primitive_name] = lambda.bindleft(primitive.new, primitive)
 end
 
@@ -51,7 +52,7 @@ function load (file)
     local env = {}
     prepare_env(env, elements)
     setfenv(chunk, env)
-    ok, result = pcall(chunk) -- execute the chunk safely
+    ok, result = chunk() --pcall(chunk) -- execute the chunk safely
     if not ok then -- will be false if there is an error
       print('The following error happened: ' .. tostring(result))
     end
