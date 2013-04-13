@@ -6,6 +6,7 @@ require 'lux.geom.vector'
 require 'base.element'
 require 'base.primitive'
 require 'content.properties'
+require 'content.build.keymover'
 
 local lambda        = lux.functional
 local scenefile_env = {}
@@ -29,6 +30,9 @@ local function prepare_env (env, elements)
   env.elements  = elements
   env.keyboard  = love.keyboard
   env.pairs     = pairs
+
+  env.build     = {}
+  env.build.keymover = lambda.bindleft(content.build.keymover.new,elements)
 end
 
 function load (file)

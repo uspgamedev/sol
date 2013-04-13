@@ -54,20 +54,20 @@ element 'Image'
   :add_property 'controlled' {
     source = 'player',
     map = {
-      { property='moveable', attribute='speed', from='dir', formula='dir' }
+      { property='moveable', attribute='speed', from='dir', formula='dir*100' }
     }
   }
 
---build.keymover 'Mover' {
---  target = 'player',
---  message = 'dir'
---  keymap = {
---    up = vector{0,-1},
---    down = vector{0,1},
---    left = vector{-1,0},
---    right = vector{1,0}
---  }
---} 
+build.keymover 'Mover' {
+  target = 'player',
+  message = 'dir',
+  keymap = {
+    up = vector{0,-1},
+    down = vector{0,1},
+    left = vector{-1,0},
+    right = vector{1,0}
+  }
+} 
 
 --build.bullet 'Fireball' {
 --  image = 'aksjdhak',
@@ -83,21 +83,21 @@ element 'Image'
 --  }
 --}
 
-movement_map = {
-  up = vector{0,-1},
-  down = vector{0,1},
-  left = vector{-1,0},
-  right = vector{1,0}
-}
+--movement_map = {
+--  up = vector{0,-1},
+--  down = vector{0,1},
+--  left = vector{-1,0},
+--  right = vector{1,0}
+--}
 
-element 'Player'
-  :add_property 'controller' {
-    target = 'player',
-    update = function(self)
-      local dir = vector{}
-      for key,v in pairs(movement_map) do
-        dir = dir + (keyboard.isDown(key) and v or vector{})
-      end
-      self.controller:send('dir', 100*dir)
-    end
-  }
+--element 'Player'
+--  :add_property 'controller' {
+--    target = 'player',
+--    update = function(self)
+--      local dir = vector{}
+--      for key,v in pairs(movement_map) do
+--        dir = dir + (keyboard.isDown(key) and v or vector{})
+--      end
+--      self.controller:send('dir', 100*dir)
+--    end
+--  }
