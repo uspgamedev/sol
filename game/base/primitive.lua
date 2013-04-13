@@ -42,6 +42,34 @@ function circle:draw (element, graphics)
   )
 end
 
+--- Text
+text = drawable:new {
+  text = '$(name)',
+  linesize = 64,
+  format = 'center'
+}
+
+local x = 1
+
+local function get_value (element)
+  local chunk = loadstring("return function(string) return element.")
+  return 
+end
+
+function text:draw (element, graphics)
+  --graphics.setColor(self.color)
+  ----local text = string.gsub(self.text, "%$(\([^()]+\))", )
+  --local font = graphics.getFont()
+  --local width, lines = font:getWrap(self.text, self.linesize)
+  --graphics.printf(
+  --  self.text,
+  --  -width/2,
+  --  -(lines*font:getLineHeight())/2,
+  --  self.linesize,
+  --  self.format
+  --)
+end
+
 --- Image
 image = drawable:new {
   path = 'jigsaw-box.png'

@@ -5,7 +5,7 @@ require 'base.property'
 require 'base.message'
 
 controller = base.property:new {
-  target = 'all'  
+  sendto = 'all'  
 }
 
 function controller.triggers:update ()
@@ -13,5 +13,5 @@ function controller.triggers:update ()
 end
 
 function controller:send (what, value)
-  base.message.send(self.target, what, value)
+  base.message.send(self.sendto, what, value)
 end

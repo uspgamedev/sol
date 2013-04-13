@@ -13,28 +13,18 @@ visible = base.property:new {
 }
 
 function visible.triggers:draw (graphics)
-  local draw = self.visible.draw
-  if type(draw) == 'string' then
-    draw = assert(loadstring(draw), "Element '"..self.name.."': Couldn't load draw function.")
-  elseif type(draw) == 'table' and base.primitive[draw.__type] then
-    draw = lux.functional.bindleft(draw.draw, draw)
+  for _,drawable in ipairs(self.visible.draw) do
+    drawable:draw(self, graphics)
   end
-  draw(self, graphics)
 end
 
-function visible:draw (graphics)
-  -- This is the default drawing function for visible elements
-  base.primitive.rectangle:new{ color = {150, 150, 255, 100}, mode = 'fill' }:draw(self, graphics)
-  base.primitive.rectangle:new{ color = {150, 150, 150, 255}, mode = 'line' }:draw(self, graphics)
-  graphics.setColor(200, 200, 100, 255)
-  graphics.printf(
-    self.name,
-    -self.visible.size.x/2,
-    -self.visible.size.y/2,
-    self.visible.size.x,
-    'center'
-  )
-end
+visible.__init = {
+  draw = {
+    base.primitive.rectangle:new{ color = {150, 150, 255, 100}, mode = 'fill' },
+    base.primitive.rectangle:new{ color = {150, 150, 150, 255}, mode = 'line' },
+    base.primitive.text:new {}
+  }
+}
 
 function visible:left ()
   return self.pos.x - self.size.x/2

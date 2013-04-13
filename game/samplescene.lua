@@ -16,14 +16,14 @@ element 'This is grabbable'
 element 'Hipster'
   :add_property 'visible' {
     pos = point{600,300},
-    size = vector{32, 32},
-    draw = circle {
-      color = { 50, 50, 200, 200}
+    draw = {
+      circle { radius=32, color={ 50, 50, 200, 200} }
     }
   }
   :add_property 'moveable' {}
   :add_property 'controlled' {
-    source = 'homing',
+    receivefrom = 'homing',
+    --link { messages='pos', to='self.moveable.speed', with='pos-self.visible.pos'}
     map = {
       { property='moveable', attribute='speed', from='pos', formula='pos-self.visible.pos' }
     }
@@ -32,9 +32,12 @@ element 'Hipster'
 element 'Rectangle'
   :add_property 'visible' {
     pos = point{200,200},
-    size = vector{256,32},
-    draw = rectangle {
-      color = {200, 50, 0, 100},
+    draw = {
+      rectangle {
+        width = 256,
+        height = 32,
+        color = {200, 50, 0, 100},
+      }
     }
   }
 
@@ -42,24 +45,24 @@ element 'Image'
   :add_property 'visible' {
     pos = point{800, 600},
     size = vector{128, 128},
-    draw = image {}
+    draw = { image {} }
   }
   :add_property 'moveable' {}
   :add_property 'controller' {
-    target = 'homing',
+    sendto = 'homing',
     update = function(self)
       self.controller:send('pos', self.visible.pos)
     end
   }
   :add_property 'controlled' {
-    source = 'player',
+    receivefrom = 'player',
     map = {
       { property='moveable', attribute='speed', from='dir', formula='dir*100' }
     }
   }
 
 build.keymover 'Mover' {
-  target = 'player',
+  target = 'player', -- TODO change to 'sendto'
   message = 'dir',
   keymap = {
     up = vector{0,-1},
@@ -92,7 +95,7 @@ build.keymover 'Mover' {
 
 --element 'Player'
 --  :add_property 'controller' {
---    target = 'player',
+--    sendto = 'player',
 --    update = function(self)
 --      local dir = vector{}
 --      for key,v in pairs(movement_map) do
