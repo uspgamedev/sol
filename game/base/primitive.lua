@@ -44,30 +44,36 @@ end
 
 --- Text
 text = drawable:new {
-  text = '$(name)',
+  text = '$name$',
   linesize = 64,
   format = 'center'
 }
 
-local x = 1
+local accessor_code = [[
+  return element.$
+]]
 
-local function get_value (element)
-  local chunk = loadstring("return function(string) return element.")
-  return 
+local function value_accessor (element)
+  return function (access_request)
+    local processed = string.gsub(accessor_code, '%$', access_request)
+    local chunk = assert(loadstring(processed))
+    setfenv(chunk, { element = element })
+    return chunk()
+  end
 end
 
 function text:draw (element, graphics)
-  --graphics.setColor(self.color)
-  ----local text = string.gsub(self.text, "%$(\([^()]+\))", )
-  --local font = graphics.getFont()
-  --local width, lines = font:getWrap(self.text, self.linesize)
-  --graphics.printf(
-  --  self.text,
-  --  -width/2,
-  --  -(lines*font:getLineHeight())/2,
-  --  self.linesize,
-  --  self.format
-  --)
+  graphics.setColor(self.color)
+  local text = string.gsub(self.text, "%$(.-)%$", value_accessor(element))
+  local font = graphics.getFont()
+  local width, lines = font:getWrap(text, self.linesize)
+  graphics.printf(
+    text,
+    -width/2,
+    -(lines*font:getHeight())/2,
+    self.linesize,
+    self.format
+  )
 end
 
 --- Image
