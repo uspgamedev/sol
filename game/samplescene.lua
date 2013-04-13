@@ -6,14 +6,14 @@ use 'circle'
 --use 'image'
 --use 'text'
 
---element 'This is grabbable'
---  :add_property 'visible' {
---    pos = point{400,300}
---  }
---  :add_property 'grabbable' {
---    useless = { x = 1 }
---  }
---
+element 'This is grabbable'
+  :add_property 'visible' {
+    pos = point{400,300}
+  }
+  :add_property 'grabbable' {
+    useless = { x = 1 }
+  }
+
 element 'Hipster'
   :add_property 'visible' {
     pos = point{600,300},
@@ -22,7 +22,6 @@ element 'Hipster'
       --text { text='$controlled.receivefrom$' }
     }
   }
-  :add_property 'grabbable' {}
 --  :add_property 'moveable' {}
 --  :add_property 'controlled' {
 --    receivefrom = 'homing',

@@ -2,10 +2,10 @@
 module ('content.properties', package.seeall)
 
 require 'base.property'
---require 'base.primitive'
 require 'lux.geom.vector'
 require 'lux.functional'
 require 'content.triggers.draw'
+require 'content.draw'
 
 visible = base.property:new {
   pos = lux.geom.point:new {0,0},
@@ -20,8 +20,8 @@ end
 
 visible.__init = {
   parts = {
-    --base.primitive.rectangle:new{ color = {150, 150, 255, 100}, mode = 'fill' },
-    --base.primitive.rectangle:new{ color = {150, 150, 150, 255}, mode = 'line' },
+    content.draw.rectangle:new{ color = {150, 150, 255, 100}, mode = 'fill' },
+    content.draw.rectangle:new{ color = {150, 150, 150, 255}, mode = 'line' },
     --base.primitive.text:new {}
   }
 }
