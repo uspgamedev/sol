@@ -4,6 +4,7 @@ use 'vector'
 use 'rectangle'
 use 'circle'
 use 'image'
+use 'text'
 
 element 'This is grabbable'
   :add_property 'visible' {
@@ -17,7 +18,8 @@ element 'Hipster'
   :add_property 'visible' {
     pos = point{600,300},
     draw = {
-      circle { radius=32, color={ 50, 50, 200, 200} }
+      circle { radius=32, color={ 50, 50, 200, 200} },
+      text { text='$controlled.receivefrom$' }
     }
   }
   :add_property 'moveable' {}
