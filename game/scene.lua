@@ -6,7 +6,7 @@ require 'lux.geom.vector'
 require 'base.element'
 require 'base.primitive'
 require 'content.properties'
-require 'content.build.keymover'
+require 'content.build'
 
 local lambda        = lux.functional
 local scenefile_env = {}
