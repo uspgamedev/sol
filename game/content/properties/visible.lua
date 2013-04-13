@@ -20,27 +20,21 @@ end
 
 visible.__init = {
   parts = {
-    content.draw.rectangle:new{ color = {150, 150, 255, 100}, mode = 'fill' },
-    content.draw.rectangle:new{ color = {150, 150, 150, 255}, mode = 'line' },
-    --base.primitive.text:new {}
+    content.draw.rectangle:new{
+      color   = {150, 150, 255, 100},
+      mode    = 'fill',
+      width   = 64,
+      height  = 64
+    },
+    content.draw.rectangle:new{
+      color   = {150, 150, 150, 255},
+      mode    = 'line',
+      width   = 64,
+      height  = 64
+    },
+    content.draw.text:new {}
   }
 }
-
-function visible:left ()
-  return self.pos.x - self.size.x/2
-end
-
-function visible:right ()
-  return self.pos.x + self.size.x/2
-end
-
-function visible:top ()
-  return self.pos.y - self.size.y/2
-end
-
-function visible:bottom ()
-  return self.pos.y + self.size.y/2
-end
 
 function visible:inside (p) 
   for _,part in ipairs(self.parts) do
@@ -48,10 +42,5 @@ function visible:inside (p)
       return true
     end
   end
-  if p.x < self:left() then return false end
-  if p.y < self:top() then return false end
-  if p.x > self:right() then return false end
-  if p.y > self:bottom() then return false end
-  return true
 end
 
