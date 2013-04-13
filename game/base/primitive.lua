@@ -58,7 +58,7 @@ local function value_accessor (element)
     local processed = string.gsub(accessor_code, '%$', access_request)
     local chunk = assert(loadstring(processed))
     setfenv(chunk, { element = element })
-    return chunk()
+    return tostring(chunk())
   end
 end
 
@@ -69,7 +69,7 @@ function text:draw (element, graphics)
   local width, lines = font:getWrap(text, self.linesize)
   graphics.printf(
     text,
-    -width/2,
+    -self.linesize/2,
     -(lines*font:getHeight())/2,
     self.linesize,
     self.format
