@@ -10,6 +10,7 @@ require 'lux.geom.vector'
 local elements
 
 function love.load (args)
+  love.graphics.setFont(love.graphics.newFont())
   elements = scene.load(args[2] and ('content/scenes/'..args[2]) or 'samplescene.lua')
 end
 
