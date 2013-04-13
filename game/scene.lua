@@ -4,9 +4,9 @@ module ('scene', package.seeall)
 require 'lux.functional'
 require 'lux.geom.vector'
 require 'base.element'
-require 'base.primitive'
 require 'content.properties'
 require 'content.build'
+require 'content.draw'
 
 local lambda        = lux.functional
 local scenefile_env = {}
@@ -18,8 +18,12 @@ local function new_element (elements, name)
   return element
 end
 
+local function import (env, name, imported)
+  env[name] = lambda.bindleft(imported.new, imported)
+end
+
 local function import_primitive (env, primitive_name)
-  local primitive = base.primitive[primitive_name]
+  local primitive = content.draw[primitive_name]
   env[primitive_name] = lambda.bindleft(primitive.new, primitive)
 end
 
@@ -30,6 +34,8 @@ local function prepare_env (env, elements)
   env.elements  = elements
   env.keyboard  = love.keyboard
   env.pairs     = pairs
+  import(env, 'vector', lux.geom.vector)
+  import(env, 'point', lux.geom.point)
 
   env.build     = {}
   env.build.keymover = lambda.bindleft(content.build.keymover.new,elements)

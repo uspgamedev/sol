@@ -2,7 +2,7 @@
 module ('content.properties', package.seeall)
 
 require 'base.property'
-require 'base.primitive'
+--require 'base.primitive'
 require 'lux.geom.vector'
 require 'lux.functional'
 require 'content.triggers.draw'
@@ -13,16 +13,16 @@ visible = base.property:new {
 }
 
 function visible.triggers:draw (graphics)
-  for _,drawable in ipairs(self.visible.draw) do
+  for _,drawable in ipairs(self.visible.parts) do
     drawable:draw(self, graphics)
   end
 end
 
 visible.__init = {
-  draw = {
-    base.primitive.rectangle:new{ color = {150, 150, 255, 100}, mode = 'fill' },
-    base.primitive.rectangle:new{ color = {150, 150, 150, 255}, mode = 'line' },
-    base.primitive.text:new {}
+  parts = {
+    --base.primitive.rectangle:new{ color = {150, 150, 255, 100}, mode = 'fill' },
+    --base.primitive.rectangle:new{ color = {150, 150, 150, 255}, mode = 'line' },
+    --base.primitive.text:new {}
   }
 }
 
@@ -43,6 +43,11 @@ function visible:bottom ()
 end
 
 function visible:inside (p) 
+  for _,part in ipairs(self.parts) do
+    if part:inside(p-self.pos) then
+      return true
+    end
+  end
   if p.x < self:left() then return false end
   if p.y < self:top() then return false end
   if p.x > self:right() then return false end
