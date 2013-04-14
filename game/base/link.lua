@@ -7,7 +7,7 @@ require 'base.message'
 
 local apply_link_code = [[property.$to = $with]]
 
-function create (specs)
+function create_apply (specs)
   specs.with = string.gsub(specs.with, '@(%w+)', 'get"%1"')
   local final_code  = string.gsub(apply_link_code, '%$(%w+)', specs)
   local getter      = lux.functional.bindleft(base.message.receive, specs.from)

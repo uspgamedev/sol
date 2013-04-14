@@ -49,13 +49,14 @@ element 'Image'
   :add_property 'visible' {
     pos = point{600, 600},
     size = vector{128/500, 128/500},
-    parts = { image {} }
+    parts = { image {} },
+    --share { in='homing', value=[[pos]], as='pos' }
   }
   :add_property 'moveable' {
-    apply { from='player', to='speed', with='100*(@up+@down+@left+@right)' }
+    apply { from='player', to='speed', with=[[ 100*(@up+@down+@left+@right) ]] }
   }
   :add_property 'useskeyboard' {
-    sendto = 'player',
+    sharein = 'player',
     keys = {
       up    = { up=vector{}, down=vector{0,-1}, },
       down  = { up=vector{}, down=vector{0,1}, },
