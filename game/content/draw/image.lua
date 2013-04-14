@@ -20,7 +20,7 @@ function image:draw (element, graphics)
 end
 
 function image:inside (p)
-  local width, height = self.data:getWidth(), self.data.getHeight()
+  local width, height = self.data:getWidth(), self.data:getHeight()
   if p.x < -width/2 then return false end
   if p.y < -height/2 then return false end
   if p.x > width/2 then return false end

@@ -36,9 +36,12 @@ visible.__init = {
   }
 }
 
-function visible:inside (p) 
+function visible:inside (pos) 
+  local relative_pos = pos-self.pos
+  relative_pos.x = relative_pos.x/self.size.x
+  relative_pos.y = relative_pos.y/self.size.y
   for _,part in ipairs(self.parts) do
-    if part:inside(p-self.pos) then
+    if part:inside(relative_pos) then
       return true
     end
   end

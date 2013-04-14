@@ -49,6 +49,7 @@ element 'Image'
     size = vector{128/500, 128/500},
     parts = { image {} }
   }
+  :add_property 'grabbable' {}
   :add_property 'moveable' {}
   :add_property 'controller' {
     sendto = 'homing',
