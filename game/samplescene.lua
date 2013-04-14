@@ -46,6 +46,7 @@ element 'Rectangle'
 element 'Image'
   :add_property 'visible' {
     pos = point{600, 600},
+    size = vector{128/500, 128/500},
     parts = { image {} }
   }
   :add_property 'moveable' {}

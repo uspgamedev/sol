@@ -9,7 +9,7 @@ require 'content.draw'
 
 visible = base.property:new {
   pos = lux.geom.point:new {0,0},
-  size = lux.geom.vector:new {64,64},
+  size = lux.geom.vector:new {1,1},
 }
 
 function visible.triggers:draw (graphics)
