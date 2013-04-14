@@ -49,8 +49,9 @@ element 'Image'
     size = vector{128/500, 128/500},
     parts = { image {} }
   }
-  :add_property 'grabbable' {}
-  :add_property 'moveable' {}
+  :add_property 'moveable' {
+    --link { controller='player', to='speed', with='@up+@down+@left+@right' }
+  }
   :add_property 'controller' {
     sendto = 'homing',
     update = function(self)
