@@ -52,7 +52,7 @@ element 'Image'
     parts = { image {} }
   }
   :add_property 'moveable' {
-    --link { controller='player', to='speed', with='@up+@down+@left+@right' }
+    link { controller='player', to='speed', with='vector{0,-50}'--[['@up+@down+@left+@right']] }
   }
   :add_property 'controller' {
     sendto = 'homing',
@@ -60,12 +60,12 @@ element 'Image'
       self.controller:send('pos', self.visible.pos)
     end
   }
-  :add_property 'controlled' {
-    receivefrom = 'player',
-    map = {
-      { property='moveable', attribute='speed', from='dir', formula='dir*100' }
-    }
-  }
+  --:add_property 'controlled' {
+  --  receivefrom = 'player',
+  --  map = {
+  --    { property='moveable', attribute='speed', from='dir', formula='dir*100' }
+  --  }
+  --}
 
 build.keymover 'Mover' {
   sendto = 'player',

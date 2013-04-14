@@ -1,6 +1,7 @@
 
 require 'scene'
 require 'base.element'
+require 'base.message'
 require 'content.triggers.update'
 require 'content.triggers.draw'
 require 'content.triggers.mouse_pressedleft'

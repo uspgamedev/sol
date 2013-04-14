@@ -4,6 +4,7 @@ module ('base', package.seeall)
 require 'lux.object'
 require 'lux.functional'
 require 'content.properties'
+require 'content.triggers'
 
 element = lux.object.new {
   name  = 'Unnamed Element'
@@ -23,10 +24,8 @@ function element:add_property (property_name, data)
     self:add_property(required_name, {})
   end
   -- Clone the property into the element
-  self[property_name] = property:new{}
-  for key,value in pairs(data) do
-    self[property_name][key] = value
-  end
+  self[property_name] = property:new(data)
   property:visit(self)
+  content.triggers.update:register(self[property_name], property.update)
   return self
 end

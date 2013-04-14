@@ -16,3 +16,10 @@ function property:visit (element)
     content.triggers[trigger_name]:register(element, action)
   end
 end
+
+function property:update ()
+  for k,link in ipairs(self) do
+    getfenv(link).property = self
+    link()
+  end
+end
