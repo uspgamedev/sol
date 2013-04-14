@@ -52,7 +52,7 @@ element 'Image'
     parts = { image {} }
   }
   :add_property 'moveable' {
-    link { receivefrom='player', applyto='speed', with='100*(@up+@down+@left+@right)' }
+    apply { from='player', to='speed', with='100*(@up+@down+@left+@right)' }
   }
   :add_property 'useskeyboard' {
     sendto = 'player',

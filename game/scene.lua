@@ -34,7 +34,7 @@ end
 local function prepare_env (env, elements)
   env.use       = lambda.bindleft(import_primitive, env)
   env.element   = lambda.bindleft(new_element, elements)
-  env.link      = base.link.create
+  env.apply     = base.link.create
   env.print     = print
   env.pairs     = pairs
   import(env, 'vector', lux.geom.vector)
