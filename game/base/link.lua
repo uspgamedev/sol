@@ -18,7 +18,7 @@ function create_apply (specs)
     point = lux.functional.bindleft(lux.geom.point.new, lux.geom.point),
   }
   setfenv(chunk, env)
-  return chunk
+  return { action = chunk, specs = specs }
 end
 
 local share_link_code = [[share('$incontext', '$value', ($as))]]
@@ -36,5 +36,5 @@ function create_share (specs)
     point = lux.functional.bindleft(lux.geom.point.new, lux.geom.point),
   }
   setfenv(chunk, env)
-  return chunk
+  return { action = chunk, specs = specs }
 end

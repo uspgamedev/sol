@@ -19,19 +19,12 @@ element 'Hipster'
     pos = point{600,300},
     parts = {
       circle { radius=32, color={ 50, 50, 200, 200} },
-      text { text='$moveable[1]$\n$name$' }
+      text { text='$moveable[1].specs.fromcontext$\n$name$' }
     }
   }
   :add_property 'moveable' {
-    apply { fromcontext='homing', to='speed', with=[[ (@pos or point{})-element.visible.pos ]] }
+    apply { fromcontext='homing', to='speed', with=[[ @pos and (@pos-element.visible.pos) or vector{} ]] }
   }
-  --:add_property 'controlled' {
-  --  receivefrom = 'homing',
-  --  --link { messages='pos', to='self.moveable.speed', with='pos-self.visible.pos'}
-  --  map = {
-  --    { property='moveable', attribute='speed', from='pos', formula='pos-self.visible.pos' }
-  --  }
-  --}
 
 element 'Hipster'
   :add_property 'moveable' {}
@@ -67,12 +60,6 @@ element 'Image'
       right = { up=vector{}, down=vector{1,0} }
     }
   }
-  --:add_property 'controller' {
-  --  sendto = 'homing',
-  --  update = function(self)
-  --    self.controller:send('pos', self.visible.pos)
-  --  end
-  --}
 
 build.keymover 'Mover' {
   sendto = 'player',
