@@ -6,7 +6,7 @@ require 'base.message'
 require 'content.triggers'
 
 useskeyboard = base.property:new {
-  controller = 'anonymous'
+  sendto = 'anonymous'
 }
 
 useskeyboard.__init = {
@@ -15,14 +15,14 @@ useskeyboard.__init = {
 
 function useskeyboard:start (element)
   for button,cases in pairs(self.keys) do
-    base.message.send(self.controller, button, cases.up)
+    base.message.send(self.sendto, button, cases.up)
   end
 end
 
 function useskeyboard.triggers:keyboard (button, state)
   if not self.useskeyboard.keys[button] then return end
   base.message.send(
-    self.useskeyboard.controller,
+    self.useskeyboard.sendto,
     button,
     self.useskeyboard.keys[button][state]
   )
