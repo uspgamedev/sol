@@ -56,17 +56,11 @@ element 'Image'
   }
   :add_property 'useskeyboard' {
     controller = 'player',
-    keyup = {
-      up = vector{},
-      down = vector{},
-      left = vector{},
-      right = vector{}
-    },
-    keydown = {
-      up = vector{0,-1},
-      down = vector{0,1},
-      left = vector{-1,0},
-      right = vector{1,0}
+    keys = {
+      up    = { up=vector{}, down=vector{0,-1}, },
+      down  = { up=vector{}, down=vector{0,1}, },
+      left  = { up=vector{}, down=vector{-1,0}, },
+      right = { up=vector{}, down=vector{1,0} }
     }
   }
   :add_property 'controller' {

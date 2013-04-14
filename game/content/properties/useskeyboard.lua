@@ -10,20 +10,20 @@ useskeyboard = base.property:new {
 }
 
 useskeyboard.__init = {
-  keydown = {},
-  keyup = {}
+  keys = {}
 }
 
 function useskeyboard:start (element)
-  for button,obj in pairs(self.keyup) do
-    base.message.send(self.controller, button, obj)
+  for button,cases in pairs(self.keys) do
+    base.message.send(self.controller, button, cases.up)
   end
 end
 
 function useskeyboard.triggers:keyboard (button, state)
+  if not self.useskeyboard.keys[button] then return end
   base.message.send(
     self.useskeyboard.controller,
     button,
-    self.useskeyboard['key'..state][button]
+    self.useskeyboard.keys[button][state]
   )
 end
