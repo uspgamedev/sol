@@ -12,9 +12,12 @@ local lambda        = lux.functional
 local scenefile_env = {}
 
 local function new_element (elements, name)
-  local element = base.element:new{}
-  element.name = name
-  elements[name] = element
+  local element = elements[name]
+  if not element then
+    element = base.element:new{}
+    element.name = name
+    elements[name] = element
+  end
   return element
 end
 
@@ -29,11 +32,11 @@ local function import_primitive (env, primitive_name)
 end
 
 local function prepare_env (env, elements)
-  env.element   = lambda.bindleft(new_element, elements)
   env.use       = lambda.bindleft(import_primitive, env)
-  env.print     = print
+  env.element   = lambda.bindleft(new_element, elements)
   env.elements  = elements
   env.keyboard  = love.keyboard
+  env.print     = print
   env.pairs     = pairs
   import(env, 'vector', lux.geom.vector)
   import(env, 'point', lux.geom.point)

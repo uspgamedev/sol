@@ -22,7 +22,6 @@ element 'Hipster'
       text { text='$controlled.receivefrom$\n$name$' }
     }
   }
-  :add_property 'moveable' {}
   :add_property 'controlled' {
     receivefrom = 'homing',
     --link { messages='pos', to='self.moveable.speed', with='pos-self.visible.pos'}
@@ -30,6 +29,9 @@ element 'Hipster'
       { property='moveable', attribute='speed', from='pos', formula='pos-self.visible.pos' }
     }
   }
+
+element 'Hipster'
+  :add_property 'moveable' {}
 
 element 'Rectangle'
   :add_property 'visible' {
