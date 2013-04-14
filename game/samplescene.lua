@@ -1,6 +1,6 @@
 
-use 'point'
-use 'vector'
+--use 'point'
+--use 'vector'
 use 'rectangle'
 use 'circle'
 use 'image'
@@ -17,9 +17,9 @@ element 'This is grabbable'
 element 'Hipster'
   :add_property 'visible' {
     pos = point{600,300},
-    draw = {
+    parts = {
       circle { radius=32, color={ 50, 50, 200, 200} },
-      text { text='$controlled.receivefrom$' }
+      text { text='$controlled.receivefrom$\n$name$' }
     }
   }
   :add_property 'moveable' {}
@@ -34,7 +34,7 @@ element 'Hipster'
 element 'Rectangle'
   :add_property 'visible' {
     pos = point{200,200},
-    draw = {
+    parts = {
       rectangle {
         width = 256,
         height = 32,
@@ -45,10 +45,11 @@ element 'Rectangle'
 
 element 'Image'
   :add_property 'visible' {
-    pos = point{800, 600},
-    size = vector{128, 128},
-    draw = { image {} }
+    pos = point{600, 600},
+    size = vector{128/500, 128/500},
+    parts = { image {} }
   }
+  :add_property 'grabbable' {}
   :add_property 'moveable' {}
   :add_property 'controller' {
     sendto = 'homing',
@@ -64,7 +65,7 @@ element 'Image'
   }
 
 build.keymover 'Mover' {
-  target = 'player', -- TODO change to 'sendto'
+  sendto = 'player',
   message = 'dir',
   keymap = {
     up = vector{0,-1},
@@ -73,6 +74,8 @@ build.keymover 'Mover' {
     right = vector{1,0}
   }
 } 
+
+--[[ WISH LIST ]]--
 
 --build.bullet 'Fireball' {
 --  image = 'aksjdhak',
