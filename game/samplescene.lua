@@ -19,17 +19,15 @@ element 'Hipster'
     pos = point{600,300},
     parts = {
       circle { radius=32, color={ 50, 50, 200, 200} },
-      text { text='$controlled.receivefrom$\n$name$' }
+      text { text='$moveable[1].specs.fromcontext$\n$name$' }
     }
   }
+  :add_property 'moveable' {
+    apply { fromcontext='homing', to='speed', with=[[ @pos and (@pos-element.visible.pos) or vector{} ]] }
+  }
+
+element 'Hipster'
   :add_property 'moveable' {}
-  :add_property 'controlled' {
-    receivefrom = 'homing',
-    --link { messages='pos', to='self.moveable.speed', with='pos-self.visible.pos'}
-    map = {
-      { property='moveable', attribute='speed', from='pos', formula='pos-self.visible.pos' }
-    }
-  }
 
 element 'Rectangle'
   :add_property 'visible' {
@@ -47,20 +45,19 @@ element 'Image'
   :add_property 'visible' {
     pos = point{600, 600},
     size = vector{128/500, 128/500},
-    parts = { image {} }
+    parts = { image {} },
+    share { incontext='homing', value='pos', as=[[pos]] }
   }
-  :add_property 'grabbable' {}
-  :add_property 'moveable' {}
-  :add_property 'controller' {
-    sendto = 'homing',
-    update = function(self)
-      self.controller:send('pos', self.visible.pos)
-    end
+  :add_property 'moveable' {
+    apply { fromcontext='player', to='speed', with=[[ 100*(@up+@down+@left+@right) ]] }
   }
-  :add_property 'controlled' {
-    receivefrom = 'player',
-    map = {
-      { property='moveable', attribute='speed', from='dir', formula='dir*100' }
+  :add_property 'useskeyboard' {
+    sharein = 'player',
+    keys = {
+      up    = { up=vector{}, down=vector{0,-1}, },
+      down  = { up=vector{}, down=vector{0,1}, },
+      left  = { up=vector{}, down=vector{-1,0}, },
+      right = { up=vector{}, down=vector{1,0} }
     }
   }
 
