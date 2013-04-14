@@ -3,7 +3,7 @@
 --use 'vector'
 use 'rectangle'
 use 'circle'
---use 'image'
+use 'image'
 use 'text'
 
 element 'This is grabbable'
@@ -43,36 +43,35 @@ element 'Rectangle'
     }
   }
 
---element 'Image'
---  :add_property 'visible' {
---    pos = point{800, 600},
---    size = vector{128, 128},
---    draw = { image {} }
---  }
---  :add_property 'moveable' {}
---  :add_property 'controller' {
---    sendto = 'homing',
---    update = function(self)
---      self.controller:send('pos', self.visible.pos)
---    end
---  }
---  :add_property 'controlled' {
---    receivefrom = 'player',
---    map = {
---      { property='moveable', attribute='speed', from='dir', formula='dir*100' }
---    }
---  }
---
---build.keymover 'Mover' {
---  target = 'player', -- TODO change to 'sendto'
---  message = 'dir',
---  keymap = {
---    up = vector{0,-1},
---    down = vector{0,1},
---    left = vector{-1,0},
---    right = vector{1,0}
---  }
---} 
+element 'Image'
+  :add_property 'visible' {
+    pos = point{600, 600},
+    parts = { image {} }
+  }
+  :add_property 'moveable' {}
+  :add_property 'controller' {
+    sendto = 'homing',
+    update = function(self)
+      self.controller:send('pos', self.visible.pos)
+    end
+  }
+  :add_property 'controlled' {
+    receivefrom = 'player',
+    map = {
+      { property='moveable', attribute='speed', from='dir', formula='dir*100' }
+    }
+  }
+
+build.keymover 'Mover' {
+  sendto = 'player',
+  message = 'dir',
+  keymap = {
+    up = vector{0,-1},
+    down = vector{0,1},
+    left = vector{-1,0},
+    right = vector{1,0}
+  }
+} 
 
 --[[ WISH LIST ]]--
 
