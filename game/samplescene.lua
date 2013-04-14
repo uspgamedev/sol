@@ -50,10 +50,10 @@ element 'Image'
     pos = point{600, 600},
     size = vector{128/500, 128/500},
     parts = { image {} },
-    --share { in='homing', value=[[pos]], as='pos' }
+    share { incontext='homing', value=[[pos]], as='pos' }
   }
   :add_property 'moveable' {
-    apply { from='player', to='speed', with=[[ 100*(@up+@down+@left+@right) ]] }
+    apply { fromcontext='player', to='speed', with=[[ 100*(@up+@down+@left+@right) ]] }
   }
   :add_property 'useskeyboard' {
     sharein = 'player',
