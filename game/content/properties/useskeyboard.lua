@@ -14,6 +14,7 @@ useskeyboard.__init = {
 }
 
 function useskeyboard:start (element)
+  useskeyboard:__super():start(element)
   for button,cases in pairs(self.keys) do
     base.message.send(self.sendto, button, cases.up)
   end
