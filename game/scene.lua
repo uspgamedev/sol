@@ -6,8 +6,8 @@ require 'lux.geom.vector'
 require 'base.element'
 require 'base.link'
 require 'content.properties'
-require 'content.build'
 require 'content.draw'
+require 'content.recipes'
 
 local lambda        = lux.functional
 local scenefile_env = {}
@@ -41,8 +41,8 @@ local function prepare_env (env, elements)
   import(env, 'vector', lux.geom.vector)
   import(env, 'point', lux.geom.point)
 
-  env.build     = {}
-  env.build.keymover = lambda.bindleft(content.build.keymover.new,elements)
+  env.make = {}
+  env.make.creator = lambda.bindleft(content.recipes.creator.new,elements)
 end
 
 function load (file)

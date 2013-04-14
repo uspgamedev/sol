@@ -61,48 +61,15 @@ element 'Image'
     }
   }
 
-build.keymover 'Mover' {
-  sendto = 'player',
-  message = 'dir',
-  keymap = {
-    up = vector{0,-1},
-    down = vector{0,1},
-    left = vector{-1,0},
-    right = vector{1,0}
-  }
-} 
+make.creator 'FireShooter' {
+ recipe = 'bullet',
+ trigger = 'mouse_pressedleft',
+ args = {
+  name = 'Fireball',
+  parts = { circle{ color={255,0,0,255} } },
+  power = 10, --not used yet
+  apply { fromcontext='homing', to='from', with='@pos' }
+ }
+}
 
 --[[ WISH LIST ]]--
-
---build.bullet 'Fireball' {
---  image = 'aksjdhak',
---  dir = vector{},
---  power = 10
---}
-
---build.creator 'Shooter' {
---  builder = 'bullet',
---  trigger = 'mouse_pressedleft',
---  map = {
---    { arg='dir', formula='vector{x,y}' }
---  }
---}
-
---movement_map = {
---  up = vector{0,-1},
---  down = vector{0,1},
---  left = vector{-1,0},
---  right = vector{1,0}
---}
-
---element 'Player'
---  :add_property 'controller' {
---    sendto = 'player',
---    update = function(self)
---      local dir = vector{}
---      for key,v in pairs(movement_map) do
---        dir = dir + (keyboard.isDown(key) and v or vector{})
---      end
---      self.controller:send('dir', 100*dir)
---    end
---  }

@@ -1,4 +1,4 @@
-module ('content.build.keymover', package.seeall)
+module ('content.recipes.keymover', package.seeall)
 
 require 'base.element'
 require 'lux.functional'
@@ -19,8 +19,8 @@ function new( elements,name,data )
   end
 
   local player = base.element:new()
-  player.name = name 
+  player.name = name
   player:add_property ('controller',data)
-  elements.__player = player
+  elements[player.name] = player
   return player
 end
