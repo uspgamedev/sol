@@ -13,7 +13,8 @@ property.__init = {
 
 function property:start (element)
   for k,link in ipairs(self) do
-    getfenv(link).property = self
+    getfenv(link).property  = self
+    getfenv(link).element   = element
     setmetatable(getfenv(link), { __index = self })
   end
 end
