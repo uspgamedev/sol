@@ -22,7 +22,5 @@ function grabbable.triggers:mouse_pressedleft ()
 end
 
 function grabbable.triggers:mouse_releasedleft ()
-  if content.triggers.update[self] then
-    content.triggers.update:unregister(self, follow_mouse)
-  end
+  content.triggers.update:unregister(self, follow_mouse)
 end

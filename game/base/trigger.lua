@@ -26,6 +26,7 @@ function trigger:register (triggered_element, action)
 end
 
 function trigger:unregister (triggered_element, action)
+  if not self.triggered_elements[triggered_element] then return end
   self.triggered_elements[triggered_element][action] = nil
 end
 
