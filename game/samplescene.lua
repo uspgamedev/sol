@@ -52,7 +52,22 @@ element 'Image'
     parts = { image {} }
   }
   :add_property 'moveable' {
-    link { controller='player', to='speed', with='vector{0,-50}'--[['@up+@down+@left+@right']] }
+    link { controller='player', to='speed', with='100*(@up+@down+@left+@right)' }
+  }
+  :add_property 'useskeyboard' {
+    controller = 'player',
+    keyup = {
+      up = vector{},
+      down = vector{},
+      left = vector{},
+      right = vector{}
+    },
+    keydown = {
+      up = vector{0,-1},
+      down = vector{0,1},
+      left = vector{-1,0},
+      right = vector{1,0}
+    }
   }
   :add_property 'controller' {
     sendto = 'homing',

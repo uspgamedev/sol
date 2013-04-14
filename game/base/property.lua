@@ -11,6 +11,10 @@ property.__init = {
   requires  = {}
 }
 
+function property:start (element)
+  -- nothing
+end
+
 function property:visit (element)
   for trigger_name,action in pairs(self.triggers) do
     content.triggers[trigger_name]:register(element, action)

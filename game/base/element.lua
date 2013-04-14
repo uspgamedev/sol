@@ -25,6 +25,7 @@ function element:add_property (property_name, data)
   end
   -- Clone the property into the element
   self[property_name] = property:new(data)
+  self[property_name]:start(self)
   property:visit(self)
   content.triggers.update:register(self[property_name], property.update)
   return self

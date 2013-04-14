@@ -6,6 +6,7 @@ require 'content.triggers.update'
 require 'content.triggers.draw'
 require 'content.triggers.mouse_pressedleft'
 require 'content.triggers.mouse_releasedleft'
+require 'content.triggers.keyboard'
 require 'lux.geom.vector'
 
 local elements
@@ -44,6 +45,11 @@ function love.keypressed (button)
   elseif button == 's' then
     scene.save('out.lua', elements)
   end
+  content.triggers.keyboard:activate(button, 'down')
+end
+
+function love.keyreleased (button)
+  content.triggers.keyboard:activate(button, 'up')
 end
 
 function love.draw ()
