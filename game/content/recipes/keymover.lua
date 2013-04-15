@@ -6,7 +6,7 @@ require 'lux.geom.vector'
 
 function new( elements,name,data )
   if not data then
-    return lux.functional.bindleft(content.build.keymover.new, elements, name)
+    return lux.functional.bindleft(content.recipes.keymover.new, elements, name)
   end
 
   function data:update()

@@ -43,6 +43,7 @@ local function prepare_env (env, elements)
 
   env.make = {}
   env.make.creator = lambda.bindleft(content.recipes.creator.new,elements)
+  env.make.bullet = lambda.bindleft(content.recipes.bullet.new,elements)
 end
 
 function load (file)

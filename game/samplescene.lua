@@ -49,7 +49,7 @@ element 'Image'
     share { incontext='homing', value='pos', as=[[pos]] }
   }
   :add_property 'moveable' {
-    apply { fromcontext='player', to='speed', with=[[ 100*(@up+@down+@left+@right) ]] }
+    apply { fromcontext='player', to='speed', with=[[ @lshift*100*(@up+@down+@left+@right) ]] }
   }
   :add_property 'useskeyboard' {
     sharein = 'player',
@@ -57,7 +57,8 @@ element 'Image'
       up    = { up=vector{}, down=vector{0,-1}, },
       down  = { up=vector{}, down=vector{0,1}, },
       left  = { up=vector{}, down=vector{-1,0}, },
-      right = { up=vector{}, down=vector{1,0} }
+      right = { up=vector{}, down=vector{1,0} },
+      lshift = { up=1 , down= 3}
     }
   }
 
@@ -70,6 +71,12 @@ make.creator 'FireShooter' {
   power = 10, --not used yet
   apply { fromcontext='homing', to='from', with='@pos' }
  }
+}
+
+make.bullet 'YEAY' {
+  from = point{100,100},
+  to = point{200,200},
+  size = vector {2,2}
 }
 
 --[[ WISH LIST ]]--

@@ -17,6 +17,7 @@ function new(elements, name, data)
     getfenv(link.action).property  = data.args
   end
 
+  if not data.args.name then data.args.name = name .. '_bullet' end
   creator.name = name
   creator.alwaystrigger = true
   property.triggers[data.trigger] = function(self,...)
@@ -28,13 +29,3 @@ function new(elements, name, data)
   elements[creator.name] = creator
   return creator
 end
-
---build.creator 'FireShooter' {
--- builder = 'bullet',
--- trigger = 'mouse_pressedleft',
--- args = {
---  parts = { circle{ color={255,0,0,255} } },
---  power = 10, --not used yet
---  apply { fromcontext='homing', to='from', with='@pos' }
--- }
---}
