@@ -25,7 +25,7 @@ end
 function create(elements, args, x,y)
   if not args.shotcount then args.shotcount = 0 end
   args.shotcount = args.shotcount + 1
-  local data = {from = args.from, to = lux.geom.point:new{x,y}, parts = args.parts}
+  local data = {from = args.from, to = args.to or lux.geom.point:new{x,y}, parts = args.parts}
 
   return new(elements, args.name .. '#' .. args.shotcount,data)
 end

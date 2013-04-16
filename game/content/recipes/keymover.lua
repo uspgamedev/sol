@@ -1,3 +1,4 @@
+-- Deprecated -- use useskeyboard
 module ('content.recipes.keymover', package.seeall)
 
 require 'base.element'

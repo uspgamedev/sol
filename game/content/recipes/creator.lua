@@ -11,19 +11,22 @@ function new(elements, name, data)
 
   local createfunc = require('content.recipes.' .. data.recipe).create
   local creator = base.element:new{}
-  local property =base.property:new{}
+  local property = base.property:new{}
   
   for _,link in ipairs(data.args) do
     getfenv(link.action).property  = data.args
   end
 
-  if not data.args.name then data.args.name = name .. '_bullet' end
+  if not data.args.name then data.args.name = name .. '_' .. data.recipe end
+  
   creator.name = name
   creator.alwaystrigger = true
+  
   property.triggers[data.trigger] = function(self,...)
      for _,link in ipairs(data.args) do link.action() end
      createfunc(elements,data.args,...) 
    end
+   
   creator.checktriggers = property
   property:visit(creator)
   elements[creator.name] = creator
