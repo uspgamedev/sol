@@ -17,7 +17,7 @@ function new( elements, name, data )
     size = data.size or lux.geom.vector:new{128/500,128/500}, 
     parts = data.parts
     })
-  shot:add_property('moveable',{ speed = (data.to-data.from):normalize()*(data.speed or 50)*10 })
+  shot:add_property('moveable',{ speed = (data.to-data.from):normalized()*(data.speed or 50)*10 })
   elements[shot.name] = shot
   return shot
 end

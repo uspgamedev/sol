@@ -117,9 +117,20 @@ function vector.__mul (lhs, rhs)
 end
 
 function vector.__div (lhs, rhs)
-  if type(rhs)=="number" then return mul_scalar(1/rhs,lhs) end
-  if type(lhs)=="number" then return mul_scalar(1/lhs,rhs) end
-  return nil
+  if type(rhs) == "number" then
+    return mul_scalar(1.0/rhs, lhs)
+  end
+  return error "Cannot divide "..type(lhs).." by "..type(rhs).."."
+end
+
+function vector:size ()
+  return math.sqrt(
+    self[1]*self[1] + self[2]*self[2] + self[3]*self[3] + self[4]*self[4]
+  )
+end
+
+function vector:normalized ()
+  return self/self:size()
 end
 
 function vector:set (x, y, z, w)
@@ -145,9 +156,5 @@ end
 
 function vector:unpack ()
   return self[1], self[2], self[3], self[4]
-end
-
-function vector:normalize()
-    return self/math.sqrt(self[1]^2 + self[2]^2)
 end
 
