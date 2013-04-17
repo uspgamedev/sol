@@ -76,7 +76,8 @@ make.creator 'FireShooter' {
 make.bullet 'YEAY' {
   from = point{100,100},
   to = point{200,200},
-  size = vector {2,2}
+  size = vector {2,2},
+  speed = 11
 }
 
 --[[ WISH LIST ]]--

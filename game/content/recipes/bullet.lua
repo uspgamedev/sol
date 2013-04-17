@@ -17,7 +17,7 @@ function new( elements, name, data )
     size = data.size or lux.geom.vector:new{128/500,128/500}, 
     parts = data.parts
     })
-  shot:add_property('moveable',{ speed = data.to-data.from })
+  shot:add_property('moveable',{ speed = (data.to-data.from):normalize()*(data.speed or 50)*10 })
   elements[shot.name] = shot
   return shot
 end
@@ -25,7 +25,7 @@ end
 function create(elements, args, x,y)
   if not args.shotcount then args.shotcount = 0 end
   args.shotcount = args.shotcount + 1
-  local data = {from = args.from, to = args.to or lux.geom.point:new{x,y}, parts = args.parts}
+  local data = {from = args.from, to = args.to or lux.geom.point:new{x,y}, speed = args.speed, parts = args.parts}
 
   return new(elements, args.name .. '#' .. args.shotcount,data)
 end

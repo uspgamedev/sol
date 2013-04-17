@@ -116,6 +116,12 @@ function vector.__mul (lhs, rhs)
   end
 end
 
+function vector.__div (lhs, rhs)
+  if type(rhs)=="number" then return mul_scalar(1/rhs,lhs) end
+  if type(lhs)=="number" then return mul_scalar(1/lhs,rhs) end
+  return nil
+end
+
 function vector:set (x, y, z, w)
   self[1] = x or 0
   self[2] = y or 0
@@ -139,5 +145,9 @@ end
 
 function vector:unpack ()
   return self[1], self[2], self[3], self[4]
+end
+
+function vector:normalize()
+    return self/math.sqrt(self[1]^2 + self[2]^2)
 end
 
