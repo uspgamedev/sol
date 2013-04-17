@@ -91,3 +91,9 @@ element "Stalker"
 	}
  
 --[[ WISH LIST ]]--
+
+make.button 'awesomebutton' {
+    pos = point {100,100},
+    width = 50,
+    height = 50
+}
