@@ -14,10 +14,40 @@ local elements
 function love.load (args)
   love.graphics.setFont(love.graphics.newFont())
   elements = scene.load(args[2] and ('content/scenes/'..args[2]) or 'samplescene.lua')
+  handleMouse()
+  handleJoystick()
 end
 
 function love.update (dt)
   content.triggers.update:activate(dt)
+  handleMouse()
+  handleJoystick()
+end
+
+function handleMouse()
+  base.message.send("mouse",'x',love.mouse.getX())
+  base.message.send("mouse",'y',love.mouse.getY())
+  base.message.send("mouse","visible",love.mouse.isVisible())
+  base.message.send("mouse","position",lux.geom.point:new{love.mouse.getPosition()})
+end
+function handleJoystick()
+  print(love.joystick.getNumJoysticks())
+  for j=0, love.joystick.getNumJoysticks() do
+    if(love.joystick.open(j)) then
+      for i=0, love.joystick.getNumAxes(j) do
+        base.message.send("joystick","axis"..i,love.joystick.getAxis(j, i))
+      end for i=0, love.joystick.getNumButtons(j) do 
+        base.message.send("joystick","button"..i,love.joystick.isDown(j, i))
+      end for i=0, love.joystick.getNumBalls(j) do
+        local ballX, ballY = love.joystick.getBall(j, i)
+        base.message.send("joystick","ballX",ballX)
+        base.message.send("joystick","ballY",ballY)
+      end for i=0, love.joystick.getNumHats(j) do
+        base.message.send("joystick","hat",love.joystick.getHat(j, i))
+      end
+    love.joystick.close(j)
+    end
+  end
 end
 
 function love.mousepressed (x, y, button)

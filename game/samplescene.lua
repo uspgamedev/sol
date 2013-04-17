@@ -80,4 +80,14 @@ make.bullet 'YEAY' {
   speed = 11
 }
 
+element "Follower"
+ : add_property "visible" {
+ 	apply {fromcontext="mouse", to="pos", with="point {@x,@y}"}
+	}
+ 
+element "Stalker"
+	:add_property "moveable" {
+		apply {fromcontext="mouse", to="speed", with="@position-element.visible.pos"}
+	}
+ 
 --[[ WISH LIST ]]--
