@@ -88,12 +88,22 @@ element "Follower"
 element "Stalker"
 	:add_property "moveable" {
 		apply {fromcontext="mouse", to="speed", with="@position-element.visible.pos"}
-	}
+  }
  
+make.button 'awesomebutton' {
+    pos = point {100,100}
+}
 --[[ WISH LIST ]]--
 
-make.button 'awesomebutton' {
-    pos = point {100,100},
-    width = 50,
-    height = 50
-}
+
+--make.button 'awesomebutton' {
+--    pos = point {100,100},
+--    width = 50,
+--    height = 50,
+--    sharein = 'button',
+--    mouse = {up = 1,down = 2},
+--    colorUp = {255,255,255,255},
+--    colorUpHover = {200,200,200,255},
+--    colorDown = {255,0,0,255},
+--    colorDownHover = {200,0,0,255}
+--}

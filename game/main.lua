@@ -31,7 +31,6 @@ function handleMouse()
   base.message.send("mouse","position",lux.geom.point:new{love.mouse.getPosition()})
 end
 function handleJoystick()
-  print(love.joystick.getNumJoysticks())
   for j=0, love.joystick.getNumJoysticks() do
     if(love.joystick.open(j)) then
       for i=0, love.joystick.getNumAxes(j) do

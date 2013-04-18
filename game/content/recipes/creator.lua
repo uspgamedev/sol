@@ -22,10 +22,19 @@ function new(elements, name, data)
   creator.name = name
   creator.alwaystrigger = true
   
-  property.triggers[data.trigger] = function(self,...)
+  local triggertype = type(data.trigger)
+
+  if triggertype=='string' then 
+    property.triggers[data.trigger] = function(self,...)
      for _,link in ipairs(data.args) do link.action() end
-     createfunc(elements,data.args,...) 
-   end
+      createfunc(elements,data.args,...) 
+    end
+  elseif triggertype=='function' then
+   -- data.trigger(function(self,...)
+   --  for _,link in ipairs(data.args) do link.action() end
+   --   createfunc(elements,data.args,...) 
+   -- end)
+  end
    
   creator.checktriggers = property
   property:visit(creator)
