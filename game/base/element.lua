@@ -6,7 +6,19 @@ require 'lux.functional'
 require 'content.properties'
 require 'content.triggers'
 
-element = lux.object.new {
+local elements      = {}
+local element_mttab = lux.object.new {}
+
+function element_mttab:__call (name)
+  if elements[name] then
+    return elements[name]
+  end
+  local new_element = element:new { name = name }
+  elements[name] = new_element
+  return new_element
+end
+
+element = element_mttab:new {
   name  = 'Unnamed Element'
 }
 
@@ -25,8 +37,28 @@ function element:add_property (property_name, data)
   end
   -- Clone the property into the element
   self[property_name] = property:new(data)
-  self[property_name]:start(self)
-  property:visit(self)
-  content.triggers.update:register(self[property_name], property.update)
+  local added_property = self[property_name]
+  added_property:start(self)
+  property:add_triggers(self)
+  content.triggers.update:register(added_property, property.update)
   return self
+end
+
+function element:remove_property (property_name)
+  -- Look for the property
+  local to_be_removed = self[property_name]
+  -- Cannot remove a property that isn't there
+  if not to_be_removed then return end
+  to_be_removed:finish(self)
+  content.triggers.update:unregister(to_be_removed, to_be_removed.update)
+  self[property_name] = nil
+end
+
+function element:free ()
+  for property_name,_ in pairs(self) do
+    if property_name ~= 'name' then
+      self:remove_property(property_name)
+    end
+  end
+  elements[self.name] = nil
 end

@@ -38,8 +38,9 @@ function make(elements, name, data)
    -- end)
   end
    
+  -- FIXME
   creator.checktriggers = property
-  property:visit(creator)
+  property:add_triggers(creator)
   elements[creator.name] = creator
   return creator
 end

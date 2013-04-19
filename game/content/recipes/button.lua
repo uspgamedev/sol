@@ -43,7 +43,7 @@ function make ( elements, name, data)
     function element.visible.triggers:mouse_releasedleft ( x, y )
       --dostuff
     end
-    element.visible:visit(element)
+    element.visible:add_triggers(element)
 
     elements[element.name] = element
     return element

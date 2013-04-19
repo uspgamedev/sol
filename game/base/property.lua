@@ -19,7 +19,11 @@ function property:start (element)
   end
 end
 
-function property:visit (element)
+function property:finish (element)
+  ----
+end
+
+function property:add_triggers (element)
   for trigger_name,action in pairs(self.triggers) do
     content.triggers[trigger_name]:register(element, action)
   end
