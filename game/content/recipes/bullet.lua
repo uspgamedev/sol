@@ -21,11 +21,3 @@ function make( elements, name, data )
   elements[shot.name] = shot
   return shot
 end
-
-function create(elements, args)
-  if not args.shotcount then args.shotcount = 0 end
-  args.shotcount = args.shotcount + 1
-  local data = {from = args.from, to = args.to, speed = args.speed, parts = args.parts}
-
-  return make(elements, args.name .. '#' .. args.shotcount,data)
-end
