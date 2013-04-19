@@ -22,10 +22,10 @@ function new( elements, name, data )
   return shot
 end
 
-function create(elements, args, x,y)
+function create(elements, args)
   if not args.shotcount then args.shotcount = 0 end
   args.shotcount = args.shotcount + 1
-  local data = {from = args.from, to = args.to or lux.geom.point:new{x,y}, speed = args.speed, parts = args.parts}
+  local data = {from = args.from, to = args.to, speed = args.speed, parts = args.parts}
 
   return new(elements, args.name .. '#' .. args.shotcount,data)
 end

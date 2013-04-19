@@ -63,14 +63,15 @@ element 'Image'
   }
 
 make.creator 'FireShooter' {
- recipe = 'bullet',
- trigger = 'mouse_pressedleft',
- args = {
-  name = 'Fireball',
-  parts = { circle{ color={255,0,0,255} } },
-  power = 10, --not used yet
-  apply { fromcontext='homing', to='from', with='@pos' }
- }
+  recipe = 'bullet',
+  trigger = 'mouse_pressedleft',
+  args = {
+    name = 'Fireball',
+    parts = { circle{ color={255,0,0,255} } },
+    power = 10, --not used yet
+    apply { fromcontext='homing', to='from', with='@pos' },
+    apply { fromcontext='mouse', to='to', with='@position'}
+  }
 }
 
 make.bullet 'YEAY' {
