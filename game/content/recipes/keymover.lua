@@ -5,9 +5,9 @@ require 'base.element'
 require 'lux.functional'
 require 'lux.geom.vector'
 
-function new( elements,name,data )
+function make( elements,name,data )
   if not data then
-    return lux.functional.bindleft(content.recipes.keymover.new, elements, name)
+    return lux.functional.bindleft(content.recipes.keymover.make, elements, name)
   end
 
   function data:update()

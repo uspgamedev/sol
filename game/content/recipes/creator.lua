@@ -4,9 +4,9 @@ require 'base.element'
 require 'base.property'
 require 'base.message'
 
-function new(elements, name, data)
+function make(elements, name, data)
   if not data then
-    return lux.functional.bindleft(content.recipes.creator.new, elements, name)
+    return lux.functional.bindleft(content.recipes.creator.make, elements, name)
   end
 
   local createfunc = require('content.recipes.' .. data.recipe).create

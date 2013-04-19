@@ -5,10 +5,10 @@ require 'lux.functional'
 require 'lux.geom.vector'
 require 'content.draw'
 
-function new ( elements, name, data)
+function make ( elements, name, data)
     if elements[name] then return elements[name] end
     if not data then
-      return lux.functional.bindleft(content.recipes.button.new, elements, name)
+      return lux.functional.bindleft(content.recipes.button.make, elements, name)
     end
     
     local element = base.element:new()

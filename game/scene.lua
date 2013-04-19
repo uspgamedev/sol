@@ -42,9 +42,9 @@ local function prepare_env (env, elements)
   import(env, 'point', lux.geom.point)
 
   env.make = {}
-  env.make.creator = lambda.bindleft(content.recipes.creator.new,elements)
-  env.make.bullet = lambda.bindleft(content.recipes.bullet.new,elements)
-  env.make.button = lambda.bindleft(content.recipes.button.new,elements)
+  env.make.creator = lambda.bindleft(content.recipes.creator.make,elements)
+  env.make.bullet = lambda.bindleft(content.recipes.bullet.make,elements)
+  env.make.button = lambda.bindleft(content.recipes.button.make,elements)
 end
 
 function load (file)

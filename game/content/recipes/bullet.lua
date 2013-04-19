@@ -5,9 +5,9 @@ require 'lux.functional'
 require 'lux.geom.vector'
 require 'content.draw'
 
-function new( elements, name, data )
+function make( elements, name, data )
   if not data then
-    return lux.functional.bindleft(content.recipes.bullet.new, elements, name)
+    return lux.functional.bindleft(content.recipes.bullet.make, elements, name)
   end
 
   local shot = base.element:new{}
@@ -27,5 +27,5 @@ function create(elements, args)
   args.shotcount = args.shotcount + 1
   local data = {from = args.from, to = args.to, speed = args.speed, parts = args.parts}
 
-  return new(elements, args.name .. '#' .. args.shotcount,data)
+  return make(elements, args.name .. '#' .. args.shotcount,data)
 end
