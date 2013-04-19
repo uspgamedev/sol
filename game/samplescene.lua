@@ -49,7 +49,7 @@ element 'Image'
     share { incontext='homing', value='pos', as=[[pos]] }
   }
   :add_property 'moveable' {
-    apply { fromcontext='player', to='speed', with=[[ 100*(@up+@down+@left+@right) ]] }
+    apply { fromcontext='player', to='speed', with=[[ @lshift*100*(@up+@down+@left+@right) ]] }
   }
   :add_property 'useskeyboard' {
     sharein = 'player',
@@ -57,52 +57,54 @@ element 'Image'
       up    = { up=vector{}, down=vector{0,-1}, },
       down  = { up=vector{}, down=vector{0,1}, },
       left  = { up=vector{}, down=vector{-1,0}, },
-      right = { up=vector{}, down=vector{1,0} }
+      right = { up=vector{}, down=vector{1,0} },
+      lshift = { up=1 , down= 3}
     }
   }
 
-build.keymover 'Mover' {
-  sendto = 'player',
-  message = 'dir',
-  keymap = {
-    up = vector{0,-1},
-    down = vector{0,1},
-    left = vector{-1,0},
-    right = vector{1,0}
+make.creator 'FireShooter' {
+  recipe = 'bullet',
+  trigger = 'mouse_pressedleft',
+  args = {
+    name = 'Fireball',
+    parts = { circle{ color={255,0,0,255} } },
+    power = 10, --not used yet
+    apply { fromcontext='homing', to='origin', with='@pos' },
+    apply { fromcontext='mouse', to='target', with='@position'}
   }
-} 
+}
 
+make.bullet 'YEAY' {
+  origin = point{100,100},
+  target = point{200,200},
+  size = vector {2,2},
+  speed = 11
+}
+
+element "Follower"
+ : add_property "visible" {
+ 	apply {fromcontext="mouse", to="pos", with="point {@x,@y}"}
+	}
+ 
+element "Stalker"
+	:add_property "moveable" {
+		apply {fromcontext="mouse", to="speed", with="@position-element.visible.pos"}
+  }
+ 
+make.button 'awesomebutton' {
+    pos = point {100,100}
+}
 --[[ WISH LIST ]]--
 
---build.bullet 'Fireball' {
---  image = 'aksjdhak',
---  dir = vector{},
---  power = 10
---}
 
---build.creator 'Shooter' {
---  builder = 'bullet',
---  trigger = 'mouse_pressedleft',
---  map = {
---    { arg='dir', formula='vector{x,y}' }
---  }
+--make.button 'awesomebutton' {
+--    pos = point {100,100},
+--    width = 50,
+--    height = 50,
+--    sharein = 'button',
+--    mouse = {up = 1,down = 2},
+--    colorUp = {255,255,255,255},
+--    colorUpHover = {200,200,200,255},
+--    colorDown = {255,0,0,255},
+--    colorDownHover = {200,0,0,255}
 --}
-
---movement_map = {
---  up = vector{0,-1},
---  down = vector{0,1},
---  left = vector{-1,0},
---  right = vector{1,0}
---}
-
---element 'Player'
---  :add_property 'controller' {
---    sendto = 'player',
---    update = function(self)
---      local dir = vector{}
---      for key,v in pairs(movement_map) do
---        dir = dir + (keyboard.isDown(key) and v or vector{})
---      end
---      self.controller:send('dir', 100*dir)
---    end
---  }

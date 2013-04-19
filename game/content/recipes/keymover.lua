@@ -1,12 +1,13 @@
-module ('content.build.keymover', package.seeall)
+-- Deprecated -- use useskeyboard
+module ('content.recipes.keymover', package.seeall)
 
 require 'base.element'
 require 'lux.functional'
 require 'lux.geom.vector'
 
-function new( elements,name,data )
+function make( elements,name,data )
   if not data then
-    return lux.functional.bindleft(content.build.keymover.new, elements, name)
+    return lux.functional.bindleft(content.recipes.keymover.make, elements, name)
   end
 
   function data:update()
@@ -19,8 +20,8 @@ function new( elements,name,data )
   end
 
   local player = base.element:new()
-  player.name = name 
+  player.name = name
   player:add_property ('controller',data)
-  elements.__player = player
+  elements[player.name] = player
   return player
 end

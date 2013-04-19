@@ -116,6 +116,23 @@ function vector.__mul (lhs, rhs)
   end
 end
 
+function vector.__div (lhs, rhs)
+  if type(rhs) == "number" then
+    return mul_scalar(1.0/rhs, lhs)
+  end
+  return error "Cannot divide "..type(lhs).." by "..type(rhs).."."
+end
+
+function vector:size ()
+  return math.sqrt(
+    self[1]*self[1] + self[2]*self[2] + self[3]*self[3] + self[4]*self[4]
+  )
+end
+
+function vector:normalized ()
+  return self/self:size()
+end
+
 function vector:set (x, y, z, w)
   self[1] = x or 0
   self[2] = y or 0
