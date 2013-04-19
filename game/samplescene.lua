@@ -69,14 +69,14 @@ make.creator 'FireShooter' {
     name = 'Fireball',
     parts = { circle{ color={255,0,0,255} } },
     power = 10, --not used yet
-    apply { fromcontext='homing', to='from', with='@pos' },
-    apply { fromcontext='mouse', to='to', with='@position'}
+    apply { fromcontext='homing', to='origin', with='@pos' },
+    apply { fromcontext='mouse', to='target', with='@position'}
   }
 }
 
 make.bullet 'YEAY' {
-  from = point{100,100},
-  to = point{200,200},
+  origin = point{100,100},
+  target = point{200,200},
   size = vector {2,2},
   speed = 11
 }

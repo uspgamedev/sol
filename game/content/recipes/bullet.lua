@@ -13,11 +13,15 @@ function make( elements, name, data )
   local shot = base.element:new{}
   shot.name = name
   shot:add_property('visible',{
-    pos = data.from, 
+    pos = data.origin, 
     size = data.size or lux.geom.vector:new{128/500,128/500}, 
     parts = data.parts
-    })
-  shot:add_property('moveable',{ speed = (data.to-data.from):normalized()*(data.speed or 50)*10 })
+  })
+  shot:add_property(
+    'moveable', {
+      speed = (data.target-data.origin):normalized()*(data.speed or 50)*10
+    }
+  )
   elements[shot.name] = shot
   return shot
 end
