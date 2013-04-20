@@ -3,10 +3,13 @@ module ('content.properties', package.seeall)
 
 require 'base.property'
 require 'base.message'
+require 'base.trigger'
+require 'content.triggers'
 
 clickable = base.property:new {
   requires = { 'visible' },
   sharein = 'anonymous',
+  totrigger = 'never',
   width = 100,
   height = 100,
   textcolor = nil
@@ -69,7 +72,8 @@ function clickable:setup (element)
       color = self.textcolor
     } --[3]
   }
-  self.totrigger = {}
+  content.triggers[self.totrigger] =
+    content.triggers[self.totrigger] or base.trigger:new{}
 end
 
 function clickable.triggers:mouse_entered ()
@@ -84,7 +88,7 @@ function clickable.triggers:mouse_pressedleft ()
   self.visible.parts[1].color = self.clickable.colorDown
   self.visible.parts[2].color = self.clickable.colorDownLine
 
-  for _,trig in ipairs(self.clickable.totrigger) do trig() end
+  content.triggers[self.clickable.totrigger]:activate()
 end
 
 function clickable.triggers:mouse_exited ()

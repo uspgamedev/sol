@@ -15,7 +15,3 @@ function make (name, data)
 
   return element
 end
-
-function trigger( elements, name )
-  return elements[name].clickable.totrigger
-end

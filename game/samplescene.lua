@@ -93,15 +93,16 @@ element "Stalker"
   }
  
 make.button 'awesomebutton' {
-    pos = point {100,100},
-    sharein = 'but',
-    state = { up = false, down = true}
+  pos = point {100,100},
+  sharein = 'but',
+  state = { up = false, down = true}
 }
 
 make.button 'Shrute' {
   pos = point{500,300},
   width = 80,
   height = 30,
+  totrigger = 'shrute-pressed',
   colorUp = {0,120,0,255},
   colorUpLine = {0,20,180,255},
   colorDown = {0,140,140,255},
@@ -110,7 +111,7 @@ make.button 'Shrute' {
 
 make.creator 'Shruter' {
   recipe = 'bullet',
-  trigger = make.trigger 'Shrute',
+  trigger = 'shrute-pressed',
   args = {
     origin = point{500,300},
     speed = 70,
