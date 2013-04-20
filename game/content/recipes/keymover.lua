@@ -5,10 +5,7 @@ require 'base.element'
 require 'lux.functional'
 require 'lux.geom.vector'
 
-function make( elements,name,data )
-  if not data then
-    return lux.functional.bindleft(content.recipes.keymover.make, elements, name)
-  end
+function make( name,data )
 
   function data:update()
       local dir = lux.geom.vector:new{}
@@ -22,6 +19,5 @@ function make( elements,name,data )
   local player = base.element:new()
   player.name = name
   player:add_property ('controller',data)
-  elements[player.name] = player
   return player
 end

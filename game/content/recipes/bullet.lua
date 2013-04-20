@@ -5,14 +5,14 @@ require 'lux.functional'
 require 'lux.geom.vector'
 require 'content.draw'
 
-function make( elements, name, data )
-  if not data then
-    return lux.functional.bindleft(content.recipes.bullet.make, elements, name)
-  end
+function make (name, data)
 
   local target = data.target
   if not target then
-    target = lux.geom.point:new{math.random(love.graphics.getWidth()),math.random(love.graphics.getHeight())}
+    target = lux.geom.point:new{
+      math.random(love.graphics.getWidth()),
+      math.random(love.graphics.getHeight())
+    }
   end 
 
   local shot = base.element:new{}
@@ -27,6 +27,5 @@ function make( elements, name, data )
       speed = (target-data.origin):normalized()*(data.speed or 50)*10
     }
   )
-  elements[shot.name] = shot
   return shot
 end

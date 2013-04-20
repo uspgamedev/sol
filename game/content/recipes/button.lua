@@ -7,17 +7,12 @@ require 'lux.geom.vector'
 require 'content.draw'
 require 'content.properties'
 
-function make ( elements, name, data)
-  if elements[name] then return elements[name] end
-  if not data then
-    return lux.functional.bindleft(content.recipes.button.make, elements, name)
-  end
+function make (name, data)
   
   local element = base.element:new{ name = name }
 
   element:add_property('clickable', data)
 
-  elements[element.name] = element
   return element
 end
 

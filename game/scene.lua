@@ -22,6 +22,13 @@ local function new_element (elements, name)
   return element
 end
 
+local function make_recipe (elements, recipe_name, elem_name, data)
+  if elements[name] then return elements[name] end
+  local element = content.recipes[recipe_name].make(elem_name, data)
+  elements[element.name] = element
+  return element
+end
+
 local function import (env, name, imported)
   env[name] = lambda.bindleft(imported.new, imported)
 end
@@ -43,7 +50,10 @@ local function prepare_env (env, elements)
 
   env.make = {}
   for recipe_name,recipe in pairs(content.recipes) do
-    env.make[recipe_name] = lambda.bindleft(recipe.make, elements)
+    env.make[recipe_name] = lambda.chain(
+      lambda.bindleft(make_recipe, elements, recipe_name),
+      1
+    )
   end
   env.make.trigger = lambda.bindleft(content.recipes.button.trigger,elements)
 end
