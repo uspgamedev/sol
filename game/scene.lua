@@ -45,6 +45,7 @@ local function prepare_env (env, elements)
   for recipe_name,recipe in pairs(content.recipes) do
     env.make[recipe_name] = lambda.bindleft(recipe.make, elements)
   end
+  env.make.trigger = lambda.bindleft(content.recipes.button.trigger,elements)
 end
 
 function load (file)

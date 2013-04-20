@@ -10,9 +10,11 @@ require 'content.draw'
 visible = base.property:new {
   pos = lux.geom.point:new {0,0},
   size = lux.geom.vector:new {1,1},
+  hidden = false
 }
 
 function visible.triggers:draw (graphics)
+  if self.visible.hidden then return end
   for _,drawable in ipairs(self.visible.parts) do
     drawable:draw(self, graphics)
   end
