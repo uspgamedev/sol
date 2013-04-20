@@ -112,10 +112,10 @@ make.creator 'Shruter' {
   recipe = 'bullet',
   trigger = make.trigger 'Shrute',
   args = {
-  origin = point{500,300},
-  speed = 70,
-  parts = {circle{color={0,200,0,255}}}
-}
+    origin = point{500,300},
+    speed = 70,
+    parts = { circle{ color={0,200,0,255} } }
+  }
 }
 --[[ WISH LIST ]]--
 
