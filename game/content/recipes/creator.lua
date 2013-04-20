@@ -31,11 +31,12 @@ function make(elements, name, data)
       createfunc(elements, data.args.name..'(#'..data.args.nextID..')', data.args)
       data.args.nextID = data.args.nextID+1
     end
-  elseif triggertype=='function' then
-   -- data.trigger(function(self,...)
-   --  for _,link in ipairs(data.args) do link.action() end
-   --   createfunc(elements,data.args,...) 
-   -- end)
+  elseif triggertype=='table' then
+    table.insert(data.trigger,function()
+      for _,link in ipairs(data.args) do link.action() end
+      createfunc(elements, data.args.name..'(#'..data.args.nextID..')', data.args)
+      data.args.nextID = data.args.nextID+1
+    end)
   end
    
   -- FIXME

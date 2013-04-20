@@ -35,10 +35,11 @@ element 'Rectangle'
     parts = {
       rectangle {
         width = 256,
-        height = 32,
+        height = 100,
         color = {200, 50, 0, 100},
       }
-    }
+    },
+    apply { fromcontext='but', to='hidden', with='@state'}
   }
 
 element 'Image'
@@ -83,16 +84,38 @@ make.bullet 'YEAY' {
 
 element "Follower"
  : add_property "visible" {
- 	apply {fromcontext="mouse", to="pos", with="point {@x,@y}"}
-	}
+  apply {fromcontext="mouse", to="pos", with="point {@x,@y}"}
+  }
  
 element "Stalker"
-	:add_property "moveable" {
-		apply {fromcontext="mouse", to="speed", with="@position-element.visible.pos"}
+  :add_property "moveable" {
+    apply {fromcontext="mouse", to="speed", with="@position-element.visible.pos"}
   }
  
 make.button 'awesomebutton' {
-    pos = point {100,100}
+    pos = point {100,100},
+    sharein = 'but',
+    state = { up = false, down = true}
+}
+
+make.button 'Shrute' {
+  pos = point{500,300},
+  width = 80,
+  height = 30,
+  colorUp = {0,120,0,255},
+  colorUpLine = {0,20,180,255},
+  colorDown = {0,140,140,255},
+  textcolor = {20,10,10,255}
+}
+
+make.creator 'Shruter' {
+  recipe = 'bullet',
+  trigger = make.trigger 'Shrute',
+  args = {
+  origin = point{500,300},
+  speed = 70,
+  parts = {circle{color={0,200,0,255}}}
+}
 }
 --[[ WISH LIST ]]--
 
@@ -102,7 +125,7 @@ make.button 'awesomebutton' {
 --    width = 50,
 --    height = 50,
 --    sharein = 'button',
---    mouse = {up = 1,down = 2},
+--    pressed = {up = 1,down = 2},
 --    colorUp = {255,255,255,255},
 --    colorUpHover = {200,200,200,255},
 --    colorDown = {255,0,0,255},

@@ -7,7 +7,8 @@ require 'base.drawable'
 text = base.drawable:new {
   text = '$name$',
   linesize = 64,
-  format = 'center'
+  format = 'center',
+  width = 0, height = 0 --avoid errors
 }
 
 local accessor_code = [[

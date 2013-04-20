@@ -25,10 +25,13 @@ function love.update (dt)
 end
 
 function handleMouse()
-  base.message.send("mouse",'x',love.mouse.getX())
-  base.message.send("mouse",'y',love.mouse.getY())
+  local x,y = love.mouse.getX(),love.mouse.getY()
+  content.triggers.mouse_entered:activate(x, y)
+  content.triggers.mouse_exited :activate(x, y)
+  base.message.send("mouse",'x',x)
+  base.message.send("mouse",'y',y)
   base.message.send("mouse","visible",love.mouse.isVisible())
-  base.message.send("mouse","position",lux.geom.point:new{love.mouse.getPosition()})
+  base.message.send("mouse","position",lux.geom.point:new{x,y})
 end
 function handleJoystick()
   for j=0, love.joystick.getNumJoysticks() do
