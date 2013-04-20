@@ -20,23 +20,20 @@ function make(elements, name, data)
   if not data.args.name then data.args.name = name .. '_' .. data.recipe end
   
   creator.name = name
-  creator.alwaystrigger = true
   
   local triggertype = type(data.trigger)
 
-  data.args.nextID = 0
-  if triggertype=='string' then 
-    property.triggers[data.trigger] = function(self)
+  local f = function()
       for _,link in ipairs(data.args) do link.action() end
       createfunc(elements, data.args.name..'(#'..data.args.nextID..')', data.args)
       data.args.nextID = data.args.nextID+1
     end
+
+  data.args.nextID = 0
+  if triggertype=='string' then 
+    property.triggers[data.trigger] = f
   elseif triggertype=='table' then
-    table.insert(data.trigger,function()
-      for _,link in ipairs(data.args) do link.action() end
-      createfunc(elements, data.args.name..'(#'..data.args.nextID..')', data.args)
-      data.args.nextID = data.args.nextID+1
-    end)
+    table.insert(data.trigger,f)
   end
    
   -- FIXME
