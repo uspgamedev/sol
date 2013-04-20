@@ -23,11 +23,11 @@ function make(elements, name, data)
   
   local triggertype = type(data.trigger)
 
-  local f = function()
-      for _,link in ipairs(data.args) do link.action() end
-      createfunc(elements, data.args.name..'(#'..data.args.nextID..')', data.args)
-      data.args.nextID = data.args.nextID+1
-    end
+  local function f ()
+    for _,link in ipairs(data.args) do link.action() end
+    createfunc(elements, data.args.name..'(#'..data.args.nextID..')', data.args)
+    data.args.nextID = data.args.nextID+1
+  end
 
   data.args.nextID = 0
   if triggertype=='string' then 
