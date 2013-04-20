@@ -36,10 +36,10 @@ function element:add_property (property_name, data)
     self:add_property(required_name, {})
   end
   -- Clone the property into the element
-  self[property_name] = property:new(data)
-  local added_property = self[property_name]
-  added_property:start(self)
-  property:add_triggers(self)
+  local added_property = property:new(data)
+  self[property_name] = added_property
+  added_property:start(self, property)
+  --property:add_triggers(self)
   content.triggers.update:register(added_property, property.update)
   return self
 end

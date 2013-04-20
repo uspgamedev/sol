@@ -17,6 +17,12 @@ function property:start (element)
     getfenv(link.action).element   = element
     setmetatable(getfenv(link.action), { __index = self })
   end
+  self:setup(element)
+  self:__super():add_triggers(element)
+end
+
+function property:setup (element)
+  -- Abstract
 end
 
 function property:finish (element)
