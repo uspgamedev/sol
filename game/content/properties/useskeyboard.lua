@@ -13,8 +13,7 @@ useskeyboard.__init = {
   keys = {}
 }
 
-function useskeyboard:start (element)
-  useskeyboard:__super():start(element)
+function useskeyboard:setup (element)
   for button,cases in pairs(self.keys) do
     base.message.send(self.sharein, button, cases.up)
   end
