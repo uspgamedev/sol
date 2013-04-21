@@ -12,16 +12,6 @@ require 'content.recipes'
 local lambda        = lux.functional
 local scenefile_env = {}
 
-local function new_element (elements, name)
-  local element = elements[name]
-  if not element then
-    element = base.element:new{}
-    element.name = name
-    elements[name] = element
-  end
-  return element
-end
-
 local function make_recipe (elements, recipe_name, elem_name, data)
   if elements[name] then return elements[name] end
   local element = content.recipes[recipe_name].make(elem_name, data)
@@ -40,7 +30,7 @@ end
 
 local function prepare_env (env, elements)
   env.use       = lambda.bindleft(import_primitive, env)
-  env.element   = lambda.bindleft(new_element, elements)
+  env.element   = base.element
   env.apply     = base.link.create_apply
   env.share     = base.link.create_share
   env.print     = print

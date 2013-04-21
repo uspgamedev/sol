@@ -15,8 +15,7 @@ function make (name, data)
     }
   end 
 
-  local shot = base.element:new{}
-  shot.name = name
+  local shot = base.element(name)
   shot:add_property('visible',{
     pos = data.origin, 
     size = data.size or lux.geom.vector:new{128/500,128/500}, 

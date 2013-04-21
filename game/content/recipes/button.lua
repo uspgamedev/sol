@@ -9,8 +9,8 @@ require 'content.properties'
 
 function make (name, data)
   
-  local element = base.element:new{ name = name }
-
+  local element = base.element(name)
+  
   element:add_property('clickable', data)
 
   return element
