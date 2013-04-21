@@ -8,7 +8,7 @@ hitbox = lux.object.new {
   pos         = nil,  -- point
   size        = nil,  -- vector
   class       = 'nothing',
-  targetclass = 'nothing'
+  targetclass = ''
 }
 
 hitbox.__init = {
@@ -37,7 +37,7 @@ end
 function hitbox:update(owner, dt)
   self.owner = owner
   if owner then
-    self.pos   = owner.pos - self.size/2
+    self.pos = owner.visible.pos - self.size/2
     self:register()
   end
 end

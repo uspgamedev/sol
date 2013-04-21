@@ -2,6 +2,7 @@
 require 'scene'
 require 'base.element'
 require 'base.message'
+require 'base.hitbox'
 require 'content.triggers.update'
 require 'content.triggers.draw'
 require 'content.triggers.mouse_pressedleft'
@@ -20,6 +21,7 @@ function love.update (dt)
   content.triggers.update:activate(dt)
   handleMouse()
   handleJoystick()
+  base.hitbox.check_collisions()
 end
 
 function handleMouse()

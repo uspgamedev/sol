@@ -6,18 +6,19 @@ require 'base.hitbox'
 require 'content.triggers'
 
 collides = base.property:new {
-  trigger = 'never'
+  requires = {'visible'},
+  totrigger = 'never'
 }
 
 collides.__init = {
   hitbox = base.hitbox:new{}
 }
 
-function collides:start ()
+function collides:setup ()
   function self.hitbox:on_collision (collisions)
-    local collision_trigger = content.triggers(self.owner.collides.trigger)
+    local collision_trigger = content.triggers(self.owner.collides.totrigger)
     for _,another in ipairs(collisions) do
-      collision_trigger:activate(another)
+      collision_trigger:activate(another.owner)
     end
   end
 end

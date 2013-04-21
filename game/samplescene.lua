@@ -83,13 +83,26 @@ make.bullet 'YEAY' {
 }
 
 element "Follower"
- : add_property "visible" {
-  apply {fromcontext="mouse", to="pos", with="point {@x,@y}"}
+  : add_property "visible" {
+    apply {fromcontext="mouse", to="pos", with="point {@x,@y}"}
+  }
+  :add_property 'collides' {
+    hitbox = hitbox {
+      size = vector{64,64},
+      class = 'target'
+    }
   }
  
 element "Stalker"
   :add_property "moveable" {
     apply {fromcontext="mouse", to="speed", with="@position-element.visible.pos"}
+  }
+  :add_property 'collides' {
+    totrigger = 'gotcha',
+    hitbox = hitbox {
+      size = vector{64,64},
+      targetclass = 'target'
+    }
   }
  
 make.button 'awesomebutton' {

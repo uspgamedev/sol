@@ -5,6 +5,7 @@ require 'lux.functional'
 require 'lux.geom.vector'
 require 'base.element'
 require 'base.link'
+require 'base.hitbox'
 require 'content.properties'
 require 'content.draw'
 require 'content.recipes'
@@ -36,6 +37,7 @@ local function prepare_env (env)
   env.pairs     = pairs
   import(env, 'vector', lux.geom.vector)
   import(env, 'point', lux.geom.point)
+  import(env, 'hitbox', base.hitbox)
 
   env.make = {}
   for recipe_name,recipe in pairs(content.recipes) do
