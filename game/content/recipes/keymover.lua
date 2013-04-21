@@ -16,8 +16,7 @@ function make( name,data )
       self.controller:send(self.controller.message, dir)
   end
 
-  local player = base.element:new()
-  player.name = name
+  local player = base.element(name)
   player:add_property ('controller',data)
   return player
 end

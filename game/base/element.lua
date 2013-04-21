@@ -1,5 +1,5 @@
 
-module ('base', package.seeall)
+module ('base.element', package.seeall)
 
 require 'lux.object'
 require 'lux.functional'
@@ -7,9 +7,11 @@ require 'content.properties'
 require 'content.triggers'
 
 local elements      = {}
-local element_mttab = lux.object.new {}
+local element       = lux.object.new {
+  name  = 'Unnamed Element'
+}
 
-function element_mttab:__call (name)
+getmetatable(_M).__call = function (_, name)
   if elements[name] then
     return elements[name]
   end
@@ -18,9 +20,9 @@ function element_mttab:__call (name)
   return new_element
 end
 
-element = element_mttab:new {
-  name  = 'Unnamed Element'
-}
+function exists (name)
+  return elements[name] ~= nil
+end
 
 function element:add_property (property_name, data)
   -- Chain call
@@ -54,7 +56,7 @@ function element:remove_property (property_name)
   self[property_name] = nil
 end
 
-function element:free ()
+function element:destroy ()
   for property_name,_ in pairs(self) do
     if property_name ~= 'name' then
       self:remove_property(property_name)

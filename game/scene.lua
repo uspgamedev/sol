@@ -12,20 +12,9 @@ require 'content.recipes'
 local lambda        = lux.functional
 local scenefile_env = {}
 
-local function new_element (elements, name)
-  local element = elements[name]
-  if not element then
-    element = base.element:new{}
-    element.name = name
-    elements[name] = element
-  end
-  return element
-end
-
-local function make_recipe (elements, recipe_name, elem_name, data)
-  if elements[name] then return elements[name] end
+local function make_recipe (recipe_name, elem_name, data)
+  if base.element.exists(elem_name) then return base.element(name) end
   local element = content.recipes[recipe_name].make(elem_name, data)
-  elements[element.name] = element
   return element
 end
 
@@ -38,9 +27,9 @@ local function import_primitive (env, primitive_name)
   env[primitive_name] = lambda.bindleft(primitive.new, primitive)
 end
 
-local function prepare_env (env, elements)
+local function prepare_env (env)
   env.use       = lambda.bindleft(import_primitive, env)
-  env.element   = lambda.bindleft(new_element, elements)
+  env.element   = base.element
   env.apply     = base.link.create_apply
   env.share     = base.link.create_share
   env.print     = print
@@ -51,11 +40,10 @@ local function prepare_env (env, elements)
   env.make = {}
   for recipe_name,recipe in pairs(content.recipes) do
     env.make[recipe_name] = lambda.chain(
-      lambda.bindleft(make_recipe, elements, recipe_name),
+      lambda.bindleft(make_recipe, recipe_name),
       1
     )
   end
-  env.make.trigger = lambda.bindleft(content.recipes.button.trigger,elements)
 end
 
 function load (file)
@@ -64,15 +52,13 @@ function load (file)
   if not ok then
     return print('The following error happend: ' .. tostring(chunk))
   else
-    local elements = {}
     local env = {}
-    prepare_env(env, elements)
+    prepare_env(env)
     setfenv(chunk, env)
     ok, result = pcall(chunk) -- execute the chunk safely
     if not ok then -- will be false if there is an error
       print('The following error happened: ' .. tostring(result))
     end
-    return elements
   end
 end
 

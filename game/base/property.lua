@@ -11,6 +11,12 @@ property.__init = {
   requires  = {}
 }
 
+local function add_triggers (self, element)
+  for trigger_name,action in pairs(self.triggers) do
+    content.triggers[trigger_name]:register(element, action)
+  end
+end
+
 function property:start (element)
   for k,link in ipairs(self) do
     getfenv(link.action).property  = self
@@ -18,21 +24,26 @@ function property:start (element)
     setmetatable(getfenv(link.action), { __index = self })
   end
   self:setup(element)
-  self:__super():add_triggers(element)
+  add_triggers(self:__super(), element)
 end
 
 function property:setup (element)
   -- Abstract
 end
 
-function property:finish (element)
-  ----
+local function remove_triggers (self, element)
+  for trigger_name,action in pairs(self.triggers) do
+    content.triggers[trigger_name]:unregister(element, action)
+  end
 end
 
-function property:add_triggers (element)
-  for trigger_name,action in pairs(self.triggers) do
-    content.triggers[trigger_name]:register(element, action)
-  end
+function property:finish (element)
+  self:cleanup(element)
+  remove_triggers(self:__super(), element)
+end
+
+function property:cleanup (element)
+  -- Abstract
 end
 
 function property:update ()
