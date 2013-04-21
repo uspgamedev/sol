@@ -13,7 +13,7 @@ property.__init = {
 
 local function add_triggers (self, element)
   for trigger_name,action in pairs(self.triggers) do
-    content.triggers[trigger_name]:register(element, action)
+    content.triggers(trigger_name):register(element, action)
   end
 end
 
@@ -33,7 +33,7 @@ end
 
 local function remove_triggers (self, element)
   for trigger_name,action in pairs(self.triggers) do
-    content.triggers[trigger_name]:unregister(element, action)
+    content.triggers(trigger_name):unregister(element, action)
   end
 end
 
