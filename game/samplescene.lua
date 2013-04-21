@@ -131,6 +131,16 @@ make.creator 'Shruter' {
     parts = { circle{ color={0,200,0,255} } }
   }
 }
+
+make.creator 'Shruter2' {
+  recipe = 'bullet',
+  trigger = 'gotcha',
+  args = {
+    origin = point{500,300},
+    speed = 30,
+    parts = { circle{ color={150,100,0,255} } }
+  }
+}
 --[[ WISH LIST ]]--
 
 
