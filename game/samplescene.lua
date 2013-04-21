@@ -83,13 +83,26 @@ make.bullet 'YEAY' {
 }
 
 element "Follower"
- : add_property "visible" {
-  apply {fromcontext="mouse", to="pos", with="point {@x,@y}"}
+  : add_property "visible" {
+    apply {fromcontext="mouse", to="pos", with="point {@x,@y}"}
+  }
+  :add_property 'collides' {
+    bounds = hitbox {
+      size = vector{64,64},
+      class = 'target'
+    }
   }
  
 element "Stalker"
   :add_property "moveable" {
     apply {fromcontext="mouse", to="speed", with="@position-element.visible.pos"}
+  }
+  :add_property 'collides' {
+    totrigger = 'gotcha',
+    bounds = hitbox {
+      size = vector{64,64},
+      targetclass = 'target'
+    }
   }
  
 make.button 'awesomebutton' {
@@ -116,6 +129,16 @@ make.creator 'Shruter' {
     origin = point{500,300},
     speed = 70,
     parts = { circle{ color={0,200,0,255} } }
+  }
+}
+
+make.creator 'Shruter2' {
+  recipe = 'bullet',
+  trigger = 'gotcha',
+  args = {
+    origin = point{500,300},
+    speed = 30,
+    parts = { circle{ color={150,100,0,255} } }
   }
 }
 --[[ WISH LIST ]]--

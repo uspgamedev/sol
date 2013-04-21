@@ -4,7 +4,7 @@ module ('content.properties', package.seeall)
 require 'base.property'
 
 temporary = base.property:new {
-  expiretime = 5.0, -- in seconds
+  expiretime = 1.0, -- in seconds
   timer = 0.0       -- counts time, shouldn't be changed
 }
 

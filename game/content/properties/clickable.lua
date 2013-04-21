@@ -72,8 +72,7 @@ function clickable:setup (element)
       color = self.textcolor
     } --[3]
   }
-  content.triggers[self.totrigger] =
-    content.triggers[self.totrigger] or base.trigger:new{}
+  content.triggers(self.totrigger)
 end
 
 function clickable.triggers:mouse_entered ()
@@ -88,7 +87,7 @@ function clickable.triggers:mouse_pressedleft ()
   self.visible.parts[1].color = self.clickable.colorDown
   self.visible.parts[2].color = self.clickable.colorDownLine
 
-  content.triggers[self.clickable.totrigger]:activate()
+  content.triggers(self.clickable.totrigger):activate()
 end
 
 function clickable.triggers:mouse_exited ()

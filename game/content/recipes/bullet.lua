@@ -22,7 +22,7 @@ function make (name, data)
       parts = data.parts
     })
     :add_property('moveable', {
-      speed = (target-data.origin):normalized()*(data.speed or 50)
+      speed = (target-data.origin):normalized()*(data.speed or 50)*10
     })
     :add_property('temporary', {
       expiretime = data.expiretime
