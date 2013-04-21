@@ -11,11 +11,11 @@ collides = base.property:new {
 }
 
 collides.__init = {
-  hitbox = base.hitbox:new{}
+  bounds = base.hitbox:new{}
 }
 
 function collides:setup ()
-  function self.hitbox:on_collision (collisions)
+  function self.bounds:on_collision (collisions)
     local collision_trigger = content.triggers(self.owner.collides.totrigger)
     for _,another in ipairs(collisions) do
       collision_trigger:activate(another.owner)
@@ -24,5 +24,5 @@ function collides:setup ()
 end
 
 function collides.triggers:update ()
-  self.collides.hitbox:update(self)
+  self.collides.bounds:update(self)
 end

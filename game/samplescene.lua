@@ -87,7 +87,7 @@ element "Follower"
     apply {fromcontext="mouse", to="pos", with="point {@x,@y}"}
   }
   :add_property 'collides' {
-    hitbox = hitbox {
+    bounds = hitbox {
       size = vector{64,64},
       class = 'target'
     }
@@ -99,7 +99,7 @@ element "Stalker"
   }
   :add_property 'collides' {
     totrigger = 'gotcha',
-    hitbox = hitbox {
+    bounds = hitbox {
       size = vector{64,64},
       targetclass = 'target'
     }
