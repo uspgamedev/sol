@@ -56,7 +56,7 @@ function element:remove_property (property_name)
   self[property_name] = nil
 end
 
-function element:free ()
+function element:destroy ()
   for property_name,_ in pairs(self) do
     if property_name ~= 'name' then
       self:remove_property(property_name)
