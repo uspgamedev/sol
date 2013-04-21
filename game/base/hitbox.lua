@@ -1,15 +1,19 @@
 
+module ('base', package.seeall)
+
 require 'lux.object'
+require 'lux.geom.vector'
 
 hitbox = lux.object.new {
-  pos         = nil,  -- vec2
-  size        = nil,  -- vec2
-  targetclass = ''
+  pos         = nil,  -- point
+  size        = nil,  -- vector
+  class       = 'nothing',
+  targetclass = 'nothing'
 }
 
 hitbox.__init = {
-  pos   = vec2:new {0,0},
-  size  = vec2:new {1,1}
+  pos   = lux.geom.point:new {0,0},
+  size  = lux.geom.vector:new {1,1}
 }
 
 local classes = {}
