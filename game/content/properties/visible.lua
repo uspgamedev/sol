@@ -8,9 +8,8 @@ require 'content.triggers.draw'
 require 'content.draw'
 
 visible = base.property:new {
-  pos = lux.geom.point:new {0,0},
-  size = lux.geom.vector:new {1,1},
-  hidden = false
+  hidden    = false,
+  rotation  = 0
 }
 
 function visible.triggers:draw (graphics)
@@ -21,6 +20,9 @@ function visible.triggers:draw (graphics)
 end
 
 visible.__init = {
+  pos   = lux.geom.point:new {0,0},
+  size  = lux.geom.vector:new {1,1},
+  shear = lux.geom.vector:new {0,0},
   parts = {
     content.draw.rectangle:new{
       color   = {150, 150, 255, 100},
