@@ -92,10 +92,17 @@ element "Follower"
       class = 'target'
     }
   }
+ : add_property "visible" {
+ 	  apply {fromcontext="mouse", to="pos", with="point {@x,@y}"}
+	}
  
 element "Stalker"
   :add_property "moveable" {
     apply {fromcontext="mouse", to="speed", with="@position-element.visible.pos"}
+element "Stalker" 
+	:add_property "visible" {
+		--apply {fromcontext="mouse", to="speed", with="@position-element.visible.pos"},
+    apply {fromcontext="mouse", to="pos", with="@button_2=='up' and @position or pos"}
   }
   :add_property 'collides' {
     totrigger = 'gotcha',
@@ -109,6 +116,7 @@ make.button 'awesomebutton' {
   pos = point {100,100},
   sharein = 'but',
   state = { up = false, down = true}
+    pos = point {100,100},
 }
 
 make.button 'Shrute' {
@@ -141,6 +149,7 @@ make.creator 'Shruter2' {
     parts = { circle{ color={150,100,0,255} } }
   }
 }
+
 --[[ WISH LIST ]]--
 
 

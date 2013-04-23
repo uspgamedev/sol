@@ -13,17 +13,19 @@ require 'lux.geom.vector'
 function love.load (args)
   love.graphics.setFont(love.graphics.newFont())
   scene.load(args[2] and ('content/scenes/'..args[2]) or 'samplescene.lua')
-  handleMouse()
-  handleJoystick()
+  handleInput()
 end
 
 function love.update (dt)
   content.triggers.update:activate(dt)
+  handleInput()
+end
+
+function handleInput()
   handleMouse()
   handleJoystick()
   base.hitbox.check_collisions()
 end
-
 function handleMouse()
   local x,y = love.mouse.getX(),love.mouse.getY()
   content.triggers.mouse_entered:activate(x, y)
@@ -47,7 +49,7 @@ function handleJoystick()
       end for i=0, love.joystick.getNumHats(j) do
         base.message.send("joystick","hat",love.joystick.getHat(j, i))
       end
-    love.joystick.close(j)
+    love.joystick.clwose(j)
     end
   end
 end
@@ -56,12 +58,14 @@ function love.mousepressed (x, y, button)
   if button == 'l' then
     content.triggers.mouse_pressedleft:activate(x, y)
   end
+  base.message.send("mouse", "button_"..button, "down")
 end
 
 function love.mousereleased (x, y, button)
   if button == 'l' then
     content.triggers.mouse_releasedleft:activate(x, y)
   end
+  base.message.send("mouse", "button_"..button, "up")
 end
 
 local id = 0
@@ -71,10 +75,12 @@ function love.keypressed (button)
   --  scene.save('out.lua', elements)
   --end
   content.triggers.keyboard:activate(button, 'down')
+  base.message.send("keyboard", button~=' ' and 'key_'..button or 'key_space', "down")
 end
 
 function love.keyreleased (button)
   content.triggers.keyboard:activate(button, 'up')
+  base.message.send("keyboard", button~=' ' and 'key_'..button or 'key_space', "up")
 end
 
 function love.draw ()
