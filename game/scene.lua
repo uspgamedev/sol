@@ -46,6 +46,7 @@ local function prepare_env (env)
       1
     )
   end
+  env.trigger_in = content.recipes.timer.trigger_in
 end
 
 function load (file)

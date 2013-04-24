@@ -25,6 +25,6 @@ function make (name, data)
       speed = (target-data.origin):normalized()*(data.speed or 50)*10
     })
     :add_property('temporary', {
-      expiretime = data.expiretime
+      trigger = data.deletetrigger or 'never'
     })
 end

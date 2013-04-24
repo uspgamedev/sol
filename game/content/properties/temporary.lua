@@ -2,15 +2,13 @@
 module ('content.properties', package.seeall)
 
 require 'base.property'
+require 'lux.functional'
 
 temporary = base.property:new {
-  expiretime = 1.0, -- in seconds
-  timer = 0.0       -- counts time, shouldn't be changed
+  trigger = 'never'
 }
 
-function temporary.triggers:update (dt)
-  self.temporary.timer = self.temporary.timer + dt
-  if self.temporary.timer >= self.temporary.expiretime then
-    self:destroy()
-  end
+function temporary:setup ( element )
+  content.triggers(self.trigger):register(self,
+    lux.functional.bindleft(element.destroy,element))
 end

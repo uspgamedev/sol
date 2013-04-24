@@ -71,7 +71,7 @@ make.creator 'FireShooter' {
     parts = { circle{ color={255,0,0,255} } },
     power = 10, --not used yet
     apply { fromcontext='homing', to='origin', with='@pos' },
-    apply { fromcontext='mouse', to='target', with='@position'}
+    apply { fromcontext='mouse', to='target', with='@position'},
   }
 }
 
@@ -79,7 +79,8 @@ make.bullet 'YEAY' {
   origin = point{100,100},
   target = point{200,200},
   size = vector {2,2},
-  speed = 11
+  speed = 11,
+  deletetrigger = trigger_in '3'
 }
 
 element "Follower"
@@ -107,7 +108,7 @@ element "Stalker"
   :add_property 'collides' {
     totrigger = 'gotcha',
     bounds = hitbox {
-      size = vector{64,64},
+      size = vector {64,64},
       targetclass = 'target'
     }
   }
@@ -142,7 +143,7 @@ make.creator 'Shruter' {
 
 make.creator 'Shruter2' {
   recipe = 'bullet',
-  trigger = 'gotcha',
+  trigger = trigger_in '2',
   args = {
     origin = point{500,300},
     speed = 30,
@@ -153,14 +154,8 @@ make.creator 'Shruter2' {
 --[[ WISH LIST ]]--
 
 
---make.button 'awesomebutton' {
---    pos = point {100,100},
---    width = 50,
---    height = 50,
---    sharein = 'button',
---    pressed = {up = 1,down = 2},
---    colorUp = {255,255,255,255},
---    colorUpHover = {200,200,200,255},
---    colorDown = {255,0,0,255},
---    colorDownHover = {200,0,0,255}
---}
+make.timer 'Timer' {
+  timetotrigger = .7,
+  repeats = true,
+  totrigger = 'timer'
+}

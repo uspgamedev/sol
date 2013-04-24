@@ -87,7 +87,9 @@ function clickable.triggers:mouse_pressedleft ()
   self.visible.parts[1].color = self.clickable.colorDown
   self.visible.parts[2].color = self.clickable.colorDownLine
 
-  content.triggers(self.clickable.totrigger):activate()
+  if self.clickable.totrigger~='never' then
+    content.triggers(self.clickable.totrigger):activate()
+  end
 end
 
 function clickable.triggers:mouse_exited ()
