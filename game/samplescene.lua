@@ -23,7 +23,11 @@ element 'Hipster'
     }
   }
   :add_property 'moveable' {
-    apply { fromcontext='homing', to='speed', with=[[ @pos and (@pos-element.visible.pos) or vector{} ]] }
+    apply {
+      fromcontext = 'homing',
+      to = 'speed',
+      with=[[ @pos and (@pos-element.visible.pos) or vector{} ]]
+    }
   }
 
 element 'Hipster'
@@ -50,7 +54,11 @@ element 'Image'
     share { incontext='homing', value='pos', as=[[pos]] }
   }
   :add_property 'moveable' {
-    apply { fromcontext='player', to='speed', with=[[ @lshift*100*(@up+@down+@left+@right) ]] }
+    apply {
+      fromcontext = 'player',
+      to = 'speed',
+      with = [[ @lshift*100*(@up+@down+@left+@right) ]]
+    }
   }
   :add_property 'useskeyboard' {
     sharein = 'player',
@@ -100,10 +108,17 @@ element "Follower"
 element "Stalker"
   :add_property "visible" {
     pos = point {200, 200},
-    --apply {fromcontext="mouse", to="pos", with="@buttonl == 'up' and @position or pos"}
   }
   :add_property "moveable" {
-    apply {fromcontext="mouse", to="speed", with="@buttonl == 'up' and @position-element.visible.pos or element.visible.pos-@position"}
+    apply {
+      fromcontext = "mouse",
+      to = "speed",
+      with = [[
+        @buttonl == 'up'
+          and @position-element.visible.pos
+          or  element.visible.pos-@position
+      ]]
+    }
   }
   :add_property 'collides' {
     totrigger = 'gotcha',
