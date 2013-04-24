@@ -48,7 +48,7 @@ element 'Image'
     pos = point{600, 600},
     size = vector{128/500, 128/500},
     parts = { image {} },
-    share { incontext='homing', value='pos', as=[[pos]] }
+    share { incontext='homing', value='pos', as=[[pos]], when='keyboard' }
   }
   :add_property 'moveable' {
     apply {
