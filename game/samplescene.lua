@@ -30,9 +30,6 @@ element 'Hipster'
     }
   }
 
-element 'Hipster'
-  :add_property 'moveable' {}
-
 element 'Rectangle'
   :add_property 'visible' {
     pos = point{200,200},
@@ -110,11 +107,8 @@ element "Stalker"
     apply {
       fromcontext = "mouse",
       to = "speed",
-      with = [[
-        @buttonl == 'up'
-          and @position-element.visible.pos
-          or  element.visible.pos-@position
-      ]]
+      with = [[ @position-element.visible.pos ]],
+      when = 'keyboard'
     }
   }
   :add_property 'collides' {

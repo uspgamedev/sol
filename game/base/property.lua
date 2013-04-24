@@ -51,12 +51,12 @@ end
 
 function property:register_links ()
   for _,link in ipairs(self) do
-    content.triggers[link.specs.when]:register(self, link.action)
+    content.triggers(link.specs.when):register(self, link.action)
   end
 end
 
 function property:unregister_links ()
   for _,link in ipairs(self) do
-    content.triggers[link.specs.when]:unregister(self, link.action)
+    content.triggers(link.specs.when):unregister(self, link.action)
   end
 end
