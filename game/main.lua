@@ -26,6 +26,9 @@ end
 function handleInput()
   handleMouse()
   handleJoystick()
+
+  if love.keyboard.isDown('lalt') and love.keyboard.isDown('f4') then os.exit(0) end
+
   base.hitbox.check_collisions()
 end
 function handleMouse()

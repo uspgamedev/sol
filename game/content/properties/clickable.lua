@@ -10,6 +10,7 @@ clickable = base.property:new {
   requires = { 'visible' },
   sharein = 'anonymous',
   totrigger = 'never',
+  shortcuts = {},
   width = 100,
   height = 100,
   textcolor = nil
@@ -114,5 +115,19 @@ function clickable.triggers:mouse_releasedleft ()
     if self.clickable.sharein then
       base.message.send(self.clickable.sharein,'state',self.clickable.state.down)
     end
+  end
+end
+
+function clickable.triggers:keyboard(button, key_state, n)
+  if key_state == 'up' then return end
+  for _,v in ipairs(self.clickable.shortcuts) do 
+    if button == v then
+      base.message.send(self.clickable.sharein, 'state', self.clickable.state.up) 
+      content.triggers(self.clickable.totrigger):activate()   
+      if self.clickable.sharein then
+        base.message.send(self.clickable.sharein,'state',self.clickable.state.down)
+      end
+      return
+    end 
   end
 end

@@ -134,7 +134,8 @@ make.button 'Shrute' {
   colorUp = {0,120,0,255},
   colorUpLine = {0,20,180,255},
   colorDown = {0,140,140,255},
-  textcolor = {20,10,10,255}
+  textcolor = {20,10,10,255},
+  shortcuts = {'r', 'e'}
 }
 
 make.creator 'Shruter' {
@@ -165,3 +166,4 @@ make.timer 'Timer' {
   repeats = true,
   totrigger = 'timer'
 }
+
