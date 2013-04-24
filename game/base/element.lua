@@ -41,8 +41,7 @@ function element:add_property (property_name, data)
   local added_property = property:new(data)
   self[property_name] = added_property
   added_property:start(self, property)
-  --property:add_triggers(self)
-  content.triggers.update:register(added_property, property.update)
+  --content.triggers.update:register(added_property, property.update)
   return self
 end
 

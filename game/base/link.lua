@@ -9,6 +9,7 @@ local apply_link_code = [[property.$to = ($with)]]
 
 function create_apply (specs)
   specs.with = string.gsub(specs.with, '@(%w+)', 'get"%1"')
+  specs.when = specs.when or 'update'
   local final_code  = string.gsub(apply_link_code, '%$(%w+)', specs)
   local getter      = lux.functional.bindleft(base.message.receive, specs.fromcontext)
   local chunk = assert(loadstring(final_code))
@@ -25,6 +26,7 @@ local share_link_code = [[share('$incontext', '$value', ($as))]]
 
 function create_share (specs)
   specs.as = string.gsub(specs.as, '@(%w+)', 'get"%1"')
+  specs.when = specs.when or 'update'
   local final_code  = string.gsub(share_link_code, '%$(%w+)', specs)
   local getter      = lux.functional.bindleft(base.message.receive, specs.fromcontext)
   local setter      = base.message.send

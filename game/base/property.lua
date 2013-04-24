@@ -2,6 +2,7 @@
 module ('base', package.seeall)
 
 require 'lux.object'
+require 'lux.functional'
 require 'content.triggers'
 
 property = lux.object.new {}
@@ -25,6 +26,7 @@ function property:start (element)
   end
   self:setup(element)
   add_triggers(self:__super(), element)
+  self:register_links()
 end
 
 function property:setup (element)
@@ -40,14 +42,21 @@ end
 function property:finish (element)
   self:cleanup(element)
   remove_triggers(self:__super(), element)
+  self:unregister_links()
 end
 
 function property:cleanup (element)
   -- Abstract
 end
 
-function property:update ()
-  for k,link in ipairs(self) do
-    link.action()
+function property:register_links ()
+  for _,link in ipairs(self) do
+    content.triggers(link.specs.when):register(self, link.action)
+  end
+end
+
+function property:unregister_links ()
+  for _,link in ipairs(self) do
+    content.triggers(link.specs.when):unregister(self, link.action)
   end
 end

@@ -30,9 +30,6 @@ element 'Hipster'
     }
   }
 
-element 'Hipster'
-  :add_property 'moveable' {}
-
 element 'Rectangle'
   :add_property 'visible' {
     pos = point{200,200},
@@ -51,7 +48,7 @@ element 'Image'
     pos = point{600, 600},
     size = vector{128/500, 128/500},
     parts = { image {} },
-    share { incontext='homing', value='pos', as=[[pos]] }
+    share { incontext='homing', value='pos', as=[[pos]], when='keyboard' }
   }
   :add_property 'moveable' {
     apply {
@@ -88,7 +85,7 @@ make.bullet 'YEAY' {
   target = point{200,200},
   size = vector {2,2},
   speed = 11,
-  deletetrigger = trigger_in '3'
+  deletetrigger = 'gotcha'
 }
 
 element "Follower"
@@ -101,9 +98,6 @@ element "Follower"
       class = 'target'
     }
   }
- : add_property "visible" {
- 	  apply {fromcontext="mouse", to="pos", with="point {@x,@y}"}
-	}
  
 element "Stalker"
   :add_property "visible" {
@@ -113,11 +107,8 @@ element "Stalker"
     apply {
       fromcontext = "mouse",
       to = "speed",
-      with = [[
-        @buttonl == 'up'
-          and @position-element.visible.pos
-          or  element.visible.pos-@position
-      ]]
+      with = [[ @position-element.visible.pos ]],
+      when = 'keyboard'
     }
   }
   :add_property 'collides' {
