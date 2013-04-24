@@ -88,7 +88,7 @@ make.bullet 'YEAY' {
   target = point{200,200},
   size = vector {2,2},
   speed = 11,
-  deletetrigger = trigger_in '3'
+  deletetrigger = 'gotcha'
 }
 
 element "Follower"
@@ -101,9 +101,6 @@ element "Follower"
       class = 'target'
     }
   }
- : add_property "visible" {
- 	  apply {fromcontext="mouse", to="pos", with="point {@x,@y}"}
-	}
  
 element "Stalker"
   :add_property "visible" {

@@ -14,6 +14,8 @@ function love.load (args)
   love.graphics.setFont(love.graphics.newFont())
   scene.load(args[2] and ('content/scenes/'..args[2]) or 'samplescene.lua')
   handleInput()
+  base.message.send("mouse", "buttonl", "up")
+  base.message.send("mouse", "buttonr", "up")
 end
 
 function love.update (dt)
