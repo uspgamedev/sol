@@ -32,5 +32,5 @@ function creates:setup (element)
   if not self.args.name then
     self.args.name = element.name .. "'s " .. self.recipe
   end
-  content.triggers(self.trigger):register(element, createfunc)
+  content.triggers.register(self.trigger, element, createfunc)
 end

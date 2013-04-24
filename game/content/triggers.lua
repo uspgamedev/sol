@@ -12,6 +12,17 @@ function module_mttab:__call (name)
   return new_trigger
 end
 
+function register( triggers, element, func )
+  if type(triggers)=='string' then
+    _M(triggers):register(element,func)
+  else
+    for _,trigger in ipairs(triggers) do
+      _M(trigger):register(element,func)
+      print ('adding ' .. trigger)
+    end
+  end
+end
+
 local all_triggers = love.filesystem.enumerate 'content/triggers'
 for _, trigger_file in ipairs(all_triggers) do
   require('content.triggers.'..string.gsub(trigger_file, '.lua', ''))

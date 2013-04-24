@@ -7,7 +7,16 @@ require 'base.property'
 function make(name, data)
 
   local creator = base.element(name)
-  data.makerecipe = require('content.recipes.' .. data.recipe).make
+  local makerecipe = require('content.recipes.' .. data.recipe).make
+  if data.number then
+    data.makerecipe = function (...)
+      for i=1,data.number do 
+        makerecipe(...) 
+      end
+    end
+  else
+    data.makerecipe = makerecipe
+  end
 
   creator:add_property('creates', data)
   

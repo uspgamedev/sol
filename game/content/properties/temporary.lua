@@ -9,6 +9,6 @@ temporary = base.property:new {
 }
 
 function temporary:setup ( element )
-  content.triggers(self.trigger):register(self,
+  content.triggers.register(self.triggers, self,
     lux.functional.bindleft(element.destroy,element))
 end

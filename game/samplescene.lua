@@ -1,6 +1,3 @@
-
---use 'point'
---use 'vector'
 use 'rectangle'
 use 'circle'
 use 'image'
@@ -100,7 +97,6 @@ element "Follower"
 element "Stalker"
   :add_property "visible" {
     pos = point {200, 200},
-    --apply {fromcontext="mouse", to="pos", with="@buttonl == 'up' and @position or pos"}
   }
   :add_property "moveable" {
     apply {fromcontext="mouse", to="speed", with="@buttonl == 'up' and @position-element.visible.pos or element.visible.pos-@position"}
@@ -133,7 +129,7 @@ make.button 'Shrute' {
 
 make.creator 'Shruter' {
   recipe = 'bullet',
-  trigger = 'shrute-pressed',
+  trigger = {'shrute-pressed','timer'},
   args = {
     origin = point{500,300},
     speed = 70,
@@ -144,6 +140,7 @@ make.creator 'Shruter' {
 make.creator 'Shruter2' {
   recipe = 'bullet',
   trigger = trigger_in '2',
+  number = 12,
   args = {
     origin = point{500,300},
     speed = 30,
@@ -151,11 +148,11 @@ make.creator 'Shruter2' {
   }
 }
 
---[[ WISH LIST ]]--
-
-
 make.timer 'Timer' {
   timetotrigger = .7,
   repeats = true,
   totrigger = 'timer'
 }
+--[[ WISH LIST ]]--
+
+
