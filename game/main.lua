@@ -49,7 +49,7 @@ function handleJoystick()
       end for i=0, love.joystick.getNumHats(j) do
         base.message.send("joystick","hat",love.joystick.getHat(j, i))
       end
-    love.joystick.clwose(j)
+    love.joystick.close(j)
     end
   end
 end
@@ -58,14 +58,14 @@ function love.mousepressed (x, y, button)
   if button == 'l' then
     content.triggers.mouse_pressedleft:activate(x, y)
   end
-  base.message.send("mouse", "button_"..button, "down")
+  base.message.send("mouse", "button"..button, "down")
 end
 
 function love.mousereleased (x, y, button)
   if button == 'l' then
     content.triggers.mouse_releasedleft:activate(x, y)
   end
-  base.message.send("mouse", "button_"..button, "up")
+  base.message.send("mouse", "button"..button, "up")
 end
 
 local id = 0
@@ -75,12 +75,12 @@ function love.keypressed (button)
   --  scene.save('out.lua', elements)
   --end
   content.triggers.keyboard:activate(button, 'down')
-  base.message.send("keyboard", button~=' ' and 'key_'..button or 'key_space', "down")
+  base.message.send("keyboard", button~=' ' and 'key'..button or 'keyspace', "down")
 end
 
 function love.keyreleased (button)
   content.triggers.keyboard:activate(button, 'up')
-  base.message.send("keyboard", button~=' ' and 'key_'..button or 'key_space', "up")
+  base.message.send("keyboard", button~=' ' and 'key'..button or 'keyspace', "up")
 end
 
 function love.draw ()

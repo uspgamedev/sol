@@ -97,12 +97,12 @@ element "Follower"
 	}
  
 element "Stalker"
+  :add_property "visible" {
+    pos = point {200, 200},
+    --apply {fromcontext="mouse", to="pos", with="@buttonl == 'up' and @position or pos"}
+  }
   :add_property "moveable" {
-    apply {fromcontext="mouse", to="speed", with="@position-element.visible.pos"}
-element "Stalker" 
-	:add_property "visible" {
-		--apply {fromcontext="mouse", to="speed", with="@position-element.visible.pos"},
-    apply {fromcontext="mouse", to="pos", with="@button_2=='up' and @position or pos"}
+    apply {fromcontext="mouse", to="speed", with="@buttonl == 'up' and @position-element.visible.pos or element.visible.pos-@position"}
   }
   :add_property 'collides' {
     totrigger = 'gotcha',
@@ -115,8 +115,8 @@ element "Stalker"
 make.button 'awesomebutton' {
   pos = point {100,100},
   sharein = 'but',
-  state = { up = false, down = true}
-    pos = point {100,100},
+  state = { up = false, down = true},
+  pos = point {100,100}
 }
 
 make.button 'Shrute' {
