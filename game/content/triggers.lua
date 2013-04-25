@@ -7,7 +7,7 @@ function module_mttab:__call (name)
   if self[name] then
     return self[name]
   end
-  local new_trigger = base.trigger:new {}
+  local new_trigger = base.trigger:new { name = name }
   self[name] = new_trigger
   return new_trigger
 end
