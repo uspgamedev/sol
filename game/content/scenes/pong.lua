@@ -15,7 +15,7 @@ element "scoreright"
       fromcontext = "",
       to = "score",
       when = "rightpoint",
-      with = [[element.visible.score + 1]]
+      value = [[element.visible.score + 1]]
     }
   }
 
@@ -36,7 +36,7 @@ element "scoreleft"
       fromcontext = "",
       to = "score",
       when = "leftpoint",
-      with = [[element.visible.score + 1]]
+      value = [[element.visible.score + 1]]
     }
   }
 
@@ -53,14 +53,14 @@ element "bola"
       fromcontext="",
       to = "pos",
       condition = "element.visible.pos.x >= 1024",
-      with = [[point{512,384}]],
+      value = [[point{512,384}]],
       also_trigger = 'leftpoint'
     },
     apply{
       fromcontext="",
       to = "pos",
       condition = "element.visible.pos.x <= 0",
-      with = [[point{512,384}]],
+      value = [[point{512,384}]],
       also_trigger = "rightpoint"
     }
   }
@@ -71,19 +71,19 @@ element "bola"
       fromcontext="",
       to = "speed.y",
       condition = "element.visible.pos.y <= 5",
-      with = [[-element.moveable.speed.y]]
+      value = [[-element.moveable.speed.y]]
     },
     apply{
       fromcontext="",
       to = "speed.y",
       condition = "element.visible.pos.y >= 763",
-      with = [[-element.moveable.speed.y]]
+      value = [[-element.moveable.speed.y]]
     },
     apply{
       fromcontext = "",
       to = "speed.x",
       when = "noem",
-      with = [[-element.moveable.speed.x]]
+      value = [[-element.moveable.speed.x]]
     }
   }
 
@@ -95,7 +95,7 @@ element "bola"
     apply {
       fromcontext = '',
       to = 'bounds.size',
-      with = [[
+      value = [[
         vector{
           element.visible.parts[1].width,
           element.visible.parts[1].height}
@@ -103,7 +103,7 @@ element "bola"
     }
   }
 
-local padspeed = 200
+local padspeed = 500
 
 element "left_pad"
   :add_property "visible"{
@@ -118,13 +118,13 @@ element "left_pad"
       fromcontext="",
       to = "pos.y",
       condition = "element.visible.pos.y <= 25",
-      with = [[25]]
+      value = [[25]]
     },
     apply{
       fromcontext="",
       to = "pos.y",
       condition = "element.visible.pos.y >= 743",
-      with = [[743]]
+      value = [[743]]
     }
   }
 
@@ -133,25 +133,25 @@ element "left_pad"
       fromcontext = "keyboard",
       to = "speed.y",
       when = "keydown:w",
-      with = [[element.moveable.speed.y-]]..padspeed
+      value = [[element.moveable.speed.y-]]..padspeed
     },
     apply{
       fromcontext = "keyboard",
       to = "speed.y",
       when = "keydown:s",
-      with = [[element.moveable.speed.y+]]..padspeed
+      value = [[element.moveable.speed.y+]]..padspeed
     },
     apply{
       fromcontext = "keyboard",
       to = "speed.y",
       when = "keyup:w",
-      with = [[element.moveable.speed.y+]]..padspeed
+      value = [[element.moveable.speed.y+]]..padspeed
     },
     apply{
       fromcontext = "keyboard",
       to = "speed.y",
       when = "keyup:s",
-      with = [[element.moveable.speed.y-]]..padspeed
+      value = [[element.moveable.speed.y-]]..padspeed
     }
   } 
 
@@ -163,7 +163,7 @@ element "left_pad"
     apply {
       fromcontext = '',
       to = 'bounds.size',
-      with = [[
+      value = [[
         vector{
           element.visible.parts[1].width,
           element.visible.parts[1].height}
@@ -184,13 +184,13 @@ element "right_pad"
       fromcontext="",
       to = "pos.y",
       condition = "element.visible.pos.y <= 25",
-      with = [[25]]
+      value = [[25]]
     },
     apply{
       fromcontext="",
       to = "pos.y",
       condition = "element.visible.pos.y >= 743",
-      with = [[743]]
+      value = [[743]]
     }
   }
 
@@ -199,25 +199,25 @@ element "right_pad"
       fromcontext = "keyboard",
       to = "speed.y",
       when = "keydown:up",
-      with = [[element.moveable.speed.y-]]..padspeed
+      value = [[element.moveable.speed.y-]]..padspeed
     },
     apply{
       fromcontext = "keyboard",
       to = "speed.y",
       when = "keydown:down",
-      with = [[element.moveable.speed.y+]]..padspeed
+      value = [[element.moveable.speed.y+]]..padspeed
     },
     apply{
       fromcontext = "keyboard",
       to = "speed.y",
       when = "keyup:up",
-      with = [[element.moveable.speed.y+]]..padspeed
+      value = [[element.moveable.speed.y+]]..padspeed
     },
     apply{
       fromcontext = "keyboard",
       to = "speed.y",
       when = "keyup:down",
-      with = [[element.moveable.speed.y-]]..padspeed
+      value = [[element.moveable.speed.y-]]..padspeed
     }
   }
 
@@ -229,7 +229,7 @@ element "right_pad"
     apply {
       fromcontext = '',
       to = 'bounds.size',
-      with = [[
+      value = [[
         vector{
           element.visible.parts[1].width,
           element.visible.parts[1].height}
