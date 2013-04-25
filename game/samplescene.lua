@@ -5,7 +5,7 @@ element 'This is grabbable'
     apply {
       fromcontext = '',
       to = 'pos',
-      with = [[
+      value = [[
         vector{
           400+20*cos(element.counts_time.counter*pi),
           300+20*sin(element.counts_time.counter*pi)
@@ -33,7 +33,7 @@ element 'Hipster'
     apply {
       fromcontext = 'homing',
       to = 'speed',
-      with = [[ @pos-element.visible.pos ]],
+      value = [[ @pos-element.visible.pos ]],
       condition = [[ @pos ~= nil ]]
     }
   }
@@ -48,7 +48,7 @@ element 'Rectangle'
         color = {200, 50, 0, 100},
       }
     },
-    apply { fromcontext='but', to='hidden', with='@state'}
+    apply { fromcontext='but', to='hidden', value='@state'}
   }
 
 element 'Image'
@@ -58,7 +58,7 @@ element 'Image'
     parts = { image {} },
     share {
       incontext = 'homing',
-      value     = 'pos',
+      valueof   = 'pos',
       as        = [[element.visible.pos]]
     }
   }
@@ -66,7 +66,7 @@ element 'Image'
     apply {
       fromcontext = 'player',
       to = 'speed',
-      with = [[ @lshift*100*(@up+@down+@left+@right) ]]
+      value = [[ @lshift*100*(@up+@down+@left+@right) ]]
     }
   }
   :add_property 'useskeyboard' {
@@ -87,8 +87,8 @@ make.creator 'FireShooter' {
     name = 'Fireball',
     parts = { circle{ color={255,0,0,255} } },
     power = 10, --not used yet
-    apply { fromcontext='homing', to='origin', with='@pos' },
-    apply { fromcontext='mouse', to='target', with='@position'},
+    apply { fromcontext='homing', to='origin', value='@pos' },
+    apply { fromcontext='mouse', to='target', value='@position'},
   }
 }
 
@@ -102,7 +102,7 @@ make.bullet 'YEAY' {
 
 element "Follower"
   : add_property "visible" {
-    apply {fromcontext="mouse", to="pos", with="point {@x,@y}"}
+    apply {fromcontext="mouse", to="pos", value="point {@x,@y}"}
   }
   :add_property 'collides' {
     bounds = hitbox {
@@ -119,7 +119,7 @@ element "Stalker"
     apply {
       fromcontext = "mouse",
       to = "speed",
-      with = [[ @position-element.visible.pos ]],
+      value = [[ @position-element.visible.pos ]],
       when = 'keyboard'
     }
   }

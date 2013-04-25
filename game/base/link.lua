@@ -5,10 +5,12 @@ require 'lux.geom.vector'
 require 'lux.functional'
 require 'base.message'
 require 'base.loader'
+require 'content.triggers'
 
 local apply_link_code = [[
   if $condition then
-    property.$to = ($with)
+    property.$to = ($value)
+    also_trigger:activate()
   end
 ]]
 
@@ -26,25 +28,29 @@ function set_environment (env)
 end
 
 function create_apply (specs)
+  specs.name      = specs.name or 'unkown-apply-link'
   specs.condition = string.gsub(specs.condition or "true", '@(%w+)', 'get"%1"')
-  specs.with      = string.gsub(specs.with or "", '@(%w+)', 'get"%1"')
+  specs.value      = string.gsub(specs.value or "", '@(%w+)', 'get"%1"')
   specs.when      = specs.when or 'update'
+  specs.also_trigger  = specs.also_trigger or 'never'
   local final_code  = string.gsub(apply_link_code, '%$(%w+)', specs)
   local getter      = lux.functional.bindleft(base.message.receive, specs.fromcontext)
   local env = {
-    get = getter
+    get = getter,
+    also_trigger = content.triggers(specs.also_trigger)
   }
-  local chunk = load_code(final_code, 'apply-link', env)
+  local chunk = load_code(final_code, specs.name, env)
   return { action = chunk, specs = specs }
 end
 
 local share_link_code = [[
   if $condition then
-    share('$incontext', '$value', ($as))
+    share('$incontext', '$valueof', ($as))
   end
 ]]
 
 function create_share (specs)
+  specs.name      = specs.name or 'unkown-apply-link'
   specs.condition = string.gsub(specs.condition or "true", '@(%w+)', 'get"%1"')
   specs.as        = string.gsub(specs.as, '@(%w+)', 'get"%1"')
   specs.when      = specs.when or 'update'
@@ -55,6 +61,6 @@ function create_share (specs)
     get = getter,
     share = setter
   }
-  local chunk       = load_code(final_code, 'share-link', env)
+  local chunk       = load_code(final_code, specs.nam, env)
   return { action = chunk, specs = specs }
 end
