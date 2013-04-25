@@ -51,13 +51,10 @@ function create_share (specs)
   local final_code  = string.gsub(share_link_code, '%$(%w+)', specs)
   local getter      = lux.functional.bindleft(base.message.receive, specs.fromcontext)
   local setter      = base.message.send
-  local chunk       = assert(loadstring(final_code))
   local env = {
     get = getter,
-    share = setter,
-    vector = lux.functional.bindleft(lux.geom.vector.new, lux.geom.vector),
-    point = lux.functional.bindleft(lux.geom.point.new, lux.geom.point),
+    share = setter
   }
-  setfenv(chunk, env)
+  local chunk       = load_code(final_code, 'share-link', env)
   return { action = chunk, specs = specs }
 end

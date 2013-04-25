@@ -91,10 +91,6 @@ make.creator 'FireShooter' {
     apply { fromcontext='mouse', to='target', with='@position'},
   }
 }
-element 'FireShooter'
-  :add_property 'plays_sound' {
-    when = 'mouse_pressedleft'
-  }
 
 make.bullet 'YEAY' {
   origin = point{100,100},
