@@ -30,7 +30,7 @@ function element:add_property (property_name, data)
     return lux.functional.bindleft(element.add_property, self, property_name)
   end
   -- Cannot add the same property again
-  if self[property_name] then return end
+  if self[property_name] then return self end
   -- Get the property object
   local property = content.properties[property_name]
   -- Add the property's required properties

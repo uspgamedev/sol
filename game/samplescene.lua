@@ -1,4 +1,5 @@
 
+
 element 'This is grabbable'
   :add_property 'visible' {
     pos = point{400,300},
@@ -152,7 +153,7 @@ make.button 'Shrute' {
 
 make.creator 'Shruter' {
   recipe = 'bullet',
-  trigger = 'shrute-pressed',
+  trigger = {'shrute-pressed','timer'},
   args = {
     origin = point{500,300},
     speed = 70,
@@ -163,10 +164,16 @@ make.creator 'Shruter' {
 make.creator 'Shruter2' {
   recipe = 'bullet',
   trigger = trigger_in '2',
+  number = 12,
   args = {
     origin = point{500,300},
     speed = 30,
     parts = { circle{ color={150,100,0,255} } }
   }
 }
-
+make.timer 'Timer' {
+  timetotrigger = .7,
+  repeats = true,
+  totrigger = 'timer'
+}
+--[[ WISH LIST ]]--
