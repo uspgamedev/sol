@@ -42,7 +42,7 @@ element "scoreleft"
 
 element "bola"
   :add_property "visible"{
-    pos = point{512, 400},
+    pos = point{screen.width/2, 400},
     parts = {
       rectangle{
         width = 10,
@@ -52,15 +52,15 @@ element "bola"
     apply{
       fromcontext="",
       to = "pos",
-      condition = "element.visible.pos.x >= 1024",
-      value = [[point{512,384}]],
+      condition = "element.visible.pos.x >= screen.width",
+      value = [[point{}+screen.size*0.5]],
       also_trigger = 'leftpoint'
     },
     apply{
       fromcontext="",
       to = "pos",
       condition = "element.visible.pos.x <= 0",
-      value = [[point{512,384}]],
+      value = [[point{}+screen.size*0.5]],
       also_trigger = "rightpoint"
     }
   }

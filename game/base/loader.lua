@@ -74,6 +74,14 @@ function setup ()
   env.element = base.element
   env.apply   = base.link.create_apply
   env.share   = base.link.create_share 
+  env.screen  = {
+    width = love.graphics.getWidth(),
+    height = love.graphics.getHeight(),
+    size = lux.geom.vector:new{
+      love.graphics.getWidth(),
+      love.graphics.getHeight()
+    }
+  }
   export_globals()
   export_math()
   export_draws()
