@@ -27,11 +27,16 @@ function create_apply (specs)
   return { action = chunk, specs = specs }
 end
 
-local share_link_code = [[share('$incontext', '$value', ($as))]]
+local share_link_code = [[
+  if $condition then
+    share('$incontext', '$value', ($as))
+  end
+]]
 
 function create_share (specs)
-  specs.as = string.gsub(specs.as, '@(%w+)', 'get"%1"')
-  specs.when = specs.when or 'update'
+  specs.condition = string.gsub(specs.condition or "true", '@(%w+)', 'get"%1"')
+  specs.as        = string.gsub(specs.as, '@(%w+)', 'get"%1"')
+  specs.when      = specs.when or 'update'
   local final_code  = string.gsub(share_link_code, '%$(%w+)', specs)
   local getter      = lux.functional.bindleft(base.message.receive, specs.fromcontext)
   local setter      = base.message.send
