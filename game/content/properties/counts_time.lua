@@ -15,12 +15,15 @@ function counts_time:setup( element )
 end
 
 function counts_time.triggers:update (dt)
+  if self.counts_time.counter >= self.counts_time.limit then return end
   self.counts_time.counter = self.counts_time.counter + dt
   if self.counts_time.counter >= self.counts_time.limit then
     content.triggers(self.counts_time.totrigger):activate()
     self.counts_time.counter = self.counts_time.counter - self.counts_time.limit
     if not self.counts_time.repeats then
       self:destroy()
+    else
+      self.counts_time.counter =  0.0
     end
   end
 end
