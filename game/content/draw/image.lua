@@ -10,7 +10,8 @@ image = base.drawable:new {
 local cash = {}
 
 function image:__init ()
-  cash[self.path] = cash[self.path] or love.graphics.newImage('resource/images/'..self.path)
+  cash[self.path] =
+    cash[self.path] or love.graphics.newImage('resource/images/'..self.path)
   self.data = cash[self.path]
 end
 
