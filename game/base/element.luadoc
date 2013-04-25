@@ -1,0 +1,16 @@
+
+--- Represents a game element.
+--  Inherits from lux.object
+module 'base.element'
+
+--- Constructor
+--  @param attributes Table of attributes.
+--  @param name The element's name.
+function element:new (attributes)
+
+--- Adds a property to the element.
+--  May be chain-called.
+--  @param property_name The name of the added property.
+--  @param data Custom data for the property.
+--  @return The element itself.
+function element:add_property (property_name, data)

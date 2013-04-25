@@ -1,13 +1,28 @@
 
-module ('base', package.seeall)
+module ('base.element', package.seeall)
 
 require 'lux.object'
 require 'lux.functional'
 require 'content.properties'
+require 'content.triggers'
 
-element = lux.object.new {
+local elements      = {}
+local element       = lux.object.new {
   name  = 'Unnamed Element'
 }
+
+getmetatable(_M).__call = function (_, name)
+  if elements[name] then
+    return elements[name]
+  end
+  local new_element = element:new { name = name }
+  elements[name] = new_element
+  return new_element
+end
+
+function exists (name)
+  return elements[name] ~= nil
+end
 
 function element:add_property (property_name, data)
   -- Chain call
@@ -23,10 +38,28 @@ function element:add_property (property_name, data)
     self:add_property(required_name, {})
   end
   -- Clone the property into the element
-  self[property_name] = lux.object.clone(property)
-  for key,value in pairs(data) do
-    self[property_name][key] = value
-  end
-  property:visit(self)
+  local added_property = property:new(data)
+  self[property_name] = added_property
+  added_property:start(self, property)
+  --content.triggers.update:register(added_property, property.update)
   return self
+end
+
+function element:remove_property (property_name)
+  -- Look for the property
+  local to_be_removed = self[property_name]
+  -- Cannot remove a property that isn't there
+  if not to_be_removed then return end
+  to_be_removed:finish(self)
+  content.triggers.update:unregister(to_be_removed, to_be_removed.update)
+  self[property_name] = nil
+end
+
+function element:destroy ()
+  for property_name,_ in pairs(self) do
+    if property_name ~= 'name' then
+      self:remove_property(property_name)
+    end
+  end
+  elements[self.name] = nil
 end

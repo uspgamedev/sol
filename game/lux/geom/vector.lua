@@ -34,11 +34,12 @@ vector = lux.object.new {
   0,
   0,
   -- Internal information.
-  __type = "vectortor"
+  __type = "vector"
 }
 
 point = vector:new {
-  [4] = 1
+  [4] = 1,
+  __type = "point"
 }
 
 function vector.axis (i)
@@ -113,6 +114,23 @@ function vector.__mul (lhs, rhs)
   else -- assume both are vector
     return lhs[1]*rhs[1] + lhs[2]*rhs[2] + lhs[3]*rhs[3] + lhs[4]*rhs[4]
   end
+end
+
+function vector.__div (lhs, rhs)
+  if type(rhs) == "number" then
+    return mul_scalar(1.0/rhs, lhs)
+  end
+  return error "Cannot divide "..type(lhs).." by "..type(rhs).."."
+end
+
+function vector:size ()
+  return math.sqrt(
+    self[1]*self[1] + self[2]*self[2] + self[3]*self[3] + self[4]*self[4]
+  )
+end
+
+function vector:normalized ()
+  return self/self:size()
 end
 
 function vector:set (x, y, z, w)

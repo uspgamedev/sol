@@ -3,47 +3,51 @@ module ('content.properties', package.seeall)
 
 require 'base.property'
 require 'lux.geom.vector'
+require 'lux.functional'
 require 'content.triggers.draw'
+require 'content.draw'
 
 visible = base.property:new {
-  pos = lux.geom.point:new {0,0},
-  size = lux.geom.vector:new {64,64},
+  hidden    = false,
+  rotation  = 0
 }
 
 function visible.triggers:draw (graphics)
-  self.visible:draw(graphics, self.name)
+  if self.visible.hidden then return end
+  for _,drawable in ipairs(self.visible.parts) do
+    drawable:draw(self, graphics)
+  end
 end
 
-function visible:draw (graphics, name)
-  graphics.setColor(150, 150, 255, 100)
-  graphics.rectangle('fill', 0, 0, self.size.x, self.size.y)
-  graphics.setColor(150, 150, 150, 255)
-  graphics.rectangle('line', 0, 0, self.size.x, self.size.y)
-  graphics.setColor(200, 200, 100, 255)
-  graphics.printf(name, 0, 0, self.size.x, 'center')
-end
+visible.__init = {
+  pos   = lux.geom.point:new {0,0},
+  size  = lux.geom.vector:new {1,1},
+  shear = lux.geom.vector:new {0,0},
+  parts = {
+    content.draw.rectangle:new{
+      color   = {150, 150, 255, 100},
+      mode    = 'fill',
+      width   = 64,
+      height  = 64
+    },
+    content.draw.rectangle:new{
+      color   = {150, 150, 150, 255},
+      mode    = 'line',
+      width   = 64,
+      height  = 64
+    },
+    content.draw.text:new {}
+  }
+}
 
-function visible:left ()
-  return self.pos.x
-end
-
-function visible:right ()
-  return self.pos.x + self.size.x
-end
-
-function visible:top ()
-  return self.pos.y
-end
-
-function visible:bottom ()
-  return self.pos.y + self.size.y
-end
-
-function visible:inside (p)
-  if p.x < self:left() then return false end
-  if p.y < self:top() then return false end
-  if p.x > self:right() then return false end
-  if p.y > self:bottom() then return false end
-  return true
+function visible:inside (pos) 
+  local relative_pos = pos-self.pos
+  relative_pos.x = relative_pos.x/self.size.x
+  relative_pos.y = relative_pos.y/self.size.y
+  for _,part in ipairs(self.parts) do
+    if part:inside(relative_pos) then
+      return true
+    end
+  end
 end
 

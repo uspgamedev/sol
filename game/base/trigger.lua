@@ -19,18 +19,27 @@ function trigger:setup (action)
 end
 
 function trigger:register (triggered_element, action)
-  self.triggered_elements[triggered_element] = action
+  if not self.triggered_elements[triggered_element] then
+    self.triggered_elements[triggered_element] = {}
+  end
+  self.triggered_elements[triggered_element][action] = true
 end
 
-function trigger:unregister (triggered_element)
-  self.triggered_elements[triggered_element] = nil
+function trigger:unregister (triggered_element, action)
+  if not self.triggered_elements[triggered_element] then return end
+  self.triggered_elements[triggered_element][action] = nil
 end
 
 function trigger:activate (...)
-  for triggered,action in pairs(self.triggered_elements) do
+  if self.name == 'never' then
+    return
+  end
+  for triggered,actions in pairs(self.triggered_elements) do
     local check = self.check
     if check(triggered, ...) then
-      self.setup(triggered, lux.functional.bindleft(action, triggered, ...), ...)
+      for action,_ in pairs(actions) do
+        self.setup(triggered, lux.functional.bindleft(action, triggered, ...), ...)
+      end
     end
   end
 end

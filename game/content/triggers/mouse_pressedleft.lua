@@ -6,5 +6,9 @@ require 'base.trigger'
 mouse_pressedleft = base.trigger:new {}
 
 function mouse_pressedleft:check (x, y)
-  return self.visible and self.visible:inside(lux.geom.point:new {x,y})
+  if self.visible then
+    return self.visible:inside(lux.geom.point:new {x,y})
+  else
+    return true
+  end
 end

@@ -12,14 +12,14 @@
         // Set to true to insert spaces when tab is pressed
         "translate_tabs_to_spaces": true,
         // Columns in which to display vertical rulers
-        "rulers": [ 100 ]
+        "rulers": [ 80 ]
     },
     "build_systems":
     [
         {
             "name": "Love2D",
             "working_dir": "${project_path}",
-            "cmd": ["love", "game", "--no-joystick", "--debug"]
+            "cmd": ["love", "game"]
         }
     ]
 }
