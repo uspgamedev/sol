@@ -6,7 +6,7 @@ local ID = 0
 
 function make( name, data )
   return base.element(name)
-    :add_property('times', data)
+    :add_property('counts_time', data)
 end
 
 function trigger_in( time )

@@ -85,7 +85,7 @@ make.bullet 'YEAY' {
   target = point{200,200},
   size = vector {2,2},
   speed = 11,
-  deletetrigger = 'gotcha'
+  destroyed_when = 'gotcha'
 }
 
 element "Follower"

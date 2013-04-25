@@ -24,7 +24,7 @@ function make (name, data)
     :add_property('moveable', {
       speed = (target-data.origin):normalized()*(data.speed or 50)*10
     })
-    :add_property('temporary', {
-      trigger = data.deletetrigger or 'never'
+    :add_property('isdestroyed', {
+      when = data.destroyed_when or 'never'
     })
 end

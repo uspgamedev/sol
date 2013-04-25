@@ -5,10 +5,16 @@ require 'base.property'
 require 'lux.functional'
 
 temporary = base.property:new {
-  trigger = 'never'
+  requires = { 'counts_time', 'isdestroyed' },
+  lifetime = 1.0 -- in seconds
 }
 
-function temporary:setup ( element )
-  content.triggers(self.trigger):register(self,
-    lux.functional.bindleft(element.destroy,element))
+local nextID = 0
+
+function temporary:setup (element)
+  element.counts_time.limit     = self.lifetime
+  element.counts_time.repeats   = false
+  element.counts_time.totrigger = 'temporary-'..nextID
+  element.isdestroyed.when      = 'temporary-'..nextID
+  nextID = nextID + 1
 end
