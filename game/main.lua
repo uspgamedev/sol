@@ -86,11 +86,13 @@ function love.keypressed (button)
   --  scene.save('out.lua', elements)
   --end
   content.triggers.keyboard:activate(button, 'down')
+  content.triggers('keydown:'..button):activate()
   base.message.send("keyboard", button~=' ' and 'key'..button or 'keyspace', "down")
 end
 
 function love.keyreleased (button)
   content.triggers.keyboard:activate(button, 'up')
+  content.triggers('keyup:'..button):activate()
   base.message.send("keyboard", button~=' ' and 'key'..button or 'keyspace', "up")
 end
 
