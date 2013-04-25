@@ -26,7 +26,8 @@ element 'Hipster'
     apply {
       fromcontext = 'homing',
       to = 'speed',
-      with=[[ @pos and (@pos-element.visible.pos) or vector{} ]]
+      with = [[ @pos-element.visible.pos ]],
+      condition = [[ @pos ~= nil ]]
     }
   }
 
@@ -48,7 +49,7 @@ element 'Image'
     pos = point{600, 600},
     size = vector{128/500, 128/500},
     parts = { image {} },
-    share { incontext='homing', value='pos', as=[[pos]], when='keyboard' }
+    share { incontext='homing', value='pos', as=[[pos]] }
   }
   :add_property 'moveable' {
     apply {

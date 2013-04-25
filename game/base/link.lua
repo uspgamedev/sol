@@ -5,11 +5,16 @@ require 'lux.geom.vector'
 require 'lux.functional'
 require 'base.message'
 
-local apply_link_code = [[property.$to = ($with)]]
+local apply_link_code = [[
+  if $condition then
+    property.$to = ($with)
+  end
+]]
 
 function create_apply (specs)
-  specs.with = string.gsub(specs.with, '@(%w+)', 'get"%1"')
-  specs.when = specs.when or 'update'
+  specs.condition = string.gsub(specs.condition or "true", '@(%w+)', 'get"%1"')
+  specs.with      = string.gsub(specs.with or "", '@(%w+)', 'get"%1"')
+  specs.when      = specs.when or 'update'
   local final_code  = string.gsub(apply_link_code, '%$(%w+)', specs)
   local getter      = lux.functional.bindleft(base.message.receive, specs.fromcontext)
   local chunk = assert(loadstring(final_code))
