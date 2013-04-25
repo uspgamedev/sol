@@ -152,9 +152,9 @@ make.button 'Shrute' {
 }
 
 make.creator 'Shruter' {
-  recipe = 'bullet',
-  trigger = {'shrute-pressed','timer'},
-  args = {
+  recipe  = 'bullet',
+  when    = {'shrute-pressed','timer'},
+  args    = {
     origin = point{500,300},
     speed = 70,
     parts = { circle{ color={0,200,0,255} } }
@@ -162,10 +162,10 @@ make.creator 'Shruter' {
 }
 
 make.creator 'Shruter2' {
-  recipe = 'bullet',
-  trigger = trigger_in '2',
-  number = 12,
-  args = {
+  recipe  = 'bullet',
+  when    = trigger_in '2',
+  number  = 12,
+  args    = {
     origin = point{500,300},
     speed = 30,
     parts = { circle{ color={150,100,0,255} } }
