@@ -28,6 +28,7 @@ function set_environment (env)
 end
 
 function create_apply (specs)
+  specs.name      = specs.name or 'unkown-apply-link'
   specs.condition = string.gsub(specs.condition or "true", '@(%w+)', 'get"%1"')
   specs.value      = string.gsub(specs.value or "", '@(%w+)', 'get"%1"')
   specs.when      = specs.when or 'update'
@@ -38,7 +39,7 @@ function create_apply (specs)
     get = getter,
     also_trigger = content.triggers(specs.also_trigger)
   }
-  local chunk = load_code(final_code, 'apply-link', env)
+  local chunk = load_code(final_code, specs.name, env)
   return { action = chunk, specs = specs }
 end
 
@@ -49,6 +50,7 @@ local share_link_code = [[
 ]]
 
 function create_share (specs)
+  specs.name      = specs.name or 'unkown-apply-link'
   specs.condition = string.gsub(specs.condition or "true", '@(%w+)', 'get"%1"')
   specs.as        = string.gsub(specs.as, '@(%w+)', 'get"%1"')
   specs.when      = specs.when or 'update'
@@ -59,6 +61,6 @@ function create_share (specs)
     get = getter,
     share = setter
   }
-  local chunk       = load_code(final_code, 'share-link', env)
+  local chunk       = load_code(final_code, specs.nam, env)
   return { action = chunk, specs = specs }
 end
