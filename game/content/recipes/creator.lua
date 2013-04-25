@@ -9,9 +9,9 @@ function make(name, data)
   local creator = base.element(name)
   local makerecipe = require('content.recipes.' .. data.recipe).make
   if data.number then
-    data.makerecipe = function (...)
+    data.makerecipe = function ( name, args )
       for i=1,data.number do 
-        makerecipe(...) 
+        makerecipe( name .. '.' .. i, args) 
       end
     end
   else

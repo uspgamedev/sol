@@ -18,7 +18,6 @@ function register( triggers, element, func )
   else
     for _,trigger in ipairs(triggers) do
       _M(trigger):register(element,func)
-      print ('adding ' .. trigger)
     end
   end
 end
