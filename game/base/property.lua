@@ -22,7 +22,7 @@ function property:start (element)
   for k,link in ipairs(self) do
     getfenv(link.action).property  = self
     getfenv(link.action).element   = element
-    setmetatable(getfenv(link.action), { __index = self })
+    --setmetatable(getfenv(link.action), { __index = self })
   end
   self:setup(element)
   add_triggers(self:__super(), element)

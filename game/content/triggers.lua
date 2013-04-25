@@ -14,5 +14,7 @@ end
 
 local all_triggers = love.filesystem.enumerate 'content/triggers'
 for _, trigger_file in ipairs(all_triggers) do
-  require('content.triggers.'..string.gsub(trigger_file, '.lua', ''))
+  local trigger_name = string.gsub(trigger_file, '.lua', '')
+  require('content.triggers.'..trigger_name)
+  content.triggers[trigger_name].name = trigger_name
 end

@@ -39,6 +39,12 @@ local function export_globals ()
   end
 end
 
+local function export_math ()
+  for name,mathfunc in pairs(math) do
+    env[name] = mathfunc
+  end
+end
+
 local function export_draws ()
   for name,draw in pairs(content.draw) do
     if type(draw) == 'table' and draw.new then
@@ -69,11 +75,13 @@ function setup ()
   env.apply   = base.link.create_apply
   env.share   = base.link.create_share 
   export_globals()
+  export_math()
   export_draws()
   export('vector', lux.geom.vector)
   export('point', lux.geom.point)
   export('hitbox', base.hitbox)
   export_recipes()
+  base.link.set_environment(env)
   -- TODO organize these helper functions
   env.trigger_in = content.recipes.timer.trigger_in
 end
@@ -81,12 +89,5 @@ end
 function runscript (filename)
   loaded_chunk = assert(love.filesystem.load(filename))
   setfenv(loaded_chunk, setmetatable({}, { __index = env }))
-  loaded_chunk()
-end
-
-function runstring (codestring, name, additionals)
-  loaded_chunk = assert(loadstring(codestring, name))
-  setmetatable(additionals, { __index = env })
-  setfenv(loaded_chunk, additionals)
   loaded_chunk()
 end

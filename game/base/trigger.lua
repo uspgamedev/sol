@@ -31,6 +31,7 @@ function trigger:unregister (triggered_element, action)
 end
 
 function trigger:activate (...)
+  if self.name == 'never' then return end
   for triggered,actions in pairs(self.triggered_elements) do
     local check = self.check
     if check(triggered, ...) then

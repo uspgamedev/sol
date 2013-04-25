@@ -1,10 +1,24 @@
 
 element 'This is grabbable'
   :add_property 'visible' {
-    pos = point{400,300}
+    pos = point{400,300},
+    apply {
+      fromcontext = '',
+      to = 'pos',
+      with = [[
+        vector{
+          400+20*cos(element.counts_time.counter*pi),
+          300+20*sin(element.counts_time.counter*pi)
+        }
+      ]]
+    }
   }
   :add_property 'grabbable' {
     useless = { x = 1 }
+  }
+  :add_property 'counts_time' {
+    repeats = true,
+    limit   = 2.0
   }
 
 element 'Hipster'
@@ -45,7 +59,7 @@ element 'Image'
     share {
       incontext = 'homing',
       value     = 'pos',
-      as        = [[pos]]
+      as        = [[element.visible.pos]]
     }
   }
   :add_property 'moveable' {
