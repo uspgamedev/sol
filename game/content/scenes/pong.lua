@@ -129,29 +129,24 @@ element "left_pad"
   }
 
   :add_property "moveable"{
+
     apply{
       fromcontext = "keyboard",
       to = "speed.y",
-      when = "keydown:w",
-      value = [[element.moveable.speed.y-]]..padspeed
+      when = "key:w",
+      value = [[
+        element.moveable.speed.y+(@keyw=='down' and 1 or -1)*
+        ]]..padspeed..[[
+      ]]
     },
     apply{
       fromcontext = "keyboard",
       to = "speed.y",
-      when = "keydown:s",
-      value = [[element.moveable.speed.y+]]..padspeed
-    },
-    apply{
-      fromcontext = "keyboard",
-      to = "speed.y",
-      when = "keyup:w",
-      value = [[element.moveable.speed.y+]]..padspeed
-    },
-    apply{
-      fromcontext = "keyboard",
-      to = "speed.y",
-      when = "keyup:s",
-      value = [[element.moveable.speed.y-]]..padspeed
+      when = "key:s",
+      value = [[
+        element.moveable.speed.y-(@keys=='down' and 1 or -1)*
+        ]]..padspeed..[[
+      ]]
     }
   } 
 
@@ -198,26 +193,20 @@ element "right_pad"
     apply{
       fromcontext = "keyboard",
       to = "speed.y",
-      when = "keydown:up",
-      value = [[element.moveable.speed.y-]]..padspeed
+      when = "key:up",
+      value = [[
+        element.moveable.speed.y+(@keyup=='down' and 1 or -1)*
+        ]]..padspeed..[[
+      ]]
     },
     apply{
       fromcontext = "keyboard",
       to = "speed.y",
-      when = "keydown:down",
-      value = [[element.moveable.speed.y+]]..padspeed
-    },
-    apply{
-      fromcontext = "keyboard",
-      to = "speed.y",
-      when = "keyup:up",
-      value = [[element.moveable.speed.y+]]..padspeed
-    },
-    apply{
-      fromcontext = "keyboard",
-      to = "speed.y",
-      when = "keyup:down",
-      value = [[element.moveable.speed.y-]]..padspeed
+      when = "key:down",
+      value = [[
+        element.moveable.speed.y-(@keydown=='down' and 1 or -1)*
+        ]]..padspeed..[[
+      ]]
     }
   }
 
