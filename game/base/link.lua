@@ -4,6 +4,7 @@ module ('base.link', package.seeall)
 require 'lux.geom.vector'
 require 'lux.functional'
 require 'base.message'
+require 'base.loader'
 
 local apply_link_code = [[
   if $condition then
@@ -11,19 +12,29 @@ local apply_link_code = [[
   end
 ]]
 
+local environment
+
+local function load_code (codestring, name, additionals)
+  loaded_chunk = assert(loadstring(codestring, name))
+  setmetatable(additionals, { __index = environment })
+  setfenv(loaded_chunk, additionals)
+  return loaded_chunk
+end
+
+function set_environment (env)
+  environment = env
+end
+
 function create_apply (specs)
   specs.condition = string.gsub(specs.condition or "true", '@(%w+)', 'get"%1"')
   specs.with      = string.gsub(specs.with or "", '@(%w+)', 'get"%1"')
   specs.when      = specs.when or 'update'
   local final_code  = string.gsub(apply_link_code, '%$(%w+)', specs)
   local getter      = lux.functional.bindleft(base.message.receive, specs.fromcontext)
-  local chunk = assert(loadstring(final_code))
   local env = {
-    get = getter,
-    vector = lux.functional.bindleft(lux.geom.vector.new, lux.geom.vector),
-    point = lux.functional.bindleft(lux.geom.point.new, lux.geom.point),
+    get = getter
   }
-  setfenv(chunk, env)
+  local chunk = load_code(final_code, 'apply-link', env)
   return { action = chunk, specs = specs }
 end
 
@@ -40,13 +51,10 @@ function create_share (specs)
   local final_code  = string.gsub(share_link_code, '%$(%w+)', specs)
   local getter      = lux.functional.bindleft(base.message.receive, specs.fromcontext)
   local setter      = base.message.send
-  local chunk       = assert(loadstring(final_code))
   local env = {
     get = getter,
-    share = setter,
-    vector = lux.functional.bindleft(lux.geom.vector.new, lux.geom.vector),
-    point = lux.functional.bindleft(lux.geom.point.new, lux.geom.point),
+    share = setter
   }
-  setfenv(chunk, env)
+  local chunk       = load_code(final_code, 'share-link', env)
   return { action = chunk, specs = specs }
 end

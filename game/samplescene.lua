@@ -1,17 +1,24 @@
 
---use 'point'
---use 'vector'
-use 'rectangle'
-use 'circle'
-use 'image'
-use 'text'
-
 element 'This is grabbable'
   :add_property 'visible' {
-    pos = point{400,300}
+    pos = point{400,300},
+    apply {
+      fromcontext = '',
+      to = 'pos',
+      with = [[
+        vector{
+          400+20*cos(element.counts_time.counter*pi),
+          300+20*sin(element.counts_time.counter*pi)
+        }
+      ]]
+    }
   }
   :add_property 'grabbable' {
     useless = { x = 1 }
+  }
+  :add_property 'counts_time' {
+    repeats = true,
+    limit   = 2.0
   }
 
 element 'Hipster'
@@ -52,7 +59,7 @@ element 'Image'
     share {
       incontext = 'homing',
       value     = 'pos',
-      as        = [[pos]]
+      as        = [[element.visible.pos]]
     }
   }
   :add_property 'moveable' {
@@ -84,10 +91,6 @@ make.creator 'FireShooter' {
     apply { fromcontext='mouse', to='target', with='@position'},
   }
 }
-element 'FireShooter'
-  :add_property 'plays_sound' {
-    when = 'mouse_pressedleft'
-  }
 
 make.bullet 'YEAY' {
   origin = point{100,100},
