@@ -83,7 +83,7 @@ element 'Image'
 
 make.creator 'FireShooter' {
   recipe = 'bullet',
-  trigger = 'mouse_pressedleft',
+  when = 'mouse_pressedleft',
   args = {
     name = 'Fireball',
     parts = { circle{ color={255,0,0,255} } },
@@ -155,15 +155,15 @@ make.creator 'Shruter' {
   recipe  = 'bullet',
   when    = {'shrute-pressed','timer'},
   args    = {
-    origin = point{500,300},
-    speed = 70,
-    parts = { circle{ color={0,200,0,255} } }
+    origin  = point{500,300},
+    speed   = 70,
+    parts   = { circle{ color={0,200,0,255} } }
   }
 }
 
 make.creator 'Shruter2' {
   recipe  = 'bullet',
-  when    = trigger_in '2',
+  when    = wait(2),
   number  = 12,
   args    = {
     origin = point{500,300},
