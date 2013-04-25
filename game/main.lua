@@ -3,6 +3,7 @@ require 'scene'
 require 'base.element'
 require 'base.message'
 require 'base.hitbox'
+require 'base.loader'
 require 'content.triggers.update'
 require 'content.triggers.draw'
 require 'content.triggers.mouse_pressedleft'
@@ -12,7 +13,12 @@ require 'lux.geom.vector'
 
 function love.load (args)
   love.graphics.setFont(love.graphics.newFont())
-  scene.load(args[2] and ('content/scenes/'..args[2]) or 'samplescene.lua')
+  base.loader.setup()
+  base.loader.runscript(
+    args[2]
+      and ('content/scenes/'..args[2])
+      or  'samplescene.lua'
+  )
   handleInput()
   base.message.send("mouse", "buttonl", "up")
   base.message.send("mouse", "buttonr", "up")
