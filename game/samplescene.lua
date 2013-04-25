@@ -172,8 +172,8 @@ make.creator 'Shruter2' {
   }
 }
 make.timer 'Timer' {
-  timetotrigger = .7,
-  repeats = true,
+  limit     = .7,
+  repeats   = true,
   totrigger = 'timer'
 }
 --[[ WISH LIST ]]--
