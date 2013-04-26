@@ -27,7 +27,7 @@ element 'Hipster'
     pos = point{600,300},
     parts = {
       circle { radius=32, color={ 50, 50, 200, 200} },
-      text { text='$moveable[1].specs.fromcontext$\n$name$' }
+      text { text='$moveable[1].specs.fromcontext$\n$name$',fontsize = 50 }
     }
   }
   :add_property 'moveable' {
@@ -98,7 +98,19 @@ make.bullet 'YEAY' {
   target = point{200,200},
   size = vector {2,2},
   speed = 11,
-  destroyed_when = 'gotcha'
+  destroyed_when = 'gotcha',
+  also_trigger = 'YEAY_DEATH',
+}
+
+make.creator 'Explosion-Effect' {
+  recipe = 'explosioneffect',
+  trigger = 'YEAY_DEATH',
+  number = 13,
+  args = {
+    origin = point{300,300},
+    speed = 70,
+    parts = { rectangle{ color={0,200,0,255} } }
+  }
 }
 
 element "Follower"
@@ -171,6 +183,7 @@ make.creator 'Shruter2' {
     parts = { circle{ color={150,100,0,255} } }
   }
 }
+
 make.timer 'Timer' {
   timetotrigger = .7,
   repeats = true,
