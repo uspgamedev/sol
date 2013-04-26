@@ -26,7 +26,7 @@ function property:start (element)
   end
   self:setup(element)
   add_triggers(self:__super(), element)
-  self:register_links()
+  self:register_links(element)
 end
 
 function property:setup (element)
@@ -42,21 +42,21 @@ end
 function property:finish (element)
   self:cleanup(element)
   remove_triggers(self:__super(), element)
-  self:unregister_links()
+  self:unregister_links(element)
 end
 
-function property:cleanup (element)
+function property:cleanup ()
   -- Abstract
 end
 
-function property:register_links ()
+function property:register_links (element)
   for _,link in ipairs(self) do
-    content.triggers(link.specs.when):register(self, link.action)
+    content.triggers(link.specs.when):register(element, link.action)
   end
 end
 
-function property:unregister_links ()
+function property:unregister_links (element)
   for _,link in ipairs(self) do
-    content.triggers(link.specs.when):unregister(self, link.action)
+    content.triggers(link.specs.when):unregister(element, link.action)
   end
 end
