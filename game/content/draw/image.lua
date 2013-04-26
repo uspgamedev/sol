@@ -15,6 +15,14 @@ function image:__init ()
   self.data = cash[self.path]
 end
 
+function image:getWidth ()
+  return self.data:getWidth()
+end
+
+function image:getHeight ()
+  return self.data:getHeight()
+end
+
 function image:draw (element, graphics)
   graphics.setColor(self.color)
   graphics.draw(self.data, 0, 0, 0, 1, 1, self.data:getWidth()/2, self.data:getHeight()/2)

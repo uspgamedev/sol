@@ -40,6 +40,14 @@ function sprite:__init ()
   self.mirror = self.mirror or {false, false}
 end
 
+function sprite:getWidth ()
+  return self.framesize.x
+end
+
+function sprite:getHeight ()
+  return self.framesize.y
+end
+
 function sprite:draw (element, graphics)
   graphics.setColor(self.color)
   self.quads[self.frame.i][self.frame.j]:flip(unpack(self.mirror))
