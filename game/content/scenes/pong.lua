@@ -19,10 +19,7 @@ element "bola"
   :add_property "visible"{
     position = point{screen.width/2, 400},
     parts = {
-      rectangle{
-        width = 10,
-        height = 10  
-      }
+      rectangle{ width = 10, height = 10 }
     },
     apply{
       fromcontext="",
@@ -39,34 +36,26 @@ element "bola"
       also_trigger = "rightpoint"
     }
   }
-
   :add_property "moveable"{
     speed = vector{350,-350},
     apply{
       fromcontext="",
       to = "speed.y",
-      ifcondition = "element.visible.position.y <= 5",
-      value = [[-element.moveable.speed.y]]
-    },
-    apply{
-      fromcontext="",
-      to = "speed.y",
-      ifcondition = "element.visible.position.y >= 763",
+      ifcondition = [[
+        element.visible.position.y <= 5 or element.visible.position.y >= 763
+      ]],
       value = [[-element.moveable.speed.y]]
     },
     apply{
       fromcontext = "",
       to = "speed.x",
-      when = "noem",
+      when = "hits-the-pad",
       value = [[-element.moveable.speed.x]]
     }
   }
-
   :add_property "collides" {
-    totrigger = "noem",
-    bounds = hitbox{
-      targetclass = "pad"
-    },
+    totrigger = "hits-the-pad",
+    bounds = hitbox{ targetclass = "pad" },
     apply {
       fromcontext = '',
       to = 'bounds.size',
@@ -126,7 +115,6 @@ element "left_pad"
   } 
 
   :add_property "collides" {
-    --totrigger = "noem",
     bounds = hitbox{
       class = "pad"
     },
@@ -186,7 +174,6 @@ element "right_pad"
   }
 
   :add_property "collides" {
-   -- totrigger = "noem",
     bounds = hitbox{
       class = "pad"
     },
