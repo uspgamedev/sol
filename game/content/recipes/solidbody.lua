@@ -10,7 +10,8 @@ local function extract (element, value)
 end
 
 function make (name, data)
-  return base.element(name)
+  local element = base.element(name)
+  return element
     :property('visible', {
       position  = extract(element, data.position),
       scale     = extract(element, data.scale),
