@@ -32,7 +32,7 @@ function set_environment (env)
 end
 
 function create_apply (specs)
-  specs.name          = specs.name or 'unkown-apply-link'
+  specs.name          = specs.name or 'unknown-apply-link'
   specs.ifcondition   = substitute_messages(specs.ifcondition or "true")
   specs.value         = substitute_messages(specs.value or "")
   specs.when          = specs.when or 'update'
@@ -55,7 +55,7 @@ local share_link_code = [[
 ]]
 
 function create_share (specs)
-  specs.name        = specs.name or 'unkown-apply-link'
+  specs.name        = specs.name or 'unknown-share-link'
   specs.ifcondition = substitute_messages(specs.ifcondition or "true")
   specs.as          = substitute_messages(specs.as)
   specs.when        = specs.when or 'update'

@@ -8,6 +8,7 @@ require 'base.link'
 require 'base.hitbox'
 require 'content.draw'
 require 'content.recipes'
+require 'content.helper'
 
 local lambda = lux.functional
 
@@ -92,6 +93,7 @@ function setup ()
   base.link.set_environment(env)
   -- TODO organize these helper functions
   env.wait = content.recipes.timer.wait
+  env.restrain_within = content.helper.restrain_within
 end
 
 function runscript (filename)
