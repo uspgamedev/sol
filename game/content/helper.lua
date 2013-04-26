@@ -28,3 +28,10 @@ function unique (some_string)
     return some_string.." (#"..nextID..")"
   end
 end
+
+function get (field)
+  return function (element)
+    return
+      assert(setfenv(loadstring("return element."..field), {element=element})) ()
+  end
+end
