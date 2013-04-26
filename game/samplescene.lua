@@ -173,14 +173,23 @@ make.creator 'Shruter' {
   }
 }
 
+local function random_dir (size)
+  return function ()
+    local angle = random()*2*pi
+    return size*vector{cos(angle), sin(angle)}
+  end
+end
+
 make.creator 'Shruter2' {
-  recipe  = 'bullet',
+  recipe  = 'solidbody',
   when    = wait(2),
   number  = 12,
   args    = {
-    origin = point{500,300},
-    speed = 30,
-    parts = { circle{ color={150,100,0,255} } }
+    position              = point{500,300},
+    initial_speed         = random_dir(100),
+    visual                = rectangle{ width=5, height=5, color={150,100,0,255} },
+    collision_targetclass = 'target',
+    destroyed_when        = 'collision'
   }
 }
 

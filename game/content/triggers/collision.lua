@@ -5,6 +5,6 @@ require 'base.trigger'
 
 collision = base.trigger:new {}
 
-function collision:check (collided)
+function collision:check (collided, another)
   return self == collided
 end

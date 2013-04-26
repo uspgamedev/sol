@@ -72,7 +72,6 @@ function element:remove_property (property_name)
   -- Cannot remove a property that isn't there
   if not to_be_removed then return end
   to_be_removed:finish(self)
-  content.triggers.update:unregister(to_be_removed, to_be_removed.update)
   self[property_name] = nil
 end
 

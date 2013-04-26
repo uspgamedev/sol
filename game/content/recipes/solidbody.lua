@@ -11,16 +11,16 @@ end
 
 function make (name, data)
   return base.element(name)
-    :add_property('visible', {
+    :property('visible', {
       position  = extract(element, data.position),
       scale     = extract(element, data.scale),
       parts     = { extract(element, data.visual) }
     })
-    :add_property('moveable', {
+    :property('moveable', {
       speed     = extract(element, data.initial_speed)
     })
-    :add_property('collides', {
-      totrigger = extract(element, data.collision_trigger),
+    :property('collides', {
+      totrigger = extract(element, data.collision_trigger or 'collision'),
       bounds    = base.hitbox:new {
         class       = extract(element, data.collision_class),
         targetclass = extract(element, data.collision_targetclass)
@@ -37,7 +37,7 @@ function make (name, data)
         ]]
       }
     })
-    :add_property('isdestroyed', {
-      when = extract(data.destroyed_when or 'never')
+    :property('isdestroyed', {
+      when = extract(element, data.destroyed_when or 'never')
     })
 end
