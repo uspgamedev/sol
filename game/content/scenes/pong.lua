@@ -56,6 +56,17 @@ make.solidbody
     }
   }
 
+element 'Player'
+  :property 'useskeyboard' {
+    sharein = 'player-controls',
+    keys = {
+      up    = { up=0, down=-1 },
+      down  = { up=0, down=1},
+      w     = { up=0, down=-1 },
+      s     = { up=0, down=1}
+    }
+  }
+
 local padspeed = 500
 
 make.solidbody
@@ -79,23 +90,10 @@ make.solidbody
     }
   }
   :property "moveable"{
-    apply{
-      fromcontext = "keyboard",
-      to = "speed.y",
-      when = "key-event:w",
-      value = [[
-        element.moveable.speed.y+(@w_key=='down' and 1 or -1)*
-        ]]..padspeed..[[
-      ]]
-    },
-    apply{
-      fromcontext = "keyboard",
-      to = "speed.y",
-      when = "key-event:s",
-      value = [[
-        element.moveable.speed.y-(@s_key=='down' and 1 or -1)*
-        ]]..padspeed..[[
-      ]]
+    apply {
+      fromcontext = 'player-controls',
+      to          = 'speed.y',
+      value       = [[ (@w + @s) * ]]..padspeed
     }
   } 
 
@@ -120,22 +118,9 @@ make.solidbody
     }
   }
   :property "moveable"{
-    apply{
-      fromcontext = "keyboard",
-      to = "speed.y",
-      when = "key-event:up",
-      value = [[
-        element.moveable.speed.y+(@up_key=='down' and 1 or -1)*
-        ]]..padspeed..[[
-      ]]
-    },
-    apply{
-      fromcontext = "keyboard",
-      to = "speed.y",
-      when = "key-event:down",
-      value = [[
-        element.moveable.speed.y-(@down_key=='down' and 1 or -1)*
-        ]]..padspeed..[[
-      ]]
+    apply {
+      fromcontext = 'player-controls',
+      to          = 'speed.y',
+      value       = [[ (@up + @down) * ]]..padspeed
     }
   }
