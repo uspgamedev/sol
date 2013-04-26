@@ -56,7 +56,7 @@ function element:property (property_name, data)
   local changed_property = self[property_name]
   -- Apply changes
   for k,v in pairs(data) do
-    if k == math.floor(k) and k >= 1 and k <= #data then
+    if type(k) == 'number' and k == math.floor(k) and k >= 1 and k <= #data then
       table.insert(changed_property, v)
     else
       changes[k] = v
