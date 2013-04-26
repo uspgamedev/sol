@@ -1,4 +1,3 @@
-
 make.score "Right Player" {
   position = point{512 + 256, 50},
   scale = vector{4,4},
@@ -75,21 +74,8 @@ make.solidbody
     visual          = rectangle{ width = 10, height = 50 },
     collision_class = 'pad',
   }
-  :property "visible"{
-    apply{
-      fromcontext="",
-      to = "position.y",
-      ifcondition = "element.visible.position.y <= 25",
-      value = [[25]]
-    },
-    apply{
-      fromcontext="",
-      to = "position.y",
-      ifcondition = "element.visible.position.y >= 743",
-      value = [[743]]
-    }
-  }
-  :property "moveable"{
+  :property "visible" { restrain_within('position.y', 25, 743) }
+  :property "moveable" {
     apply {
       fromcontext = 'player-controls',
       to          = 'speed.y',
@@ -103,21 +89,8 @@ make.solidbody
     visual          = rectangle{ width = 10, height = 50 },
     collision_class = 'pad',
   }
-  :property "visible"{
-    apply{
-      fromcontext="",
-      to = "position.y",
-      ifcondition = "element.visible.position.y <= 25",
-      value = [[25]]
-    },
-    apply{
-      fromcontext="",
-      to = "position.y",
-      ifcondition = "element.visible.position.y >= 743",
-      value = [[743]]
-    }
-  }
-  :property "moveable"{
+  :property "visible" { restrain_within('position.y', 25, 743) }
+  :property "moveable" {
     apply {
       fromcontext = 'player-controls',
       to          = 'speed.y',
