@@ -5,21 +5,25 @@ require 'base.element'
 require 'base.link'
 require 'base.hitbox'
 
+local function extract (value)
+  return type(value) == 'function' and value() or value
+end
+
 function make (name, data)
   return base.element(name)
     :add_property('visible', {
-      position  = data.position,
-      scale     = data.scale,
-      parts     = { data.visual }
+      position  = extract(data.position),
+      scale     = extract(data.scale),
+      parts     = { extract(data.visual) }
     })
     :add_property('moveable', {
-      speed     = data.initial_speed
+      speed     = extract(data.initial_speed)
     })
     :add_property('collides', {
-      totrigger = data.collision_trigger,
+      totrigger = extract(data.collision_trigger),
       bounds    = base.hitbox:new {
-        class       = data.collision_class,
-        targetclass = data.collision_targetclass
+        class       = extract(data.collision_class),
+        targetclass = extract(data.collision_targetclass)
       },
       base.link.create_apply {
         name = name.."'s bound size link",
