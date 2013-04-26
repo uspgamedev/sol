@@ -14,7 +14,7 @@ isdestroyed = base.property:new {
 
 function isdestroyed:setup ( element )
   content.triggers.register(self.when,
-   self,
+    element,
     lux.functional.bindleft(kill,element)
   )
 end
