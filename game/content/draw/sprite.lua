@@ -30,9 +30,9 @@ function sprite:__init ()
     self.quads[i] = {}
     for j=1, self.maxframe.j do
       self.quads[i][j] = love.graphics.newQuad(
-        self.quadsize*(j-1),
-        self.quadsize*(i-1),
-        self.quadsize, self.quadsize, self.img:getWidth(), self.img:getHeight()
+        self.framesize.x*(j-1),
+        self.framesize.y*(i-1),
+        self.framesize.x, self.framesize.y, self.img:getWidth(), self.img:getHeight()
       )
     end
   end
