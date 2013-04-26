@@ -55,8 +55,8 @@ element 'Rectangle'
 element 'Image'
   :add_property 'visible' {
     position  = point{600, 600},
-    scale     = vector{128/500, 128/500},
-    parts     = { image {} },
+    --scale     = vector{128/500, 128/500},
+    parts     = { sprite {} },
     share {
       incontext = 'homing',
       valueof   = 'position',
