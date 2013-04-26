@@ -1,5 +1,4 @@
 
-require 'scene'
 require 'base.element'
 require 'base.message'
 require 'base.hitbox'
