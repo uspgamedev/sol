@@ -9,8 +9,8 @@ isdestroyed = base.property:new {
 }
 
 function isdestroyed:setup ( element )
-  content.triggers(self.when):register(
-    self,
+  content.triggers.register(self.when,
+   self,
     lux.functional.bindleft(element.destroy,element)
   )
 end

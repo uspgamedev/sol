@@ -6,7 +6,7 @@ require 'lux.functional'
 require 'content.triggers'
 
 creates = base.property:new {
-  trigger     = 'never',
+  when        = 'never',
   recipe      = 'none',
   makerecipe  = function (name, data) return nil end,
   nextID      = 0
@@ -32,5 +32,5 @@ function creates:setup (element)
   if not self.args.name then
     self.args.name = element.name .. "'s " .. self.recipe
   end
-  content.triggers(self.trigger):register(element, createfunc)
+  content.triggers.register(self.when, element, createfunc)
 end

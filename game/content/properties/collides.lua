@@ -6,7 +6,6 @@ require 'base.hitbox'
 require 'content.triggers'
 
 collides = base.property:new {
-  requires = {'visible'},
   totrigger = 'never'
 }
 

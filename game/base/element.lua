@@ -30,7 +30,7 @@ function element:add_property (property_name, data)
     return lux.functional.bindleft(element.add_property, self, property_name)
   end
   -- Cannot add the same property again
-  if self[property_name] then return end
+  if self[property_name] then return self end
   -- Get the property object
   local property = content.properties[property_name]
   -- Add the property's required properties
@@ -41,7 +41,28 @@ function element:add_property (property_name, data)
   local added_property = property:new(data)
   self[property_name] = added_property
   added_property:start(self, property)
-  --content.triggers.update:register(added_property, property.update)
+  return self
+end
+
+function element:property (property_name, data)
+  -- Chain call
+  if not data then
+    return lux.functional.bindleft(element.property, self, property_name)
+  end
+  -- If does not have the property, then add it
+  if not self[property_name] then
+    return self:add_property(property_name, data)
+  end
+  local changed_property = self[property_name]
+  -- Apply changes
+  for k,v in pairs(data) do
+    if k == math.floor(k) and k >= 1 and k <= #data then
+      table.insert(changed_property, v)
+    else
+      changes[k] = v
+    end
+  end
+  changed_property:start(self, property)
   return self
 end
 
