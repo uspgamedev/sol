@@ -15,12 +15,15 @@ make.score "Left Player" {
   change = [[element.visible.score + 1]]
 }
 
-element "bola"
-  :add_property "visible"{
-    position = point{screen.width/2, 400},
-    parts = {
-      rectangle{ width = 10, height = 10 }
-    },
+make.solidbody 'Ball' {
+  position              = point{screen.width/2, 400},
+  visual                = rectangle{ width = 10, height = 10 },
+  initial_speed         = vector{350,-350},
+  collision_trigger     = 'hits-the-pad',
+  collision_targetclass = 'pad'
+}
+element "Ball"
+  :property 'visible' {
     apply{
       fromcontext="",
       to = "position",
@@ -36,8 +39,7 @@ element "bola"
       also_trigger = "rightpoint"
     }
   }
-  :add_property "moveable"{
-    speed = vector{350,-350},
+  :property 'moveable' {
     apply{
       fromcontext="",
       to = "speed.y",
@@ -51,19 +53,6 @@ element "bola"
       to = "speed.x",
       when = "hits-the-pad",
       value = [[-element.moveable.speed.x]]
-    }
-  }
-  :add_property "collides" {
-    totrigger = "hits-the-pad",
-    bounds = hitbox{ targetclass = "pad" },
-    apply {
-      fromcontext = '',
-      to = 'bounds.size',
-      value = [[
-        vector{
-          element.visible.parts[1].width,
-          element.visible.parts[1].height}
-      ]]
     }
   }
 
