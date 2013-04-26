@@ -1,44 +1,19 @@
-element "scoreright"
-  :add_property "visible"{
-    position = point{512 + 256, 50}, 
-    scale = vector{4,4},
-    parts = {
-      text {
-        text = "$visible.score$",
-        linesize = 128,
-        width = 128,
-        height = 32
-      }
-    },
-    score = 0,
-    apply {
-      fromcontext = "",
-      to = "score",
-      when = "rightpoint",
-      value = [[element.visible.score + 1]]
-    }
-  }
 
-element "scoreleft"
-  :add_property "visible"{
-    position = point{512 - 256, 50}, 
-    scale = vector{4,4},
-    parts = {
-      text {
-        text = "$visible.score$",
-        linesize = 128,
-        width = 128,
-        height = 32
-      }
-    },
-    score = 0,
-    apply {
-      fromcontext = "",
-      to = "score",
-      when = "leftpoint",
-      value = [[element.visible.score + 1]]
-    }
-  }
+make.score "Right Player" {
+  position = point{512 + 256, 50},
+  scale = vector{4,4},
+  width = 128,
+  change_when = 'rightpoint',
+  change = [[element.visible.score + 1]]
+}
+
+make.score "Left Player" {
+  position = point{512 - 256, 50},
+  scale = vector{4,4},
+  width = 128,
+  change_when = 'leftpoint',
+  change = [[element.visible.score + 1]]
+}
 
 element "bola"
   :add_property "visible"{
