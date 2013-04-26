@@ -20,10 +20,10 @@ function visible.triggers:draw (graphics)
 end
 
 visible.__init = {
-  pos   = lux.geom.point:new {0,0},
-  size  = lux.geom.vector:new {1,1},
-  shear = lux.geom.vector:new {0,0},
-  parts = {
+  position  = lux.geom.point:new {0,0},
+  scale     = lux.geom.vector:new {1,1},
+  shear     = lux.geom.vector:new {0,0},
+  parts     = {
     content.draw.rectangle:new{
       color   = {150, 150, 255, 100},
       mode    = 'fill',
@@ -40,12 +40,12 @@ visible.__init = {
   }
 }
 
-function visible:inside (pos) 
-  local relative_pos = pos-self.pos
-  relative_pos.x = relative_pos.x/self.size.x
-  relative_pos.y = relative_pos.y/self.size.y
+function visible:inside (position) 
+  local relative_position = position-self.position
+  relative_position.x = relative_position.x/self.scale.x
+  relative_position.y = relative_position.y/self.scale.y
   for _,part in ipairs(self.parts) do
-    if part:inside(relative_pos) then
+    if part:inside(relative_position) then
       return true
     end
   end

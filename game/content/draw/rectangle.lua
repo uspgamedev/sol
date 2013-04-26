@@ -9,6 +9,14 @@ rectangle = base.drawable:new {
   height  = 32
 }
 
+function rectangle:getWidth ()
+  return self.width
+end
+
+function rectangle:getHeight ()
+  return self.height
+end
+
 function rectangle:draw (element, graphics)
   graphics.setColor(self.color)
   graphics.rectangle(

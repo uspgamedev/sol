@@ -55,7 +55,7 @@ function clickable:setup (element)
   end
   self.colorDown = self.colorDown or getdowncolor(self.colorUp)
   self.colorDownLine = self.colorDownLine or getlinecolor(self.colorDown)
-  element.visible.pos = self.pos
+  element.visible.position = self.position
   element.visible.parts = {
     content.draw.rectangle:new { 
       width = self.width,

@@ -5,39 +5,39 @@ require 'lux.object'
 require 'lux.geom.vector'
 
 hitbox = lux.object.new {
-  pos         = nil,  -- point
+  position    = nil,  -- point
   size        = nil,  -- vector
   class       = 'nothing',
   targetclass = ''
 }
 
 hitbox.__init = {
-  pos   = lux.geom.point:new {0,0},
+  position   = lux.geom.point:new {0,0},
   size  = lux.geom.vector:new {1,1}
 }
 
 local classes = {}
 
 function hitbox:top ()
-  return self.pos.y
+  return self.position.y
 end
 
 function hitbox:bottom ()
-  return self.pos.y + self.size.y
+  return self.position.y + self.size.y
 end
 
 function hitbox:left ()
-  return self.pos.x
+  return self.position.x
 end
 
 function hitbox:right ()
-  return self.pos.x + self.size.x
+  return self.position.x + self.size.x
 end
 
 function hitbox:update(owner, dt)
   self.owner = owner
   if owner then
-    self.pos = owner.visible.pos - self.size/2
+    self.position = owner.visible.position - self.size/2
     self:register()
   end
 end

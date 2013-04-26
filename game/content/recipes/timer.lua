@@ -9,10 +9,10 @@ function make( name, data )
     :add_property('counts_time', data)
 end
 
-function trigger_in( time )
+function wait( time )
   time = time + 0
   ID = ID + 1
-  make( 'timer#' .. ID, {timetotrigger = time, repeats = false,
+  make( 'timer#' .. ID, {limit = time, repeats = false,
     totrigger = 'timertrigger#' .. ID} )
   return 'timertrigger#' .. ID
 end
