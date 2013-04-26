@@ -2,10 +2,10 @@
 
 element 'This is grabbable'
   :add_property 'visible' {
-    pos = point{400,300},
+    position = point{400,300},
     apply {
       fromcontext = '',
-      to = 'pos',
+      to = 'position',
       value = [[
         vector{
           400+20*cos(element.counts_time.counter*pi),
@@ -24,7 +24,7 @@ element 'This is grabbable'
 
 element 'Hipster'
   :add_property 'visible' {
-    pos = point{600,300},
+    position = point{600,300},
     parts = {
       circle { radius=32, color={ 50, 50, 200, 200} },
       text { text='$moveable[1].specs.fromcontext$\n$name$' }
@@ -34,14 +34,14 @@ element 'Hipster'
     apply {
       fromcontext = 'homing',
       to = 'speed',
-      value = [[ @pos-element.visible.pos ]],
-      condition = [[ @pos ~= nil ]]
+      value = [[ @position-element.visible.position ]],
+      ifcondition = [[ @position ~= nil ]]
     }
   }
 
 element 'Rectangle'
   :add_property 'visible' {
-    pos = point{200,200},
+    position = point{200,200},
     parts = {
       rectangle {
         width = 256,
@@ -54,13 +54,13 @@ element 'Rectangle'
 
 element 'Image'
   :add_property 'visible' {
-    pos = point{600, 600},
-    size = vector{128/500, 128/500},
-    parts = { image {} },
+    position  = point{600, 600},
+    scale     = vector{128/500, 128/500},
+    parts     = { image {} },
     share {
       incontext = 'homing',
-      valueof   = 'pos',
-      as        = [[element.visible.pos]]
+      valueof   = 'position',
+      as        = [[element.visible.position]]
     }
   }
   :add_property 'moveable' {
@@ -83,27 +83,27 @@ element 'Image'
 
 make.creator 'FireShooter' {
   recipe = 'bullet',
-  trigger = 'mouse_pressedleft',
+  when = 'mouse_pressedleft',
   args = {
     name = 'Fireball',
     parts = { circle{ color={255,0,0,255} } },
     power = 10, --not used yet
-    apply { fromcontext='homing', to='origin', value='@pos' },
+    apply { fromcontext='homing', to='origin', value='@position' },
     apply { fromcontext='mouse', to='target', value='@position'},
   }
 }
 
 make.bullet 'YEAY' {
-  origin = point{100,100},
-  target = point{200,200},
-  size = vector {2,2},
-  speed = 11,
-  destroyed_when = 'gotcha'
+  origin          = point{100,100},
+  target          = point{200,200},
+  scale           = vector {2,2},
+  speed           = 11,
+  destroyed_when  = 'gotcha'
 }
 
 element "Follower"
   : add_property "visible" {
-    apply {fromcontext="mouse", to="pos", value="point {@x,@y}"}
+    apply {fromcontext="mouse", to="position", value="point {@x,@y}"}
   }
   :add_property 'collides' {
     bounds = hitbox {
@@ -114,13 +114,13 @@ element "Follower"
  
 element "Stalker"
   :add_property "visible" {
-    pos = point {200, 200},
+    position = point {200, 200},
   }
   :add_property "moveable" {
     apply {
       fromcontext = "mouse",
       to = "speed",
-      value = [[ @position-element.visible.pos ]],
+      value = [[ @position-element.visible.position ]],
       when = 'keyboard'
     }
   }
@@ -133,14 +133,14 @@ element "Stalker"
   }
  
 make.button 'awesomebutton' {
-  pos = point {100,100},
+  position = point {100,100},
   sharein = 'but',
   state = { up = false, down = true},
-  pos = point {100,100}
+  position = point {100,100}
 }
 
 make.button 'Shrute' {
-  pos = point{500,300},
+  position = point{500,300},
   width = 80,
   height = 30,
   totrigger = 'shrute-pressed',
@@ -152,28 +152,28 @@ make.button 'Shrute' {
 }
 
 make.creator 'Shruter' {
-  recipe = 'bullet',
-  trigger = {'shrute-pressed','timer'},
-  args = {
-    origin = point{500,300},
-    speed = 70,
-    parts = { circle{ color={0,200,0,255} } }
+  recipe  = 'bullet',
+  when    = {'shrute-pressed','timer'},
+  args    = {
+    origin  = point{500,300},
+    speed   = 70,
+    parts   = { circle{ color={0,200,0,255} } }
   }
 }
 
 make.creator 'Shruter2' {
-  recipe = 'bullet',
-  trigger = trigger_in '2',
-  number = 12,
-  args = {
+  recipe  = 'bullet',
+  when    = wait(2),
+  number  = 12,
+  args    = {
     origin = point{500,300},
     speed = 30,
     parts = { circle{ color={150,100,0,255} } }
   }
 }
 make.timer 'Timer' {
-  timetotrigger = .7,
-  repeats = true,
+  limit     = .7,
+  repeats   = true,
   totrigger = 'timer'
 }
 --[[ WISH LIST ]]--

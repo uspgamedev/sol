@@ -1,7 +1,7 @@
 element "scoreright"
   :add_property "visible"{
-    pos = point{512 + 256, 50}, 
-    size = vector{4,4},
+    position = point{512 + 256, 50}, 
+    scale = vector{4,4},
     parts = {
       text {
         text = "$visible.score$",
@@ -21,8 +21,8 @@ element "scoreright"
 
 element "scoreleft"
   :add_property "visible"{
-    pos = point{512 - 256, 50}, 
-    size = vector{4,4},
+    position = point{512 - 256, 50}, 
+    scale = vector{4,4},
     parts = {
       text {
         text = "$visible.score$",
@@ -42,7 +42,7 @@ element "scoreleft"
 
 element "bola"
   :add_property "visible"{
-    pos = point{screen.width/2, 400},
+    position = point{screen.width/2, 400},
     parts = {
       rectangle{
         width = 10,
@@ -51,15 +51,15 @@ element "bola"
     },
     apply{
       fromcontext="",
-      to = "pos",
-      condition = "element.visible.pos.x >= screen.width",
+      to = "position",
+      ifcondition = "element.visible.position.x >= screen.width",
       value = [[point{}+screen.size*0.5]],
       also_trigger = 'leftpoint'
     },
     apply{
       fromcontext="",
-      to = "pos",
-      condition = "element.visible.pos.x <= 0",
+      to = "position",
+      ifcondition = "element.visible.position.x <= 0",
       value = [[point{}+screen.size*0.5]],
       also_trigger = "rightpoint"
     }
@@ -70,13 +70,13 @@ element "bola"
     apply{
       fromcontext="",
       to = "speed.y",
-      condition = "element.visible.pos.y <= 5",
+      ifcondition = "element.visible.position.y <= 5",
       value = [[-element.moveable.speed.y]]
     },
     apply{
       fromcontext="",
       to = "speed.y",
-      condition = "element.visible.pos.y >= 763",
+      ifcondition = "element.visible.position.y >= 763",
       value = [[-element.moveable.speed.y]]
     },
     apply{
@@ -107,7 +107,7 @@ local padspeed = 500
 
 element "left_pad"
   :add_property "visible"{
-    pos = point{20, 300},
+    position = point{20, 300},
     parts = {
       rectangle{
         width = 10,
@@ -116,14 +116,14 @@ element "left_pad"
     },
     apply{
       fromcontext="",
-      to = "pos.y",
-      condition = "element.visible.pos.y <= 25",
+      to = "position.y",
+      ifcondition = "element.visible.position.y <= 25",
       value = [[25]]
     },
     apply{
       fromcontext="",
-      to = "pos.y",
-      condition = "element.visible.pos.y >= 743",
+      to = "position.y",
+      ifcondition = "element.visible.position.y >= 743",
       value = [[743]]
     }
   }
@@ -168,7 +168,7 @@ element "left_pad"
 
 element "right_pad"
   :add_property "visible"{
-    pos = point{1004, 300},
+    position = point{1004, 300},
     parts = {
       rectangle{
         width = 10,
@@ -177,14 +177,14 @@ element "right_pad"
     },
     apply{
       fromcontext="",
-      to = "pos.y",
-      condition = "element.visible.pos.y <= 25",
+      to = "position.y",
+      ifcondition = "element.visible.position.y <= 25",
       value = [[25]]
     },
     apply{
       fromcontext="",
-      to = "pos.y",
-      condition = "element.visible.pos.y >= 743",
+      to = "position.y",
+      ifcondition = "element.visible.position.y >= 743",
       value = [[743]]
     }
   }

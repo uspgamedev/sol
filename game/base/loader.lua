@@ -91,7 +91,7 @@ function setup ()
   export_recipes()
   base.link.set_environment(env)
   -- TODO organize these helper functions
-  env.trigger_in = content.recipes.timer.trigger_in
+  env.wait = content.recipes.timer.wait
 end
 
 function runscript (filename)

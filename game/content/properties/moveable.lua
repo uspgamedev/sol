@@ -13,5 +13,5 @@ moveable.__init = {
 }
 
 function moveable.triggers:update (dt)
-  self.visible.pos = self.visible.pos + self.moveable.speed*dt
+  self.visible.position = self.visible.position + self.moveable.speed*dt
 end
