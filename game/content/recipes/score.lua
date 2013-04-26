@@ -13,6 +13,7 @@ function make (name, data)
       parts = {
         content.draw.text:new {
           text = "$visible.score$",
+          fontsize = data.fontsize,
           linesize = data.width,
           width = data.width,
           height = data.height

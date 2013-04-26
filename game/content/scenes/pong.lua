@@ -1,6 +1,6 @@
 make.score "Right Player" {
   position = point{512 + 256, 50},
-  scale = vector{4,4},
+  fontsize = 48,
   width = 128,
   change_when = 'rightpoint',
   change = [[element.visible.score + 1]]
@@ -8,7 +8,7 @@ make.score "Right Player" {
 
 make.score "Left Player" {
   position = point{512 - 256, 50},
-  scale = vector{4,4},
+  fontsize = 48,
   width = 128,
   change_when = 'leftpoint',
   change = [[element.visible.score + 1]]
