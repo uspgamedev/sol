@@ -20,10 +20,9 @@ function isdestroyed:setup ( element )
 end
 
 
-function kill( element)
+function kill (element)
   if element.isdestroyed then
     content.triggers(element.isdestroyed.also_trigger):activate()
   end 
-
   element:destroy()
 end
