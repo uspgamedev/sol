@@ -133,18 +133,18 @@ element "left_pad"
     apply{
       fromcontext = "keyboard",
       to = "speed.y",
-      when = "key:w",
+      when = "key-event:w",
       value = [[
-        element.moveable.speed.y+(@keyw=='down' and 1 or -1)*
+        element.moveable.speed.y+(@w_key=='down' and 1 or -1)*
         ]]..padspeed..[[
       ]]
     },
     apply{
       fromcontext = "keyboard",
       to = "speed.y",
-      when = "key:s",
+      when = "key-event:s",
       value = [[
-        element.moveable.speed.y-(@keys=='down' and 1 or -1)*
+        element.moveable.speed.y-(@s_key=='down' and 1 or -1)*
         ]]..padspeed..[[
       ]]
     }
@@ -193,18 +193,18 @@ element "right_pad"
     apply{
       fromcontext = "keyboard",
       to = "speed.y",
-      when = "key:up",
+      when = "key-event:up",
       value = [[
-        element.moveable.speed.y+(@keyup=='down' and 1 or -1)*
+        element.moveable.speed.y+(@up_key=='down' and 1 or -1)*
         ]]..padspeed..[[
       ]]
     },
     apply{
       fromcontext = "keyboard",
       to = "speed.y",
-      when = "key:down",
+      when = "key-event:down",
       value = [[
-        element.moveable.speed.y-(@keydown=='down' and 1 or -1)*
+        element.moveable.speed.y-(@down_key=='down' and 1 or -1)*
         ]]..padspeed..[[
       ]]
     }
