@@ -59,7 +59,7 @@ function element:property (property_name, data)
     if type(k) == 'number' and k == math.floor(k) and k >= 1 and k <= #data then
       table.insert(changed_property, v)
     else
-      changes[k] = v
+      changed_property[k] = v
     end
   end
   changed_property:start(self, property)
