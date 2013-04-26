@@ -6,6 +6,7 @@ require 'base.hitbox'
 require 'content.triggers'
 
 collides = base.property:new {
+  requires  = { 'visible' },
   totrigger = 'never'
 }
 
@@ -17,9 +18,13 @@ function collides:setup ()
   function self.bounds:on_collision (collisions)
     local collision_trigger = content.triggers(self.owner.collides.totrigger)
     for _,another in ipairs(collisions) do
-      collision_trigger:activate(another.owner)
+      collision_trigger:activate(self.owner, another.owner)
     end
   end
+end
+
+function collides:cleanup (element)
+  self.bounds:unregister()
 end
 
 function collides.triggers:update ()

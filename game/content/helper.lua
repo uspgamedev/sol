@@ -20,3 +20,18 @@ function restrain_within (attrib, lower, upper)
       value       = upper
     }
 end
+
+function unique (some_string)
+  local nextID = 0
+  return function ()
+    nextID = nextID + 1
+    return some_string.." (#"..nextID..")"
+  end
+end
+
+function get (field)
+  return function (element)
+    return
+      assert(setfenv(loadstring("return element."..field), {element=element})) ()
+  end
+end

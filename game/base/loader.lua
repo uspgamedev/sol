@@ -70,6 +70,12 @@ local function export_recipes ()
   end
 end
 
+local function export_helpers ()
+  for name,helper in pairs(content.helper) do
+    env[name] = helper
+  end
+end
+
 function setup ()
   env = {}
   env.element = base.element
@@ -91,9 +97,9 @@ function setup ()
   export('hitbox', base.hitbox)
   export_recipes()
   base.link.set_environment(env)
+  export_helpers()
   -- TODO organize these helper functions
   env.wait = content.recipes.timer.wait
-  env.restrain_within = content.helper.restrain_within
 end
 
 function runscript (filename)

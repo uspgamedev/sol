@@ -27,7 +27,7 @@ element 'Hipster'
     position = point{600,300},
     parts = {
       circle { radius=32, color={ 50, 50, 200, 200} },
-      text { text='$moveable[1].specs.fromcontext$\n$name$' }
+      text { text='$moveable[1].specs.fromcontext$\n$name$',fontsize = 50 }
     }
   }
   :add_property 'moveable' {
@@ -94,11 +94,23 @@ make.creator 'FireShooter' {
 }
 
 make.bullet 'YEAY' {
-  origin          = point{100,100},
-  target          = point{200,200},
-  scale           = vector {2,2},
-  speed           = 11,
-  destroyed_when  = 'gotcha'
+  origin = point{100,100},
+  target = point{200,200},
+  size = vector {2,2},
+  speed = 11,
+  destroyed_when = 'gotcha',
+  also_trigger = 'YEAY_DEATH',
+}
+
+make.creator 'Explosion-Effect' {
+  recipe = 'explosioneffect',
+  trigger = 'YEAY_DEATH',
+  number = 13,
+  args = {
+    origin = point{300,300},
+    speed = 70,
+    parts = { rectangle{ color={0,200,0,255} } }
+  }
 }
 
 element "Follower"
@@ -161,16 +173,26 @@ make.creator 'Shruter' {
   }
 }
 
+local function random_dir (size)
+  return function ()
+    local angle = random()*2*pi
+    return size*vector{cos(angle), sin(angle)}
+  end
+end
+
 make.creator 'Shruter2' {
-  recipe  = 'bullet',
+  recipe  = 'solidbody',
   when    = wait(2),
   number  = 12,
   args    = {
-    origin = point{500,300},
-    speed = 30,
-    parts = { circle{ color={150,100,0,255} } }
+    position              = point{500,300},
+    initial_speed         = random_dir(100),
+    visual                = rectangle{ width=5, height=5, color={150,100,0,255} },
+    collision_targetclass = 'target',
+    destroyed_when        = 'collision'
   }
 }
+
 make.timer 'Timer' {
   limit     = .7,
   repeats   = true,

@@ -8,6 +8,7 @@ text = base.drawable:new {
   text = '$name$',
   linesize = 64,
   format = 'center',
+  fontsize = 12,
   width = 0, height = 0 --avoid errors
 }
 
@@ -24,16 +25,25 @@ local function value_accessor (element)
   end
 end
 
+local fonts = {}
+local function getFont( size )
+  if not fonts[size] then 
+    fonts[size] = love.graphics.newFont(size)
+  end
+  return fonts[size]
+end
+
 function text:formatted (element)
   local text = string.gsub(self.text, "%$(.-)%$", value_accessor(element))
-  local font = love.graphics.getFont()
+  local font = getFont( self.fontsize )
   local width, lines = font:getWrap(text, self.linesize)
-  return self.linesize, lines*font:getHeight(), text
+  return font, self.linesize, lines*font:getHeight(), text
 end
 
 function text:draw (element, graphics)
   graphics.setColor(self.color)
-  width, height, text = self:formatted(element)
+  font, width, height, text = self:formatted(element)
+  love.graphics.setFont(font)
   graphics.printf(
     text,
     -width/2,
@@ -41,6 +51,7 @@ function text:draw (element, graphics)
     width,
     self.format
   )
+  love.graphics.setFont(getFont(12))
   self.width, self.height, self.formattedtext = width, height, text
 end
 
