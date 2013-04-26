@@ -31,8 +31,8 @@ function make (name, data)
         to = 'bounds.size',
         value = [[
           vector {
-            element.visible.parts[1]:getWidth(),
-            element.visible.parts[1]:getHeight()
+            element.visible.parts[1]:getWidth()*element.visible.scale.x,
+            element.visible.parts[1]:getHeight()*element.visible.scale.y
           }
         ]]
       }

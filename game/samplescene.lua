@@ -55,12 +55,17 @@ element 'Rectangle'
 element 'Image'
   :add_property 'visible' {
     position  = point{600, 600},
-    scale     = vector{128/500, 128/500},
-    parts     = { image {} },
+    parts     = { sprite { frame = {i=1,j=1}, mirror = {true,false} } },
     share {
       incontext = 'homing',
       valueof   = 'position',
       as        = [[element.visible.position]]
+    },
+    apply {
+      name        = 'hornbeast animation',
+      fromcontext = '',
+      to          = 'parts[1].frame.j',
+      value       = [[min(7,1+floor(element.counts_time.counter*7))]]
     }
   }
   :add_property 'moveable' {
@@ -79,6 +84,10 @@ element 'Image'
       right = { up=vector{}, down=vector{1,0} },
       lshift = { up=1 , down= 3}
     }
+  }
+  :add_property 'counts_time' {
+    limit   = 1.0,
+    repeats = true
   }
 
 make.creator 'FireShooter' {
