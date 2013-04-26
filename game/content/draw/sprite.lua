@@ -37,10 +37,12 @@ function sprite:__init ()
     end
   end
   self.frame = self.frame or {i=1,j=1}
+  self.mirror = self.mirror or {false, false}
 end
 
 function sprite:draw (element, graphics)
   graphics.setColor(self.color)
+  self.quads[self.frame.i][self.frame.j]:flip(unpack(self.mirror))
   graphics.drawq(
     self.img,
     self.quads[self.frame.i][self.frame.j],
@@ -48,6 +50,7 @@ function sprite:draw (element, graphics)
     0, 1, 1,
     self.hotspot:unpack()
   )
+  self.quads[self.frame.i][self.frame.j]:flip(unpack(self.mirror))
 end
 
 function sprite:inside (p)
