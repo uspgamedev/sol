@@ -13,16 +13,23 @@ local function gambiarra (element)
       apply {
         fromcontext = '',
         to = 'life',
+        when = 'collision',
+        value = [[property.life]],
+        also_trigger = 'point'
+      },
+      apply {
+        fromcontext = '',
+        to = 'life',
         ifcondition = 'property.life <= 0',
         also_trigger = unique_death(element),
         value = '0'
-      }
+      },
     }
   return 'collision'
 end
 
 local function get_deathtrigger (element)
-  return element.collides[2].specs.also_trigger
+  return element.collides[3].specs.also_trigger
 end
 
 element 'Player'
@@ -33,7 +40,7 @@ element 'Player'
       to='counter',
       when='mouse_pressedleft',
       value='property.counter',
-      ifcondition='@value > 0',
+      ifcondition='@value >= 1',
       also_trigger='create'
     },
   }
@@ -51,6 +58,12 @@ element 'money'
       incontext='money',
       valueof='value',
       as=[[property.score]]
+    },
+    apply {
+      fromcontext='',
+      to='score',
+      value=[[property.score+0.3]],
+      when='point'
     }
   }
 
@@ -86,9 +99,11 @@ make.creator 'enemy-shooter' {
 }
 
 make.solidbody 'wall' {
-  position          = point{10,screen.height/2},
-  visual            = rectangle{ width=10, height=screen.height},
-  collision_class   = 'turret',
+  position              = point{10,screen.height/2},
+  visual                = rectangle{ width=10, height=screen.height},
+  collision_class       = 'turret',
+  --collision_targetclass = 'enemy',
+  --collision_trigger     = 'damage'
 }
 
 make.timer 'pinger' {
