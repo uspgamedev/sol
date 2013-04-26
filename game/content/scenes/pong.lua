@@ -15,14 +15,14 @@ make.score "Left Player" {
   change = [[element.visible.score + 1]]
 }
 
-make.solidbody 'Ball' {
-  position              = point{screen.width/2, 400},
-  visual                = rectangle{ width = 10, height = 10 },
-  initial_speed         = vector{350,-350},
-  collision_trigger     = 'hits-the-pad',
-  collision_targetclass = 'pad'
-}
-element "Ball"
+make.solidbody
+  'Ball' {
+    position              = point{screen.width/2, 400},
+    visual                = rectangle{ width = 10, height = 10 },
+    initial_speed         = vector{350,-350},
+    collision_trigger     = 'hits-the-pad',
+    collision_targetclass = 'pad'
+  }
   :property 'visible' {
     apply{
       fromcontext="",
@@ -58,15 +58,13 @@ element "Ball"
 
 local padspeed = 500
 
-element "left_pad"
-  :add_property "visible"{
-    position = point{20, 300},
-    parts = {
-      rectangle{
-        width = 10,
-        height = 50
-      }
-    },
+make.solidbody
+  'left_pad' {
+    position        = point{20, 300},
+    visual          = rectangle{ width = 10, height = 50 },
+    collision_class = 'pad',
+  }
+  :property "visible"{
     apply{
       fromcontext="",
       to = "position.y",
@@ -80,9 +78,7 @@ element "left_pad"
       value = [[743]]
     }
   }
-
-  :add_property "moveable"{
-
+  :property "moveable"{
     apply{
       fromcontext = "keyboard",
       to = "speed.y",
@@ -103,30 +99,13 @@ element "left_pad"
     }
   } 
 
-  :add_property "collides" {
-    bounds = hitbox{
-      class = "pad"
-    },
-    apply {
-      fromcontext = '',
-      to = 'bounds.size',
-      value = [[
-        vector{
-          element.visible.parts[1].width,
-          element.visible.parts[1].height}
-      ]]
-    }
+make.solidbody
+  'right_pad' {
+    position        = point{1004, 300},
+    visual          = rectangle{ width = 10, height = 50 },
+    collision_class = 'pad',
   }
-
-element "right_pad"
-  :add_property "visible"{
-    position = point{1004, 300},
-    parts = {
-      rectangle{
-        width = 10,
-        height = 50
-      }
-    },
+  :property "visible"{
     apply{
       fromcontext="",
       to = "position.y",
@@ -140,8 +119,7 @@ element "right_pad"
       value = [[743]]
     }
   }
-
-  :add_property "moveable"{
+  :property "moveable"{
     apply{
       fromcontext = "keyboard",
       to = "speed.y",
@@ -161,18 +139,3 @@ element "right_pad"
       ]]
     }
   }
-
-  :add_property "collides" {
-    bounds = hitbox{
-      class = "pad"
-    },
-    apply {
-      fromcontext = '',
-      to = 'bounds.size',
-      value = [[
-        vector{
-          element.visible.parts[1].width,
-          element.visible.parts[1].height}
-      ]]
-    }
-  } 
