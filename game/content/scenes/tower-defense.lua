@@ -15,7 +15,7 @@ local function gambiarra (element)
         fromcontext = '',
         to = 'life',
         when = 'collision',
-        value = [[property.life-1]]
+        value = [[print'wat' or property.life-1]]
       },
       apply {
         fromcontext = '',
@@ -68,7 +68,7 @@ element 'pinger': property 'counts_time' {
   apply {
     fromcontext = '',
     to          = 'limit',
-    value       = [[property.limit*0.9]],
+    value       = [[(property.limit+0.1)*0.9]],
     when        = 'ping'
   }
 }
