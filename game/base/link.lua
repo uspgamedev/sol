@@ -8,7 +8,7 @@ require 'base.loader'
 require 'content.triggers'
 
 local apply_link_code = [[
-  if $condition then
+  if $ifcondition then
     property.$to = ($value)
     also_trigger:activate()
   end
@@ -29,7 +29,7 @@ end
 
 function create_apply (specs)
   specs.name      = specs.name or 'unkown-apply-link'
-  specs.condition = string.gsub(specs.condition or "true", '@(%w+)', 'get"%1"')
+  specs.ifcondition = string.gsub(specs.ifcondition or "true", '@(%w+)', 'get"%1"')
   specs.value      = string.gsub(specs.value or "", '@(%w+)', 'get"%1"')
   specs.when      = specs.when or 'update'
   specs.also_trigger  = specs.also_trigger or 'never'
@@ -44,14 +44,14 @@ function create_apply (specs)
 end
 
 local share_link_code = [[
-  if $condition then
+  if $ifcondition then
     share('$incontext', '$valueof', ($as))
   end
 ]]
 
 function create_share (specs)
   specs.name      = specs.name or 'unkown-apply-link'
-  specs.condition = string.gsub(specs.condition or "true", '@(%w+)', 'get"%1"')
+  specs.ifcondition = string.gsub(specs.ifcondition or "true", '@(%w+)', 'get"%1"')
   specs.as        = string.gsub(specs.as, '@(%w+)', 'get"%1"')
   specs.when      = specs.when or 'update'
   local final_code  = string.gsub(share_link_code, '%$(%w+)', specs)

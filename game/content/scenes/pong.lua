@@ -52,14 +52,14 @@ element "bola"
     apply{
       fromcontext="",
       to = "position",
-      condition = "element.visible.position.x >= screen.width",
+      ifcondition = "element.visible.position.x >= screen.width",
       value = [[point{}+screen.size*0.5]],
       also_trigger = 'leftpoint'
     },
     apply{
       fromcontext="",
       to = "position",
-      condition = "element.visible.position.x <= 0",
+      ifcondition = "element.visible.position.x <= 0",
       value = [[point{}+screen.size*0.5]],
       also_trigger = "rightpoint"
     }
@@ -70,13 +70,13 @@ element "bola"
     apply{
       fromcontext="",
       to = "speed.y",
-      condition = "element.visible.position.y <= 5",
+      ifcondition = "element.visible.position.y <= 5",
       value = [[-element.moveable.speed.y]]
     },
     apply{
       fromcontext="",
       to = "speed.y",
-      condition = "element.visible.position.y >= 763",
+      ifcondition = "element.visible.position.y >= 763",
       value = [[-element.moveable.speed.y]]
     },
     apply{
@@ -117,13 +117,13 @@ element "left_pad"
     apply{
       fromcontext="",
       to = "position.y",
-      condition = "element.visible.position.y <= 25",
+      ifcondition = "element.visible.position.y <= 25",
       value = [[25]]
     },
     apply{
       fromcontext="",
       to = "position.y",
-      condition = "element.visible.position.y >= 743",
+      ifcondition = "element.visible.position.y >= 743",
       value = [[743]]
     }
   }
@@ -178,13 +178,13 @@ element "right_pad"
     apply{
       fromcontext="",
       to = "position.y",
-      condition = "element.visible.position.y <= 25",
+      ifcondition = "element.visible.position.y <= 25",
       value = [[25]]
     },
     apply{
       fromcontext="",
       to = "position.y",
-      condition = "element.visible.position.y >= 743",
+      ifcondition = "element.visible.position.y >= 743",
       value = [[743]]
     }
   }

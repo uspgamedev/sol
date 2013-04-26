@@ -35,7 +35,7 @@ element 'Hipster'
       fromcontext = 'homing',
       to = 'speed',
       value = [[ @position-element.visible.position ]],
-      condition = [[ @position ~= nil ]]
+      ifcondition = [[ @position ~= nil ]]
     }
   }
 
