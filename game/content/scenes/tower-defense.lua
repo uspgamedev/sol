@@ -1,4 +1,3 @@
-local unique_death = unique'death'
 
 local function gambiarra (element)
   element
@@ -21,7 +20,7 @@ local function gambiarra (element)
         fromcontext = '',
         to = 'life',
         ifcondition = 'property.life <= 0',
-        also_trigger = unique_death(element),
+        also_trigger = unique 'death' (element),
         value = '0'
       },
     }

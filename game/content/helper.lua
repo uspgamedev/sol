@@ -21,12 +21,16 @@ function restrain_within (attrib, lower, upper)
     }
 end
 
+local uniques = {}
+
 function unique (some_string)
+  if uniques[some_string] then return uniques[some_string] end
   local nextID = 0
-  return function ()
+  uniques[some_string] = function ()
     nextID = nextID + 1
     return some_string.." (#"..nextID..")"
   end
+  return uniques[some_string]
 end
 
 function get (field)
