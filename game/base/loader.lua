@@ -46,6 +46,14 @@ local function export_math ()
   end
 end
 
+local function export_string ()
+  env.string = string
+end
+
+local function export_fs ()
+  env.fs = love.filesystem
+end
+
 local function export_draws ()
   for name,draw in pairs(content.draw) do
     if type(draw) == 'table' and draw.new then
@@ -91,6 +99,8 @@ function setup ()
   }
   export_globals()
   export_math()
+  export_string()
+  export_fs()
   export_draws()
   export('vector', lux.geom.vector)
   export('point', lux.geom.point)
