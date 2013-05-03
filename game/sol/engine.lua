@@ -1,5 +1,5 @@
 
-module ('base.sol', package.seeall)
+module ('sol.engine', package.seeall)
 
 require 'base.element'
 require 'base.message'

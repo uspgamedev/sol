@@ -1,30 +1,30 @@
 
-require 'base.sol'
+require 'sol.engine'
 
 function love.load (args)
-  base.sol.load(args[2] and ('content/scenes/'..args[2]))
+  sol.engine.load(args[2] and ('content/scenes/'..args[2]))
 end
 
 function love.update (dt)
-  base.sol.update(dt)
+  sol.engine.update(dt)
 end
 
 function love.mousepressed (x, y, button)
-  base.sol.mousepressed(x, y, button)
+  sol.engine.mousepressed(x, y, button)
 end
 
 function love.mousereleased (x, y, button)
-  base.sol.mousereleased(x, y, button)
+  sol.engine.mousereleased(x, y, button)
 end
 
 function love.keypressed (button)
-  base.sol.keypressed(button)
+  sol.engine.keypressed(button)
 end
 
 function love.keyreleased (button)
-  base.sol.keyreleased(button)
+  sol.engine.keyreleased(button)
 end
 
 function love.draw ()
-  base.sol.draw()
+  sol.engine.draw()
 end
