@@ -54,7 +54,11 @@ function load (script_file)
   -- body
   love.graphics.setFont(love.graphics.newFont())
   base.loader.setup()
-  base.loader.runscript(script_file or 'samplescene.lua')
+  base.loader.runscript(
+    script_file
+    and 'content/games/'..script_file
+    or 'samplescene.lua'
+  )
   handleInput()
   base.message.send("mouse", "buttonl", "up")
   base.message.send("mouse", "buttonr", "up")

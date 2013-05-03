@@ -2,7 +2,7 @@
 require 'sol.engine'
 
 function love.load (args)
-  sol.engine.load(args[2] and ('content/scenes/'..args[2]))
+  sol.engine.load(args[2])
 end
 
 function love.update (dt)
