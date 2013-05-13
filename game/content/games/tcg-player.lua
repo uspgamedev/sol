@@ -24,7 +24,9 @@ element 'A Card'
   :property 'visible' {
     position = point{(.5*screen.size):unpack()},
     parts = {
-      text { text = cards[1].name }
+      rectangle { width=60, height=90, color={150,150,100,255}},
+      text { text = cards[3].name, color={50,50,150,255} }
     }
   }
+  :property 'grabbable' {}
 

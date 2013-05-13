@@ -11,7 +11,7 @@ grabbable = base.property:new {
 }
 
 local function follow_mouse (self)
-  self.visible.pos = lux.geom.point:new {love.mouse.getPosition()}
+  self.visible.position = lux.geom.point:new {love.mouse.getPosition()}
 end
 
 function grabbable.triggers:mouse_pressedleft ()
